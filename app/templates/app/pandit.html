@@ -1,0 +1,322 @@
+<!-- templates/myapp/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Online Pandit Service{% endblock %}</title>
+    {% load static %}
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f9;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, #f9a825, #fb8c00);
+            padding: 40px 0;
+            text-align: center;
+            color: white;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        /* Main Content */
+        .main-content {
+            background-color: #fff;
+            padding: 60px 0;
+        }
+
+        .main-content .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .main-content h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #fb8c00;
+        }
+
+        .main-content p {
+            font-size: 1.1em;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* Pandit Image */
+        .pandit-image {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            display: block;
+            border-radius: 10px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        /* Available Schedule Calendar */
+        .schedule {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .schedule h3 {
+            font-size: 2em;
+            color: #f9a825;
+            margin-bottom: 20px;
+        }
+
+        .calendar {
+            display: flex;
+            justify-content: center;
+        }
+
+        .calendar table {
+            border-collapse: collapse;
+            width: 60%;
+            max-width: 400px;
+        }
+
+        .calendar th, .calendar td {
+            padding: 15px;
+            text-align: center;
+            font-size: 1.1em;
+            border: 1px solid #ddd;
+        }
+
+        .calendar th {
+            background-color: #fb8c00;
+            color: white;
+        }
+
+        .calendar .available {
+            background-color: #4a90e2;
+            color: white;
+            cursor: pointer;
+        }
+
+        .calendar .unavailable {
+            background-color: #e57373;
+            color: #fff;
+        }
+
+        .calendar .available input {
+            display: block;
+            margin: auto;
+            cursor: pointer;
+        }
+
+        /* Contact Form */
+        .contact {
+            background-color: #fff;
+            padding: 60px 0;
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #fb8c00;
+            margin-bottom: 30px;
+        }
+
+        .contact form {
+            width: 50%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .contact label {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .contact input,
+        .contact select {
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 1em;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .contact button {
+            background-color: #f9a825;
+            color: white;
+            padding: 15px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contact button:hover {
+            background-color: #fb8c00;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 1em;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    
+<!-- base.html Navbar -->
+<nav class="navbar">
+    <!-- existing navbar code -->
+    <ul class="menu-items">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'home' %}">About</a></li>
+        <li><a href="{% url 'home' %}">Category</a></li>
+        <li><a href="{% url 'home' %}">Menu</a></li>
+        {% if request.user.is_authenticated %}
+            <li><a href="{% url 'bookings' %}">My Bookings</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>Online Pandit Service</h1>
+            <p>Book a pandit for any religious ceremony or puja from the comfort of your home.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <div class="intro">
+                <h2>Connect with Experienced Pandits Online</h2>
+                <p>Our qualified pandits are available for all types of ceremonies, pujas, and religious rituals. Get expert guidance and blessings without leaving your home.</p>
+                <img src="{% static 'app/images/banner/pandit.jpg' %}" alt="Pandit Image" class="pandit-image">
+            </div>
+
+            <div class="schedule">
+                <h3>Available Schedule for November 2024</h3>
+                <form action="{% url 'home' %}" method="POST" class="calendar">
+                    {% csrf_token %}
+                    <input type="hidden" id="selected-date" name="selected_date" value="">
+                    <table>
+                        <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                        <tbody id="calendar-body">
+                            <!-- Calendar dates will be populated here by JavaScript -->
+                        </tbody>
+                    </table>
+                    <button type="submit" class="submit-button">Book Selected Day</button>
+                </form>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Online Pandit Service. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Calendar code in pandit.html -->
+<script>
+   <!-- Updated JavaScript Code -->
+
+    document.addEventListener("DOMContentLoaded", function() {
+        generateCalendar();
+    });
+
+    const calendarBody = document.getElementById("calendar-body");
+
+    function generateCalendar() {
+        const currentYear = 2024;
+        const currentMonth = 10; // November (0-based index)
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+        let date = 1;
+
+        for (let i = 0; i < 6; i++) {
+            let row = document.createElement("tr");
+
+            for (let j = 0; j < 7; j++) {
+                let cell = document.createElement("td");
+                let checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+
+                if (i === 0 && j < firstDay) {
+                    cell.innerHTML = "";
+                } else if (date > daysInMonth) {
+                    break;
+                } else {
+                    cell.textContent = date;
+                    if (j === 0) {
+                        cell.classList.add("unavailable");
+                        checkbox.disabled = true;
+                    } else {
+                        cell.classList.add("available");
+                        checkbox.value = date;
+                        checkbox.name = "booking_date";  // Name for form submission
+                        checkbox.addEventListener("change", function() {
+                            // Ensure only one checkbox is selected at a time
+                            document.querySelectorAll(".calendar input[type='checkbox']").forEach(cb => {
+                                if (cb !== checkbox) cb.checked = false;
+                            });
+                            document.getElementById("selected-date").value = checkbox.checked ? date : ""; // Update hidden field
+                        });
+                        cell.appendChild(checkbox);
+                    }
+                    date++;
+                }
+                row.appendChild(cell);
+            }
+            calendarBody.appendChild(row);
+        }
+    }
+</script>
+
+
+
+
+</body>
+</html>

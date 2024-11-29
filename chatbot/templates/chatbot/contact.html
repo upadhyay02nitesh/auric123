@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Page</title>
+  <style>
+    /* General Container and Layout */
+    .contact-form {
+      background-color: #f8f9fa;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Elements */
+    .contact-form .form-group {
+      margin-bottom: 15px;
+    }
+
+    .contact-form label {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form select {
+      height: 40px;
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+    }
+
+    /* Button Styling */
+    .contact-form .btn {
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .contact-form .btn-warning {
+      background-color: #f0ad4e;
+      border: none;
+    }
+
+    .contact-form .btn-warning:hover {
+      background-color: #ec971f;
+    }
+
+    .contact-form .social-links a {
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+
+    .contact-form .btn-light {
+      background-color: #f8f9fa;
+      border: none;
+    }
+
+    .contact-form .btn-light:hover {
+      background-color: #e2e6ea;
+    }
+
+    /* Social Buttons */
+    .contact-form .btn-success {
+      background-color: #28a745;
+      border: none;
+    }
+
+    .contact-form .btn-success:hover {
+      background-color: #218838;
+    }
+
+    .contact-form .btn-primary {
+      background-color: #007bff;
+      border: none;
+    }
+
+    .contact-form .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .contact-form .btn-danger {
+      background-color: #dc3545;
+      border: none;
+    }
+
+    .contact-form .btn-danger:hover {
+      background-color: #c82333;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .contact-form {
+        padding: 20px;
+      }
+
+      .contact-form .form-group {
+        margin-bottom: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="col-sm-10">
+    <h3 class="text-white mt-5">Contact Page</h3>
+    <form action="action_page.php">
+      <div class="container contact-form">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" name="firstname" placeholder="Your name.." class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" name="lastname" placeholder="Your last name.." class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="Your Email id.." class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="country">Country</label>
+          <select id="country" name="country" class="form-control">
+            <option value="australia">Australia</option>
+            <option value="canada">Canada</option>
+            <option value="usa">USA</option>
+            <option value="india">India</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <textarea id="subject" name="subject" placeholder="Write something.." class="form-control" style="height: 100px;"></textarea>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-warning btn-sm">Send</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Social Links -->
+    <div class="social-links mt-4">
+      <a href="https://www.linkedin.com/in/nitesh02upadhyay//" class="btn btn-success btn-sm">LinkedIn</a>
+      <a href="https://www.facebook.com/nitesh.upadhyay.3914/" class="btn btn-light btn-sm">Facebook</a>
+      <a href="https://github.com/upadhyay02nitesh//" class="btn btn-primary btn-sm">GitHub</a>
+      <a class="btn btn-danger btn-sm">Email: niteshupa6@gmail.com</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Payment{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- Title -->
+            <h2 class="text-center mb-4">Complete Your Payment</h2>
+
+            <!-- Payment Form Card -->
+            <div class="card shadow-lg border-primary">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Secure Payment</h5>
+                    <p class="card-text text-center">
+                        You are about to make a secure payment of <strong>₹{{ total_amount|divisibleby:100 }}</strong>
+                    </p>
+                    <p class="text-center">Please click the button below to proceed with your payment.</p>
+
+                    <!-- Razorpay Button -->
+                    <div class="d-flex justify-content-center mt-4">
+                        <!-- Use a custom Pay Now button with Razorpay integration -->
+                        <button id="pay-now-btn" class="btn btn-lg btn-success shadow-lg px-5 py-3">
+                            Pay Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Razorpay Checkout Script (Modified) -->
+    <script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        data-key="{{ razorpay_key_id }}"  <!-- Razorpay Key ID -->
+        data-amount="{{ total_amount }}"  <!-- Amount in paise -->
+        data-currency="INR"
+        data-order_id="{{ razorpay_order_id }}"  <!-- Razorpay Order ID -->
+        data-buttontext="Pay Now"
+        data-name="AuricMart"
+        data-description="Secure Payment"
+        data-theme.color="#F37254"
+        data-prefill.name="{{ user.username }}"
+        data-prefill.email="{{ user.email }}"
+        data-prefill.contact="{{ user.profile.phone }}">
+    </script>
+
+    <script>
+        // Options for Razorpay Payment
+        var options = {
+            "key": "{{ razorpay_key_id }}",
+            "amount": "{{ total_amount }}",  // Amount in paise
+            "currency": "INR",
+            "order_id": "{{ razorpay_order_id }}",  // Razorpay Order ID
+            "handler": function (response) {
+                // Send payment details to the server for verification
+                fetch("/payment-verification/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    body: new URLSearchParams({
+                        "razorpay_order_id": response.razorpay_order_id,
+                        "razorpay_payment_id": response.razorpay_payment_id,
+                        "razorpay_signature": response.razorpay_signature
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        alert("Payment successful!");
+                        window.location.href = "/orders/";  // Redirect to orders page
+                    } else {
+                        alert("Payment verification failed.");
+                    }
+                })
+                .catch(error => console.error("Error verifying payment:", error));
+            },
+            "theme": { "color": "#F37254" }
+        };
+
+        // Trigger Razorpay checkout when 'Pay Now' button is clicked
+        document.getElementById("pay-now-btn").addEventListener("click", function() {
+            var rzp = new Razorpay(options);
+            rzp.open();
+        });
+    </script>
+</div>
+
+{% endblock main-content %}

@@ -1,0 +1,60 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Register{% endblock title %}
+
+{% block main-content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+          <h4>Register</h4>
+          <p class="mb-0">Create your account</p>
+        </div>
+        <div class="card-body">
+          <form action="" method="post" novalidate>
+            {% csrf_token %}
+            
+            <!-- Loop through form fields -->
+            {% for fm in form %}
+            <div class="mb-3">
+              <label for="{{ fm.id_for_label }}" class="form-label">{{ fm.label }}</label>
+              
+              <!-- For password fields (password1 and password2) -->
+              {% if fm.name == 'password1' or fm.name == 'password2' %}
+                <input type="password" name="{{ fm.name }}" value="{{ fm.value }}" class="form-control" id="{{ fm.id_for_label }}" placeholder="{{ fm.label }}">
+              {% else %}
+                <input type="{{ fm.type }}" name="{{ fm.name }}" value="{{ fm.value }}" class="form-control" id="{{ fm.id_for_label }}">
+              {% endif %}
+              
+              <!-- Display errors -->
+              {% if fm.errors %}
+                <div class="text-danger mt-1">{{ fm.errors|striptags }}</div>
+              {% endif %}
+            </div>
+            {% endfor %}
+            
+            <!-- Non-field errors -->
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+              {% for error in form.non_field_errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            {% endif %}
+            
+            <!-- Submit Button -->
+            <div class="d-grid mt-3">
+              <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer text-center">
+          <p class="mb-0">Already have an account? <a href="{% url 'login' %}" class="text-primary fw-bold">Login here</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock main-content %}

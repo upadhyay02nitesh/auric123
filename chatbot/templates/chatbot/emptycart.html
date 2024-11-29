@@ -1,0 +1,56 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Buy Now{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row my-3">
+    <div class="col-sm-6 offset-sm-3">
+        <h3 class="text-center">You have no Product in Your Cart</h3>
+        <hr>
+        <div class="text-center">
+            <img src="{% static 'app/images/emptycart.png' %}" alt=""
+            class="img-fluid img-thubnail w-25">
+            
+        
+    </div>
+ </div>
+</div>
+$(document).ready(function () {
+    // Update cart quantity via AJAX
+    $(".plus-cart, .minus-cart").on("click", function () {
+        const pid = $(this).attr("pid");
+        const isPlus = $(this).hasClass("plus-cart");
+        const quantitySpan = $(this).siblings("#quantity");
+        let quantity = parseInt(quantitySpan.text());
+
+        quantity = isPlus ? quantity + 1 : quantity - 1;
+
+        $.ajax({
+            url: "/update-cart-quantity/",  // Replace with your URL for updating cart quantity
+            method: "POST",
+            data: {
+                product_id: pid,
+                quantity: quantity,
+                csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+            },
+            success: function (response) {
+                if (response.success) {
+                    if (quantity <= 0) {
+                        location.reload(); // Reload the page to update cart
+                    } else {
+                        quantitySpan.text(quantity); // Update the quantity in UI
+                        $("#amount").text(response.amount); // Update total amount
+                        $("#totalamount").text(response.totalamount);
+                    }
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function () {
+                alert("Error updating cart");
+            },
+        });
+    });
+});
+
+{% endblock main-content %}

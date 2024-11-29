@@ -1,0 +1,28 @@
+<!-- templates/myapp/bookings.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+</head>
+<body>
+    <header>
+        <h1>Your Bookings</h1>
+    </header>
+    <section>
+        <div class="container">
+            {% if bookings %}
+                <ul>
+                    {% for booking in bookings %}
+                        <li>Booked on {{ booking.booking_date }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <strong>{{ request.user.username|capfirst }}</strong>
+                <p>No bookings found.</p>
+            {% endif %}
+        </div>
+    </section>
+</body>
+</html>

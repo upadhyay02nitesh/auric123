@@ -1,0 +1,186 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+ 
+<style>
+  /* Sale Marquee Styles */
+.sale-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: scroll-left 15s linear infinite;
+}
+
+.sale-title,
+.sale-description,
+.sale-small {
+  padding-right: 50px;
+  font-size: 1.2em;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@media (max-width: 768px) {
+  .sale-title {
+    font-size: 1.5em;
+  }
+  .sale-description {
+    font-size: 1em;
+  }
+}
+.carousel-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+.btn {
+    border-radius: 50px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
+</style>
+ 
+
+{% block livesale %}
+<!-- Live Sale Section with Scrolling Effect -->
+<div class="container-fluid">
+  <div class="row bg-danger text-center p-4 text-white border-top shadow sale-marquee">
+    <h1 class="sale-title">SALE IS LIVE NOW</h1>
+    <span class="sale-description">5% Instant Discount on Axis Bank Credit and Debit Card</span>
+    <small class="fw-lighter">Terms and Conditions Apply (For details, visit the Bank's official website)</small>
+  </div>
+</div>
+{% endblock livesale %}
+
+<!-- Live Sale Section (Moved to the Bottom) -->
+
+<style>
+  /* Hover Effect */
+  .bg-danger:hover {
+    background-color: #c62828 !important; /* Darker shade on hover */
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .row h1 {
+      font-size: 1.8em;
+    }
+    .row span {
+      font-size: 1em;
+    }
+    .row small {
+      font-size: 0.8em;
+    }
+  }
+</style>
+<!-- End Live Sale Section -->
+
+  
+
+  <!-- 1st Product Slider -->
+  <!-- Your Product Slider Code Here -->
+
+
+
+{% block main-content %}
+<!-- 1st Product Slider -->
+<!-- Your Product Slider Code Here -->
+
+<!-- End 1st Product Slider -->
+
+<!-- 2nd Product Slider -->
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="mx-3">
+  <div class="owl-carousel" id="slider2">
+    {% for tp in Idols %}
+    <a href="{% url 'product-detail' tp.id %}" class="btn">
+      <div class="item text-center">
+        <img src="{{ tp.product_image.url }}" alt="{{ tp.title }}" style="height: 200px; object-fit: cover;">
+        <div class="mt-2">
+          <span class="fw-bold">{{ tp.title }}</span><br>
+          <span style="font-weight: bold; text-decoration: line-through;">{{ tp.selling_price }}</span>
+
+          <span class="fs-5 text-success">₹{{ tp.discounted_price }}</span><br>
+          <span class="badge bg-light text-dark">On lowest prize</span>
+          <div class="mt-1">
+            <span class="text-primary fw-bold">{{ tp.rating }}</span> 
+            <i class="fa fa-star text-warning"></i> 
+            <small class="text-muted">3.5</small>
+          </div>
+          <div class="mt-1">
+            <span class="badge bg-warning text-dark">Trusted</span>
+          </div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- End 2nd Product Slider -->
+
+
+
+
+ <!-- End 3rd Product Slider -->
+
+<!-- Payment Info Section -->
+<div class="container my-5">
+  <div class="row">
+   <div class="col-sm-3">
+    <div class="card mb-3">
+      <div class="card-body">
+      <img src="{% static 'app/images/payavail/cc.jpg' %}" alt="" srcset="" class="img-fluid">
+      </div>
+    </div>
+   </div>
+   <div class="col-sm-3">
+    <div class="card mb-3">
+      <div class="card-body">
+       <img src="{% static 'app/images/payavail/upi.jpg' %}" alt="" srcset="" class="img-fluid">
+      </div>
+    </div>
+   </div>
+   <div class="col-sm-3">
+    <div class="card mb-3">
+      <div class="card-body">
+       <img src="{% static 'app/images/payavail/nb.jpg' %}" alt="" srcset="" class="img-fluid">
+      </div>
+    </div>
+   </div>
+   <div class="col-sm-3">
+    <div class="card mb-3">
+      <div class="card-body">
+       <img src="{% static 'app/images/payavail/bj.jpg' %}" alt="" srcset="" class="img-fluid">
+      </div>
+    </div>
+   </div>
+  </div>
+ </div>
+ <!-- End Payment Info Section -->
+
+{% endblock %}

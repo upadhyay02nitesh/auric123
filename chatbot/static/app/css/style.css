@@ -1,0 +1,29 @@
+/* Carousel Item Styling */
+.owl-carousel .item {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Navigation Buttons Positioning */
+  .owl-prev, .owl-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  /* Position each button */
+  .owl-prev {
+    left: 0;
+  }
+  .owl-next {
+    right: 0;
+  }
+  
+  /* Navigation Buttons Styling */
+  .owl-prev span,
+  .owl-next span {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  

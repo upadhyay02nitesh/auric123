@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validate OTP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+    </style>
+
+</head>
+<body>
+    {% if messages %}
+    <div class="mb-3">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    </div>
+  {% endif %}
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4>Validate OTP</h4>
+                        <p class="mb-0">Enter the OTP sent to your email</p>
+                    </div>
+                    <div class="card-body">
+                        {% if error_message %}
+                            <div class="alert alert-danger">
+                                <p>{{ error_message }}</p>
+                            </div>
+                        {% endif %}
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="otp" class="form-label">OTP:</label>
+                                <input type="text" id="otp" name="otp" class="form-control" placeholder="Enter the OTP sent to your email" required>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button type="submit" class="btn btn-primary">Validate OTP</button>
+                            </div>
+                        </form>
+                        <a href="{% url 'customerregistration' %}">Go back to registration</a>
+                    </div>
+                    <div class="card-footer text-center">
+                        <p class="mb-0">Didn't receive the OTP? <a href="{% url 'otp_validation' %}" class="text-primary fw-bold">Resend OTP</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

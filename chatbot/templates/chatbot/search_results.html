@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Search Results{% endblock title %}
+
+{% block main-content %}
+    <h1 style="font-weight: bold; text-align: center;">Search Results for "{{ query }}"</h1>
+
+    {% if results %}
+    <ul style="list-style-type: none; padding: 0;">
+        {% for result in results %}
+            <li style="border-bottom: 1px solid #ddd; padding: 20px 0;">
+                <h2 style="text-align: justify; font-weight: bold; font-size: 1.5em; color: #333;">{{ result.title }}</h2> 
+                <p style="font-size: 1.1em; color: #555;">{{ result.description|slice:":100" }}...</p> <!-- Shortened description -->
+                <p style="font-size: 1.2em; font-weight: bold; color: #007bff;">
+                    <strong>₹</strong> {{ result.discounted_price }} 
+                    <small style="text-decoration-line: line-through; color: #888;">₹{{ result.selling_price }}</small>
+                </p>
+                <img src="{{ result.product_image.url }}" alt="Product Image" style="width: 300px; height: 200px; border-radius: 5px;"> 
+                <br><br><!-- Product Image -->
+                <form action="{% url 'product-detail' pk=result.pk %}" method="get" class="d-inline">
+                    <button type="submit" style="background-color: #007bff; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; font-size: 16px; transition: background-color 0.3s;">
+                        View Product
+                    </button>
+                </form>
+
+            </li>
+        {% endfor %}
+    </ul>
+    
+    {% else %}
+        <p style="font-size: 1.2em; font-weight: bold; color: #ff5733;">No results found.</p>
+    {% endif %}
+{% endblock main-content %}

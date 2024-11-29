@@ -1,0 +1,97 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Admin Home{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5">
+    <h1 class="text-center mb-5">Admin Dashboard</h1>
+
+    <div class="row mb-4">
+        <!-- User Data Section -->
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center p-3 bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">User Data</h5>
+                    <p class="card-text">Download all user data in CSV format.</p>
+                    <a href="{% url 'download_csv' 'users' %}" class="btn btn-light w-100 hover-effect">Download User Data</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Data Section -->
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center p-3 bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Product Data</h5>
+                    <p class="card-text">Download all product data in CSV format.</p>
+                    <a href="{% url 'download_csv' 'products' %}" class="btn btn-light w-100 hover-effect">Download Product Data</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Data Section -->
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center p-3 bg-danger text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Order Data</h5>
+                    <p class="card-text">Download all order data in CSV format.</p>
+                    <a href="{% url 'download_csv' 'orders' %}" class="btn btn-light w-100 hover-effect">Download Order Data</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Data Section -->
+        <div class="col-md-3">
+            <div class="card shadow-sm text-center p-3 bg-warning text-dark">
+                <div class="card-body">
+                    <h5 class="card-title">Customer Data</h5>
+                    <p class="card-text">Download all customer data in CSV format.</p>
+                    <a href="{% url 'download_csv' 'customers' %}" class="btn btn-light w-100 hover-effect">Download Customer Data</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block custom_css %}
+<style>
+    .row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .col-md-3 {
+        margin-bottom: 20px;
+    }
+
+    .hover-effect:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card {
+        border-radius: 8px;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .btn {
+        font-size: 16px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+    .btn-light:hover {
+        background-color: #f0f0f0;
+    }
+</style>
+{% endblock %}

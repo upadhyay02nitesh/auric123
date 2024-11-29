@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - AuricMart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px auto;
+            width: 50%;
+            line-height: 1.6;
+            background-color: #f0f8ff; /* Light blue page background */
+        }
+        h1 {
+            text-align: center;
+            color: #007BFF; /* Blue heading color */
+        }
+        form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #007BFF; /* Blue border */
+            border-radius: 10px;
+            background-color: #e6f7ff; /* Light blue box background */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        .error {
+            color: red;
+        }
+        button {
+            background-color: white;
+            color: #007BFF;
+            border: 2px solid #007BFF; /* Blue border */
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s; /* Smooth hover effect */
+        }
+        button:hover {
+            background-color: #007BFF;
+            color: white;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #007BFF; /* Blue focus border */
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        .back-home {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 10px;
+            background-color: #007BFF; /* Blue background */
+            color: white;
+            font-size: 1.2em;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .back-home:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #007BFF;
+            background-color: #e6f7ff;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contact Us</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% for field in form %}
+            {% if field.errors %}
+                <p class="error">{{ field.errors|join:', ' }}</p>
+            {% endif %}
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+
+    <a href="/" class="back-home">Back to Home</a>
+</body>
+</html>

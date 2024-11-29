@@ -1,0 +1,77 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Seller Home{% endblock title %}
+
+{% block main-content %}
+<div class="container my-5">
+    <h1 class="text-center mb-5">Welcome, {{ seller_name }}!</h1>
+
+    <!-- Product Data Section -->
+    <div class="card shadow-sm text-center p-3 bg-success text-white mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Your Product Data</h5>
+            <p class="card-text">Download your product data in CSV format.</p>
+            <a href="{% url 'download_csv' 'products' %}" class="btn btn-light w-100 hover-effect">Download Product Data</a>
+        </div>
+    </div>
+
+    <!-- Product Table -->
+    <div class="table-responsive">
+        <table class="table table-striped table-dark table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Brand</th>
+                    <th>Price</th>
+                    <th>Discounted Price</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.title }}</td>
+                    <td>{{ product.brand }}</td>
+                    <td>₹{{ product.selling_price }}</td>
+                    <td>₹{{ product.discounted_price }}</td>
+                    <td>{{ product.description }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">No products available for your brand.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block custom_css %}
+<style>
+    .hover-effect:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card {
+        border-radius: 8px;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    table th, table td {
+        text-align: center;
+    }
+
+    .table-responsive {
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}
