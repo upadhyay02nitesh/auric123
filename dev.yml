@@ -1,0 +1,122 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Deploy a Django App on AWS using CloudFormation without an EC2 key pair
+
+Resources:
+  DjangoVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: DjangoVPC
+
+  DjangoSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref DjangoVPC
+      CidrBlock: 10.0.1.0/24
+      MapPublicIpOnLaunch: true
+      AvailabilityZone: !Select [0, !GetAZs '']
+
+  DjangoInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties: {}
+
+  DjangoVPCGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref DjangoVPC
+      InternetGatewayId: !Ref DjangoInternetGateway
+
+  DjangoRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref DjangoVPC
+
+  DjangoRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref DjangoRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref DjangoInternetGateway
+
+  DjangoSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref DjangoSubnet
+      RouteTableId: !Ref DjangoRouteTable
+
+  DjangoSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow HTTP and SSH traffic
+      VpcId: !Ref DjangoVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0 # Allow HTTP traffic on port 80
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0 # Allow SSH traffic on port 22
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0 # Allow all outbound traffic
+
+  DjangoEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t3.micro
+      ImageId: ami-05edb7c94b324f73c # Amazon Linux 2 AMI
+      SubnetId: !Ref DjangoSubnet
+      SecurityGroupIds:
+        - !Ref DjangoSecurityGroup
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          # Update and install necessary packages
+          yum update -y
+          yum install -y python3 git
+          
+          # Enable Python 3.8
+          amazon-linux-extras enable python3.8
+          yum install -y python3.8
+          python3.8 -m pip install --upgrade pip
+          
+          # Install Django and Gunicorn
+          pip3 install django gunicorn
+          
+          # Setup Django application directory
+          mkdir -p /home/ec2-user/django_app
+          cd /home/ec2-user/django_app
+          
+          # Clone the GitHub repository (Replace with your repo URL)
+          if [ ! -d "auric123" ]; then
+              git clone https://github.com/upadhyay02nitesh/auric123.git auric123
+          fi
+          cd auric123
+          
+          # Apply migrations and collect static files
+          python3.8 manage.py migrate
+          python3.8 manage.py collectstatic --noinput
+          
+          # Start Gunicorn server
+          gunicorn your_app.wsgi:application --bind 0.0.0.0:80 &
+
+Outputs:
+  InstancePublicIp:
+    Description: Public IP address of the EC2 instance
+    Value: !GetAtt DjangoEC2Instance.PublicIp
+    Export:
+      Name: DjangoAppPublicIp
+
+  InstanceURL:
+    Description: URL to access the Django application
+    Value: !Sub "http://${DjangoEC2Instance.PublicDnsName}"
+    Export:
+      Name: DjangoAppURL

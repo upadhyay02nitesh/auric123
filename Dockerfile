@@ -1,24 +1,24 @@
-# Use the official Python image as a base image
-FROM python:3.9
+FROM python:3.10
 
-# Set the working directory in the container
-WORKDIR /app
+# Install system dependencies, Rust toolchain, and build essentials
+RUN apt-get update && apt-get install -y curl build-essential \
+    && curl https://sh.rustup.rs -sSf | sh -s -- -y \
+    && echo 'source $HOME/.cargo/env' >> /etc/profile.d/cargo.sh \
+    && . $HOME/.cargo/env \
+    && export PATH="$HOME/.cargo/bin:$PATH"
 
-# Copy the requirements file into the container
-COPY requirements.txt /app/
+# Set working directory
+WORKDIR /shoppinglyx
 
-# Install dependencies and additional tools
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y gcc default-libmysqlclient-dev pkg-config \
-    && rm -rf /var/lib/apt/lists/* \
+# Copy project files
+COPY . .
+
+# Upgrade pip and install dependencies
+RUN . $HOME/.cargo/env && pip install --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
-
-# Copy the entire project directory into the container
-COPY . /app/
 
 # Expose the port the app runs on
 EXPOSE 8000
 
-# Default command to run the application
+# Run migrations, collect static files, and start the server
 CMD ["sh", "-c", "python manage.py collectstatic --noinput && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]

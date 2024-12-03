@@ -104,6 +104,84 @@ h2, .card-title {
 
 
 </style>
+<style>
+  /* Sale Marquee Styles */
+.sale-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: scroll-left 15s linear infinite;
+}
+
+.sale-title,
+.sale-description,
+.sale-small {
+  padding-right: 50px;
+  font-size: 1.2em;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@media (max-width: 768px) {
+  .sale-title {
+    font-size: 1.5em;
+  }
+  .sale-description {
+    font-size: 1em;
+  }
+}
+.carousel-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+.btn {
+    border-radius: 50px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
+</style>
+
+
+<!-- End Banner Slider -->
+     
+
+
+
+<!-- Live Sale Section (Moved to the Bottom) -->
+
+<style>
+  /* Hover Effect */
+  .bg-danger:hover {
+    background-color: #c62828 !important; /* Darker shade on hover */
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .row h1 {
+      font-size: 1.8em;
+    }
+    .row span {
+      font-size: 1em;
+    }
+    .row small {
+      font-size: 0.8em;
+    }
+  }
+</style>
 
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner position-relative">
@@ -159,43 +237,62 @@ h2, .card-title {
 </div>
 
 {% endblock banner_slider %}
-{% block main-content %}
-<div class="container my-5">
-    <!-- Display Category Name with Bold Heading -->
-    {% for category_name, products in category_data.items %}
-    <div class="mb-4">
-        <h2 class="font-weight-bold text-light category-button mb-3">
-            {{ category_name }}
-        </h2>
-        <!-- Horizontal Scrolling Product Cards -->
-        <div class="d-flex overflow-auto" style="gap: 20px; scrollbar-width: thin;">
-            {% for product in products %}
-            <div class="card shadow-sm border-0" style="min-width: 250px; background-color: #2c2c2c; color: #ffffff;">
-                <img src="{{ product.product_image.url }}" 
-                     class="card-img-top rounded-top" 
-                     alt="{{ product.title }}" 
-                     style="height: 200px; object-fit: cover;">
-                <div class="card-body text-center">
-                    <h5 class="card-title text-truncate text-light">{{ product.title }}</h5>
-                    <p class="card-text text-success fw-bold mb-1">₹{{ product.discounted_price }}</p>
-                    <p class="card-text text-muted small" style="text-decoration: line-through;">₹{{ product.selling_price }}</p>
-                    <p class="card-text text-muted small">On Lowest Price</p>
-                    <div class="d-flex justify-content-center align-items-center mb-2">
-                        <span class="badge bg-success me-2">5⭐</span>
-                        <span class="text-light small">15 Reviews</span>
-                    </div>
-                    <a href="{% url 'product-detail' product.id %}" class="btn btn-outline-light btn-sm">Shop Now</a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    {% endfor %}
+<!-- Live Sale Section with Scrolling Effect -->
+<div class="container-fluid">
+  <div class="row bg-danger text-center p-4 text-white border-top shadow sale-marquee">
+    <h1 class="sale-title">SALE IS LIVE NOW</h1>
+    <span class="sale-description">5% Instant Discount on Axis Bank Credit and Debit Card</span>
+    <small class="fw-lighter">Terms and Conditions Apply (For details, visit the Bank's official website)</small>
+  </div>
 </div>
 
+{% block main-content %}
+<div class="container my-5">
+  <!-- Display Category Name with Bold Heading -->
+  {% for category_name, products in category_data.items %}
+  <div class="mb-5">
+      <h2 class="fw-bold text-light category-button mb-4 text-uppercase" style="font-size: 1.5rem;">
+          {{ category_name }}
+      </h2>
+      <!-- Horizontal Scrolling Product Cards -->
+      <div class="d-flex overflow-auto" style="gap: 20px; scrollbar-width: thin; scroll-behavior: smooth;">
+          {% for product in products %}
+          <div class="card shadow-sm border-0" style="min-width: 150px; background-color: #212529; color: #ffffff; border-radius: 12px;">
+              <img src="{{ product.product_image.url }}" 
+                   class="card-img-top" 
+                   alt="{{ product.title }}" 
+                   style="height: 150px; object-fit: cover; border-radius: 12px 12px 0 0;">
+              <div class="card-body text-center">
+                  <h5 class="card-title text-truncate text-light mb-2" style="font-size: 1rem; font-weight: 600;">
+                      {{ product.title }}
+                  </h5>
+                  <p class="text-success fw-bold mb-1" style="font-size: 1.1rem;">
+                      ₹{{ product.discounted_price }}
+                  </p>
+                  <p class="text-muted small mb-2" style="text-decoration: line-through; font-size: 0.9rem;">
+                      ₹{{ product.selling_price }}
+                  </p>
+                  <p class="text-muted small mb-3" style="font-size: 0.85rem;">
+                      On Lowest Price
+                  </p>
+                  <div class="d-flex justify-content-center align-items-center mb-3">
+                      <span class="badge bg-success me-2" style="font-size: 0.85rem;">5⭐</span>
+                      <span class="text-light small" style="font-size: 0.85rem;">15 Reviews</span>
+                  </div>
+                  <a href="{% url 'product-detail' product.id %}" class="btn btn-outline-light btn-sm" 
+                     style="font-size: 0.9rem; padding: 6px 16px; border-radius: 20px;">
+                      Shop Now
+                  </a>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+  {% endfor %}
 </div>
+
 <a href="{% url 'chatbot' %}" class="chat-button-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; text-decoration: none;">
-  <button style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 150px; height: 150px; background: linear-gradient(45deg, #6a11cb, #2575fc); color: white; font-size: 32px; font-weight: bold; padding: 15px; border: none; border-radius: 50%; cursor: pointer; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
+  <button style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100px; height: 100px; background: linear-gradient(45deg, #6a11cb, #2575fc); color: white; font-size: 32px; font-weight: bold; padding: 15px; border: none; border-radius: 50%; cursor: pointer; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
       💬
   </button>
   <span class="tooltip-text"
