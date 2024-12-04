@@ -14,14 +14,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('app.urls')),
-    path('', include('chatbot.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    
-    
+    path('', include('app.urls')),  # Use this for the main app
+    path('chatbot/', include('chatbot.urls')),  # Add a prefix for chatbot URLs
+    path('accounts/', include('django.contrib.auth.urls')),  # Django authentication URLs
 ]
+
+# Serve static files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

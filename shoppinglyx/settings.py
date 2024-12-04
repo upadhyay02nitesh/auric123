@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -76,7 +77,7 @@ TEMPLATES = [
         },
     },
 ]
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 WSGI_APPLICATION = 'shoppinglyx.wsgi.application'
 
 # Database
@@ -132,13 +133,13 @@ EMAIL_HOST_PASSWORD = 'mipu zllp cljc bwql'  # Use environment variable for secu
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Or any desired directory
+STATIC_ROOT = os.path.join(BASE_DIR, 'app', 'static') # Or any desired directory
 
 STATIC_URL = '/static/'
 
 # Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
 
 # Login redirect URL
 LOGIN_REDIRECT_URL = 'home'
