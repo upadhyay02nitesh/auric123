@@ -626,7 +626,7 @@ def seller_home(request):
 
 @login_required
 @seller_group_required
-def download_csv(request, model_name):
+def download_csv1(request, model_name):
     if model_name != 'products':
         return HttpResponse("Invalid model for seller data export.", status=400)
 

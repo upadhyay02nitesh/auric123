@@ -238,13 +238,15 @@ h2, .card-title {
 
 {% endblock banner_slider %}
 <!-- Live Sale Section with Scrolling Effect -->
+{% block livesale %} 
 <div class="container-fluid">
-  <div class="row bg-danger text-center p-4 text-white border-top shadow sale-marquee">
+  <div class="row bg-danger text-center p-3 text-white border-top shadow sale-marquee">
     <h1 class="sale-title">SALE IS LIVE NOW</h1>
     <span class="sale-description">5% Instant Discount on Axis Bank Credit and Debit Card</span>
     <small class="fw-lighter">Terms and Conditions Apply (For details, visit the Bank's official website)</small>
   </div>
 </div>
+{% endblock livesale %}
 
 {% block main-content %}
 <div class="container my-5">
@@ -257,7 +259,7 @@ h2, .card-title {
       <!-- Horizontal Scrolling Product Cards -->
       <div class="d-flex overflow-auto" style="gap: 20px; scrollbar-width: thin; scroll-behavior: smooth;">
           {% for product in products %}
-          <div class="card shadow-sm border-0" style="min-width: 150px; background-color: #212529; color: #ffffff; border-radius: 12px;">
+          <div class="card shadow-sm border-0" style="min-width: 200px; background-color: #000080; color: #ffffff; border-radius: 12px;">
               <img src="{{ product.product_image.url }}" 
                    class="card-img-top" 
                    alt="{{ product.title }}" 
@@ -293,8 +295,8 @@ h2, .card-title {
 
 <a href="{% url 'chatbot' %}" class="chat-button-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; text-decoration: none;">
   <button style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100px; height: 100px; background: linear-gradient(45deg, #6a11cb, #2575fc); color: white; font-size: 32px; font-weight: bold; padding: 15px; border: none; border-radius: 50%; cursor: pointer; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
-      💬
-  </button>
+    💬
+</button>
   <span class="tooltip-text"
    style="visibility: hidden; background-color: #333; color: #fff; text-align: center; border-radius: 5px; padding: 10px 12px; position: absolute; bottom: 120px; right: -10px; font-size: 16px; white-space: nowrap; z-index: 1001; opacity: 0; transition: opacity 0.3s ease;">
       Hey, your AI consultant is here!

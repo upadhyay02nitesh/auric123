@@ -25,6 +25,7 @@ urlpatterns = [
     path('adminhome/', views.admin_home, name='adminhome'),
     path('sellerhome/', views.seller_home, name='sellerhome'),
     path('download_csv/<str:model_name>/', views.download_csv, name='download_csv'),
+    path('download_csv1/<str:model_name>/', views.download_csv1, name='download_csv1'),
     path('verify_otp/', OTPVerificationView.as_view(), name='verify_otp'),
     path('password_reset_ss/', CustomerPasswordResetView.as_view(), name='password_reset_ss'),
     path('otp_validation/', OTPValidationView.as_view(), name='otp_validation'),
