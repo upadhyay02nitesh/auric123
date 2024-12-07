@@ -1,28 +1,255 @@
 <!-- templates/myapp/bookings.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Bookings</title>
+    <title>Your Bookings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Booking Card Styling */
+        .booking-card {
+    background-color: #f9f9f9;
+    border: 50px solid #007bff; /* Blue border */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.booking-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-color: #0056b3; /* Darker blue on hover */
+}
+
+
+.booking-card p {
+    font-family: 'Roboto', sans-serif; /* Use a clean, modern font */
+    font-size: 16px; /* Adjust font size */
+    color: #333; /* Neutral dark color for the text */
+    line-height: 1.5; /* Better readability */
+}
+
+.booking-card p strong {
+    font-weight: 700; /* Bold font for the labels */
+    color: #007bff; /* Blue color for emphasis */
+    font-size: 18px; /* Slightly larger for standout effect */
+}
+
+.booking-card h3 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #0056b3; /* Stylish darker blue */
+    margin-bottom: 15px;
+}
+
+
+        .booking-card p {
+            color: #333;
+        }
+
+        .booking-card .category {
+            font-weight: bold;
+            color: #e76f51;
+        }
+        .navbar {
+    background-color: #e74c3c; /* Red background */
+    padding: 10px 20px;
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center items horizontally */
+}
+
+.menu-items {
+    list-style-type: none; /* Remove default bullets */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Arrange items in a horizontal row */
+}
+
+.menu-items li {
+    margin-right: 20px; /* Space between items */
+}.menu-items li a {
+    color: white; /* White text color */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Make text bold */
+}
+
+
+        .alert-warning {
+            background-color: #f4a261;
+            color: white;
+        }
+
+        /* Custom Row and Column Setup */
+        .booking-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .booking-list .col-md-4 {
+            flex: 1 0 30%;
+            margin: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .booking-list .col-md-4 {
+                flex: 1 0 100%;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <header>
-        <h1>Your Bookings</h1>
-    </header>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <!-- existing navbar code -->
+        <ul class="menu-items">
+            <li><a href="{% url 'pandit' %}">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#popular-services">Category</a></li>
+            <li><a href="#city-services">Menu</a></li>
+            {% if request.user.is_authenticated %}
+                <li><a href="{% url 'bookings' %}">My Bookings</a></li>
+            {% endif %}
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Booking Section -->
     <section>
-        <div class="container">
+        <div class="container mt-5">
+            <h1>Your Bookings</h1>
+    
             {% if bookings %}
-                <ul>
+                <div class="booking-list row">
                     {% for booking in bookings %}
-                        <li>Booked on {{ booking.booking_date }}</li>
+                        <div class="col-md-4">
+                            <div class="booking-card">
+                                <h3>{{ booking.name }}</h3>
+                                <p class="category"><strong>Category :</strong> {{ booking.category }}</p>
+                                <p><strong>Pandit:</strong> {{ booking.pandit }}</p>
+                                <p><strong>Date:</strong> {{ booking.booking_date }}</p>
+                                <p><strong>Time:</strong> {{ booking.booking_time }}</p>
+                                <p><strong>Pincode:</strong> {{ booking.pincode }}</p>
+                                <p><strong>State:</strong> {{ booking.state }}</p>
+                                <p><strong>City:</strong> {{ booking.city }}</p>
+                                <p><strong>Address:</strong> {{ booking.address }}</p>
+                            </div>
+                        </div>
                     {% endfor %}
-                </ul>
+                </div>
             {% else %}
-                <strong>{{ request.user.username|capfirst }}</strong>
-                <p>No bookings found.</p>
+                <div class="alert alert-warning" role="alert">
+                    <strong>{{ request.user.username|capfirst }}</strong>, you have no bookings yet.
+                </div>
             {% endif %}
         </div>
     </section>
+    
+
+    <!-- Footer -->
+    <footer class="container-fluid bg-dark text-white p-5">
+        <div class="row" id="about">
+          <!-- About Section -->
+          <div class="col-md-3">
+            <h5>ABOUT</h5>
+            <ul class="list-unstyled">
+              <li><a href="{% url 'contact' %}" class="text-white">Contact Us</a></li>
+              <li><a href="{% url 'about' %}" class="text-white">About Us</a></li>
+              <li><a href="#" class="text-white">Careers</a></li>
+              <li><a href="#" class="text-white">Sandipani Stories</a></li>
+              <li><a href="#" class="text-white">Press</a></li>
+              <li><a href="#" class="text-white">Corporate Information</a></li>
+            </ul>
+          </div>
+      
+          <!-- Group Companies Section -->
+          <div class="col-md-3">
+            <h5>GROUP COMPANIES</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-white">Sandipani</a></li>
+              <li><a href="#" class="text-white">Sampurnanand</a></li>
+              <li><a href="#" class="text-white">Sanskrit</a></li>
+            </ul>
+          </div>
+      
+          <!-- Help Section -->
+          <div class="col-md-3">
+            <h5>HELP</h5>
+            <ul class="list-unstyled">
+              <li><a href="https://wa.me/+916268944329" class="text-white" target="_blank">Whatsapp With Us</a></li>
+              <li><a href="#" class="text-white">Shipping</a></li>
+              <li><a href="#" class="text-white">Cancellation & Returns</a></li>
+              <li><a href="#" class="text-white">FAQ</a></li>
+              <li><a href="#" class="text-white">Report Infringement</a></li>
+            </ul>
+          </div>
+      
+          <!-- Consumer Policy Section -->
+          <div class="col-md-3">
+            <h5>CONSUMER POLICY</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-white">Cancellation & Returns</a></li>
+              <li><a href="#" class="text-white">Terms of Use</a></li>
+              <li><a href="#" class="text-white">Security</a></li>
+              <li><a href="#" class="text-white">Privacy</a></li>
+              <li><a href="#" class="text-white">Grievance Redressal</a></li>
+            </ul>
+          </div>
+        </div>
+      
+        <hr class="bg-light">
+      
+        <!-- Contact and Social Media -->
+        <div class="row">
+          <div class="col-md-6 text-md-left">
+            <p class="mb-0">
+              Registered Office Address:<br>
+              EWS-190 Dhacha Bhavan Bhilai DURG,<br>
+              EWS-190 Dhacha Bhavan Bhilai Durg Chhattisgarh,<br>
+              {% comment %} Outer Ring Road, Devarabeesanahalli Village,<br> {% endcomment %}
+              Chhattisgarh, 490024, Chhattisgarh, India.
+            </p>
+            <p>CIN: U51109KA2012PTC066107</p>
+            <p>Email: <a href="mailto:auricmart@gmail.com">auricmart@gmail.com</a></p>
+            <p>Telephone: <a href="tel:+916268944329">+91-6268944329</a> / <a href="tel:+916264534556">+91-6264534556</a></p>
+    
+          </div>
+      
+          <!-- Social Media Icons -->
+          <div class="col-md-6 text-md-right">
+            <a href="https://www.instagram.com/auric_mart?igsh=MWcycDU0eG8yODM0OA==" class="text-white mr-2"><i class="fab fa-facebook-f"></i></a>
+            <a href="{% url 'contact' %}" class="text-white mr-2"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/auric_mart?igsh=MWcycDU0eG8yODM0OA==" class="text-white mr-2"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/@auricmart?si=EUolkNnHFxm8WIoC" class="text-white mr-2"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      
+        <!-- Bottom Section with Links -->
+        <div class="row mt-4">
+          <div class="col-md-12 text-center">
+            <a href="#" class="text-white">Become a Seller</a> |
+            <a href="#" class="text-white">Advertise</a> |
+            <a href="#" class="text-white">Gift Cards</a> |
+            <a href="#" class="text-white">Help Center</a>
+          </div>
+        </div>
+      
+        <!-- Copyright and Payment Methods -->
+        <div class="row mt-3">
+          <div class="col-md-12 text-center">
+            <p class="mb-0">
+              &copy; 2024 AuricMart | Designed by AuricMart
+            </p>
+           
+          </div>
+        </div>
+      </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

@@ -63,11 +63,18 @@ class Product(models.Model):
         return self.title
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    category = models.CharField(max_length=50)
+    pandit = models.CharField(max_length=100)
     booking_date = models.DateField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    booking_time = models.TimeField()
+    pincode = models.IntegerField(null=True) 
+    state = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    address = models.CharField(max_length=255, default='Not provided')
 
     def __str__(self):
-        return f"Booking by {self.user.username} on {self.booking_date}"
+        return f"Booking by {self.name} on {self.booking_date} at {self.booking_time}"
 
 
 class Review(models.Model):
@@ -93,7 +100,19 @@ class Customer(models.Model):
 
     def __str__(self):
         return str(self.id)
+    
+class Pandit(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Link to a user
+    name = models.CharField(max_length=200, null=True)  # Name of the pandit
+    specialty = models.CharField(max_length=100, null=True)  # Area of expertise (e.g., Havan, Pooja)
+    pincode = models.IntegerField(null=True) 
+    city = models.CharField(max_length=50, default="Unknown")  # City the pandit is based in
+    state = models.CharField(max_length=50, default="Unknown")  # State the pandit is based in
+    contact_number = models.CharField(max_length=15, null=True)  # Pandit's contact number
+    email = models.EmailField(null=True)  # Pandit's email address
 
+    def __str__(self):
+        return self.name
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -129,7 +148,7 @@ class OrderPlaced(models.Model):
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending', null=True)
     razorpay_order_id = models.CharField(max_length=100, blank=True, null=True)
     name = models.CharField(max_length=255, default='default_name', null=True)
-
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.id)

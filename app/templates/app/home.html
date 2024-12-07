@@ -257,30 +257,29 @@ h2, .card-title {
           {{ category_name }}
       </h2>
       <!-- Horizontal Scrolling Product Cards -->
-      <div class="d-flex overflow-auto" style="gap: 20px; scrollbar-width: thin; scroll-behavior: smooth;">
+      <div class="d-flex overflow-auto" style="gap: 10px; scrollbar-width: thin; scroll-behavior: smooth;">
           {% for product in products %}
-          <div class="card shadow-sm border-0" style="min-width: 200px; background-color: #000080; color: #ffffff; border-radius: 12px;">
-              <img src="{{ product.product_image.url }}" 
-                   class="card-img-top" 
-                   alt="{{ product.title }}" 
-                   style="height: 150px; object-fit: cover; border-radius: 12px 12px 0 0;">
-              <div class="card-body text-center">
-                  <h5 class="card-title text-truncate text-light mb-2" style="font-size: 1rem; font-weight: 600;">
-                      {{ product.title }}
-                  </h5>
-                  <p class="text-success fw-bold mb-1" style="font-size: 1.1rem;">
-                      ₹{{ product.discounted_price }}
-                  </p>
-                  <p class="text-muted small mb-2" style="text-decoration: line-through; font-size: 0.9rem;">
-                      ₹{{ product.selling_price }}
-                  </p>
-                  <p class="text-muted small mb-3" style="font-size: 0.85rem;">
-                      On Lowest Price
-                  </p>
-                  <div class="d-flex justify-content-center align-items-center mb-3">
-                      <span class="badge bg-success me-2" style="font-size: 0.85rem;">5⭐</span>
-                      <span class="text-light small" style="font-size: 0.85rem;">15 Reviews</span>
-                  </div>
+          <div class="card shadow-sm border-0" 
+     style="min-width: 200px; background-color: #000080; color: #ffffff; border-radius: 12px;">
+    <img src="{{ product.product_image.url }}" 
+         class="card-img-top" 
+         alt="{{ product.title }}" 
+         style="height: 250px; width: 100%; object-fit: cover; border-radius: 12px 12px 0 0;">
+    <div class="card-body text-center">
+        <h5 class="card-title text-truncate text-light mb-2" 
+            style="font-size: 1.2rem; font-weight: 600;">
+            {{ product.title }}
+        </h5>
+        <p class="text-success fw-bold mb-1" 
+           style="font-size: 1rem;">
+            ₹{{ product.discounted_price }}
+        </p>
+        <p class="text-muted small mb-2" 
+           style="text-decoration: line-through; font-size: 0.8rem;">
+            ₹{{ product.selling_price }}
+        </p>
+       
+
                   <a href="{% url 'product-detail' product.id %}" class="btn btn-outline-light btn-sm" 
                      style="font-size: 0.9rem; padding: 6px 16px; border-radius: 20px;">
                       Shop Now

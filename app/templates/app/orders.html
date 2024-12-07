@@ -18,7 +18,6 @@
         <div class="col-sm-9 offset-sm-1">
             {% if order_placed %}
                 {% for op in order_placed %}
-                    {% if op.status == 'Accepted' %}
                     <div class="card mb-4 shadow-sm">
                         <div class="row g-0">
                             <!-- Product Image -->
@@ -72,7 +71,8 @@
 
                                     <a href="{% url 'generate_invoice' op.id %}" class="btn btn-secondary mb-2">Download Invoice</a>
 
-                                    {% if op.status in 'Accepted Packed On The Way' %}
+                                    <!-- Cancel Order button -->
+                                    {% if op.status == 'Accepted' or op.status == 'Packed' or op.status == 'On The Way' %}
                                         <form method="post" action="{% url 'cancel_order' op.id %}">
                                             {% csrf_token %}
                                             <button type="submit" class="btn btn-danger">Cancel Order</button>
@@ -84,7 +84,6 @@
                             </div>
                         </div>
                     </div>
-                    {% endif %}
                 {% endfor %}
             {% else %}
                 <p>No orders found.</p>

@@ -40,7 +40,12 @@ class MyPasswordChangeForm(PasswordChangeForm):
     strip=False, widget=forms.PasswordInput(attrs=
     {'autocomplete': 'new-password','autofocus':True,'class':'form-control'}))
     
-    
+from .models import Pandit
+
+class PanditForm(forms.ModelForm):
+    class Meta:
+        model = Pandit
+        fields = ['name', 'specialty', 'city', 'state', 'contact_number', 'email']
    
 class MyPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(label=_("Email"), max_length=254,widget=forms.EmailInput

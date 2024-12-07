@@ -1,7 +1,10 @@
+import hmac
+import logging
 from django.shortcuts import render,redirect
 from django.views import View
-from .models import Customer,Product,Cart,OrderPlaced,Review,Booking
-from.forms import CustomerRegistrationForm,CustomerProfileForm
+import requests
+from .models import Customer, OrderItem, Pandit,Product,Cart,OrderPlaced,Review,Booking
+from.forms import CustomerRegistrationForm,CustomerProfileForm, PanditForm
 from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponseForbidden, JsonResponse
@@ -12,6 +15,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 from django.contrib.auth import logout
+import datetime 
 from django.http import HttpResponse
 from django.conf import settings
 from django.urls import reverse
@@ -71,22 +75,160 @@ def get_reviews(request, product_id):
 
 def home(request):
  return render(request, 'app/home.html')
+from django.core.mail import send_mail, BadHeaderError
+from django.utils.html import format_html
+from django.core.exceptions import ObjectDoesNotExist
+@login_required
+def add_pandit(request):
+    if request.method == 'POST':
+        # Get form data
+        name = request.POST.get('name')
+        specialty = request.POST.get('specialty')
+        city = request.POST.get('city')
+        pincode = request.POST.get('pincode')
+        state = request.POST.get('state')
+        contact_number = request.POST.get('contact_number')
+        email = request.POST.get('email')
+
+        # Basic validation
+        if not name or not specialty or not city or not state or not contact_number or not email:
+            messages.error(request, "All fields are required!")
+            return render(request, 'app/add_pandit.html')
+
+        try:
+            # Check if the email is already registered
+            existing_pandit = Pandit.objects.filter(email=email).first()
+            if existing_pandit:
+                messages.error(
+                    request,
+                    f"Email {email} is already registered. Please use a different email or register with a different name."
+                )
+                return render(request, 'app/add_pandit.html')
+
+            # Create a new Pandit object
+            pandit = Pandit(
+                user=request.user,
+                name=name,
+                specialty=specialty,
+                city=city,
+                state=state,
+                pincode=pincode,
+                contact_number=contact_number,
+                email=email
+            )
+            pandit.save()
+
+            # Send email notification
+            try:
+                # Email content
+                subject = f"Registration Successful: Welcome, Pandit {pandit.name}!"
+                html_message = format_html(f"""
+                    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; padding: 20px;">
+                        <h2 style="color: #007bff; text-align: center;">Pandit Registration Successful</h2>
+                        <p style="color: #333;">Hello <strong>{pandit.name}</strong>,</p>
+                        <p>Your registration as a Pandit has been successfully completed. Below are your details:</p>
+                        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                            <tr><td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Specialty:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">{pandit.specialty}</td></tr>
+                            <tr><td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>City:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">{pandit.city}</td></tr>
+                            <tr><td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>State:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">{pandit.state}</td></tr>
+                            <tr><td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Pincode:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">{pandit.pincode}</td></tr>
+                            <tr><td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Contact Number:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">{pandit.contact_number}</td></tr>
+                            <tr><td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Email:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">{pandit.email}</td></tr>
+                        </table>
+                        <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+                        <p>If you have any questions, feel free to contact us:</p>
+                        <p><strong>Email:</strong> auricmart@gmail.com</p>
+                        <p><strong>Telephone:</strong> +91-6268944329 / +91-6264534556</p>
+                        <p style="text-align: center; margin-top: 20px;">Thank you for joining <strong>Auric Pandit</strong>!</p>
+                    </div>
+                """)
+                from_email = 'niteshupa6@gmail.com'
+                recipient_list = [pandit.email]
+
+                # Send the email
+                send_mail(subject, '', from_email, recipient_list, html_message=html_message)
+                messages.success(request, "Pandit added successfully and email sent!")
+            except BadHeaderError:
+                messages.error(request, "Invalid header found.")
+            except Exception as e:
+                messages.error(request, f"Email sending failed: {str(e)}")
+
+            return redirect('pandit')
+        except Exception as e:
+            messages.error(request, f"Error adding Pandit: {str(e)}")
+
+    return render(request, 'app/add_pandit.html')
+
 
 def about(request):
  return render(request, 'app/about.html')
+
 @login_required
 def book_schedule(request):
     if request.method == 'POST':
-        selected_dates = request.POST.getlist('date')
-        
-        for date_str in selected_dates:
-            booking_date = datetime.strptime(date_str, '%Y-%m-%d').date()
-            Booking.objects.create(user=request.user, booking_date=booking_date)
-        
-        messages.success(request, "Your booking has been successfully recorded!")
-        return redirect('home')
-    return render(request, 'app/pandit.html')
-# views.py
+        # Get the form data
+        name = request.POST.get('name')
+        category = request.POST.get('category')
+        pandit = request.POST.get('pandit')
+        booking_date = request.POST.get('date')
+        booking_time = request.POST.get('time')
+        pincode = request.POST.get('pincode')
+        state = request.POST.get('state')
+        city = request.POST.get('city')
+        address = request.POST.get('address')
+        api_url = f"https://api.postalpincode.in/pincode/{pincode}"
+
+        # Validate pincode, state, and city
+        try:
+            response = requests.get(api_url)
+            response_data = response.json()
+            
+            if response_data[0]['Status'] == 'Success':
+                # Extract State and City from the API response
+                post_office = response_data[0]['PostOffice'][0]
+                if post_office['State'] != state or post_office['District'] != city:
+                    messages.error(request, "Pincode, state, and city do not match. Please check your inputs.")
+                    return render(request, 'app/pandit.html', {'form_data': request.POST})
+            else:
+                messages.error(request, "Invalid pincode. Please enter a valid pincode.")
+                return render(request, 'app/pandit.html', {'form_data': request.POST})
+        except Exception as e:
+            messages.error(request, f"Error validating pincode: {str(e)}")
+            return render(request, 'app/pandit.html', {'form_data': request.POST})
+
+        # Convert the date and time to proper formats
+        try:
+            if not booking_date or not booking_time:
+                raise ValueError("Booking date and time are required.")
+            
+            # Convert the date and time to proper formats
+            booking_date = datetime.datetime.strptime(booking_date, '%Y-%m-%d').date()
+            booking_time = datetime.datetime.strptime(booking_time, '%H:%M').time()
+        except ValueError as e:
+            messages.error(request, f"Invalid date or time format: {str(e)}. Please enter valid values.")
+            return render(request, 'app/pandit.html', {'form_data': request.POST})
+
+        # Create a new booking entry
+        try:
+            Booking.objects.create(
+                user=request.user,
+                name=name,
+                category=category,
+                pandit=pandit,
+                booking_date=booking_date,
+                booking_time=booking_time,
+                pincode=pincode,
+                state=state,
+                city=city,
+                address=address
+            )
+            messages.success(request, "Your booking has been successfully recorded!")
+            return redirect('pandit')  # Adjust this if you need to go somewhere else after success
+        except Exception as e:
+            messages.error(request, f"Error creating booking: {str(e)}")
+            return render(request, 'app/pandit.html', {'form_data': request.POST})
+
+    return render(request, 'app/pandit.html')  # Ensure the form is rendered correctly
 @login_required
 def my_bookings(request):
     bookings = Booking.objects.filter(user=request.user).order_by('-booking_date')
@@ -316,7 +458,7 @@ def address(request):
 
 @login_required
 def orders(request):
-    op=OrderPlaced.objects.filter(user=request.user)
+    op=OrderPlaced.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'app/orders.html', {'order_placed':op})
 
  
@@ -1050,14 +1192,13 @@ def payment_done(request):
         customer = Customer.objects.get(id=custid)
         cart = Cart.objects.filter(user=user)
 
-        # Check if cart is empty
         if not cart:
             return HttpResponse("Cart is empty", status=400)
 
         # Calculate total amount (including shipping)
         total_amount = sum(c.quantity * c.product.discounted_price for c in cart) + 70  # Rs. 70 shipping charge
 
-        # Razorpay order creation
+        # Create Razorpay order
         razorpay_order = razorpay_client.order.create({
             "amount": int(total_amount * 100),  # Convert amount to paise (integer value)
             "currency": "INR",
@@ -1080,14 +1221,13 @@ def payment_done(request):
         return render(request, 'app/razorpay_payment.html', {
             'razorpay_order_id': razorpay_order['id'],
             'razorpay_key_id': settings.RAZORPAY_KEY_ID,
-            'total_amount': int(total_amount * 100),  # Convert to integer (paise)
+            'total_amount': int(total_amount * 100),  # Convert to paise (integer value)
             'user': user,
         })
 
     except Customer.DoesNotExist:
         return HttpResponse("Customer not found", status=400)
     except Exception as e:
-        # Log error for debugging
         return HttpResponse(f"An error occurred: {e}", status=500)
 
 def cancel_order(request, order_id):
@@ -1106,18 +1246,70 @@ def cancel_order(request, order_id):
     
     # Redirect back to the order page or any other page
     return redirect('orders')  # Replace 'order_page' with the actual name of the order page URL pattern
+
+def verify_razorpay_signature(razorpay_order_id, razorpay_payment_id, razorpay_signature):
+    razorpay_secret = settings.RAZORPAY_API_SECRET
+    string_to_hash = f"{razorpay_order_id}|{razorpay_payment_id}"
+    generated_signature = hmac.new(
+        bytes(razorpay_secret, 'utf-8'),
+        bytes(string_to_hash, 'utf-8'),
+        hashlib.sha256
+    ).hexdigest()
+    print(generated_signature)
+    return generated_signature == razorpay_signature
+
 import hmac
 import hashlib
+from django.conf import settings
+from django.http import JsonResponse
+from django.core.mail import send_mail
+from .models import OrderPlaced, OrderItem
+from django.contrib.auth.decorators import login_required
+
+# Function to verify Razorpay signature
+import hmac
+import hashlib
+from django.conf import settings
+
+def verify_razorpay_signature(razorpay_order_id, razorpay_payment_id, razorpay_signature):
+    razorpay_secret = settings.RAZORPAY_API_SECRET
+
+    # Create the string to hash: Razorpay order ID and payment ID
+    string_to_hash = f"{razorpay_order_id}|{razorpay_payment_id}"
+    
+    # Generate the HMAC hash
+    try:
+        generated_signature = hmac.new(
+            bytes(settings.RAZORPAY_API_SECRET, 'utf-8'),
+            bytes(f"{razorpay_order_id}|{razorpay_payment_id}", 'utf-8'),
+            hashlib.sha256
+        ).hexdigest()
+        print(f"Generated Razorpay Signature: {generated_signature}")
+    except Exception as e:
+        print(f"Error generating signature: {str(e)}")
+
+
+    print(f"String to hash: {string_to_hash}")  # For debugging
+    print(f"Generated signature: {generated_signature}")  # For debugging
+    print(f"Received signature: {razorpay_signature}")  # For debugging
+
+    return generated_signature == razorpay_signature
+
+import hmac
+import hashlib
+from django.http import JsonResponse
+from django.conf import settings
+from .models import OrderPlaced, OrderItem
 @login_required
 def payment_verification(request):
     if request.method == "POST":
         try:
-            # Retrieve Razorpay payment details from POST request
+            # Retrieve Razorpay payment details from the POST request
             razorpay_order_id = request.POST.get('razorpay_order_id')
             razorpay_payment_id = request.POST.get('razorpay_payment_id')
             razorpay_signature = request.POST.get('razorpay_signature')
 
-            # Ensure all details are provided
+            # Check if all required parameters are available
             if not all([razorpay_order_id, razorpay_payment_id, razorpay_signature]):
                 return JsonResponse({"status": "failure", "message": "Missing payment details"}, status=400)
 
@@ -1127,32 +1319,38 @@ def payment_verification(request):
             except OrderPlaced.DoesNotExist:
                 return JsonResponse({"status": "failure", "message": "Order not found"}, status=404)
 
-            # Verify Razorpay signature
+            # Generate Razorpay signature using the Razorpay secret and order/payment IDs
+            string_to_hash = f"{razorpay_order_id}|{razorpay_payment_id}"
             generated_signature = hmac.new(
                 bytes(settings.RAZORPAY_API_SECRET, 'utf-8'),
-                bytes(f"{razorpay_order_id}|{razorpay_payment_id}", 'utf-8'),
+                bytes(string_to_hash, 'utf-8'),
                 hashlib.sha256
             ).hexdigest()
 
+            # Debug print for generated signature (useful for troubleshooting)
+            print(f"Generated Razorpay Signature: {generated_signature}")
+            print(f"Received Razorpay Signature: {razorpay_signature}")
+
+            # Verify if the generated signature matches the received signature
             if generated_signature == razorpay_signature:
-                # If signature matches, mark the payment as successful
-                order.status = 'Accepted'  # Update to 'Accepted' upon successful payment
+                # Update order status to 'Accepted' upon successful payment verification
+                order.status = 'Accepted'
                 order.save()
 
-                # You can also update other order-related information here if needed
-                # For example, notifying the user via email, updating inventory, etc.
+                # Optionally send a confirmation email to the customer (you can implement email sending here)
+                # send_confirmation_email(order)
 
-                return JsonResponse({"status": "success", "message": "Payment verification successful"})
+                return JsonResponse({"status": "success", "message": "Payment verification successful, order confirmed"})
+
             else:
-                # Payment verification failed due to incorrect signature
                 return JsonResponse({"status": "failure", "message": "Invalid signature"}, status=400)
 
         except Exception as e:
-            # Handle unexpected errors
+            # Handle any unexpected errors gracefully
             return JsonResponse({"status": "failure", "message": f"An error occurred: {str(e)}"}, status=500)
 
+    # Handle case where the request method is not POST
     return JsonResponse({"status": "failure", "message": "Invalid request method"}, status=405)
-
 def home_view(request):
     # Define all categories dynamically
     categories = [
