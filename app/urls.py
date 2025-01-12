@@ -19,6 +19,10 @@ urlpatterns = [
     path('cart/', views.show_cart, name='showcart'),
     path('auric/', views.auric, name='auric'),
     path('about/', views.about, name='about'),
+    path('terms/', views.terms, name='terms'),
+    path('privacy/', views.privacy, name='privacy'),
+    
+
     path('pandit/', views.pandit, name='pandit'),
      path('add_pandit/', views.add_pandit, name='add_pandit'),
     path('contact/', views.contact, name='contact'),

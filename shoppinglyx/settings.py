@@ -13,7 +13,9 @@ SECRET_KEY = 'django-insecure-h=-gt1-a*phxr5_+gm0pm*__=_@_f&g%o30f^jpxo^1ipet#d-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# ALLOWED_HOSTS = ['auricmart.com', 'www.auricmart.com', '13.60.234.4']
 ALLOWED_HOSTS = ['*']
+
 
 # Application definition
 
@@ -76,6 +78,17 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',  # Using PostgreSQL for RDS
+#         'NAME': 'auric',  # RDS database name
+#         'USER': 'admin5',       # RDS username
+#         'PASSWORD': 'password',  # RDS password
+#         'HOST': 'database-5.c1kqai6s68io.eu-north-1.rds.amazonaws.com',      # RDS endpoint
+#         'PORT': '3306',  # Default PostgreSQL port
+#     }
+# }
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -107,8 +120,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'niteshupa6@gmail.com'  # Your email address
-EMAIL_HOST_PASSWORD = 'mipu zllp cljc bwql'  # Use environment variable for security
+EMAIL_HOST_USER = 'auricmart37@gmail.com'  # Your email address
+EMAIL_HOST_PASSWORD = 'jxsy zilp rapa iqgh'  # Use environment variable for security
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

@@ -256,10 +256,66 @@ h3 {
 .menu-items li a:hover {
     color: #f1c40f; /* Yellow color on hover */
 }
+<style>
+  /* Increase text size and make bold for navbar links within #navbarSupportedContent */
+  #navbarSupportedContent .navbar-nav .nav-link {
+    font-size: 1.1em; /* Increase text size */
+    font-weight: bold; /* Make text bold */
+  }
 
+  /* Increase text size and bold for dropdown items within #navbarSupportedContent */
+  #navbarSupportedContent .dropdown-menu .dropdown-item {
+    font-size: 1.1em; /* Increase text size */
+    font-weight: bold; /* Make text bold */
+  }
+
+  /* Increase text size and bold for the search button within #navbarSupportedContent */
+  #navbarSupportedContent .btn-warning {
+    font-size: 1.1em; /* Increase text size */
+    font-weight: bold; /* Make text bold */
+  }
+  /* Smooth hover effect for navbar links */
+      .navbar-nav .nav-link:hover,
+      .dropdown-menu .dropdown-item:hover {
+        color: blue !important;       /* Change text color */
+        font-size: 1.1em;                   /* Slightly increase font size */
+        transform: scale(1.05);             /* Scale up link */
+        transition: color 0.3s ease, font-size 0.3s ease, transform 0.3s ease; /* Smooth transition */
+      }
+
+      /* Adjust font sizes and paddings for smaller screens */
+      @media (max-width: 768px) {
+        .navbar-brand img {
+          width: 35px;
+          height: 35px;
+        }
+      
+        .navbar-nav .nav-link {
+          font-size: 0.9em; /* Smaller text on mobile */
+        }
+
+  
+/* For larger screens */
+@media (min-width: 992px) {
+  .navbar-nav .nav-link {
+    font-size: 1.2em; /* Larger text on desktop */
+  }
+  .navbar-nav .nav-link {
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: blue !important;
+    transform: scale(1.05);
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+</style>
   </style>
 </head>
 <body>
+  
+
     <nav class="navbar">
         <!-- existing navbar code -->
         <ul class="menu-items">
@@ -487,99 +543,162 @@ h3 {
   <!-- Call Now Section -->
   <div class="container text-center my-4 call-now-card">
     <h2>Need Help?</h2>
-    <p>Call us at: <strong>+91-6268944329 / +91-6264534556</strong></p>
+    <p>Call us at: <strong>+91-6268944329 </strong></p>
     <a href="tel:+6268944329" class="btn btn-success">Call Now</a>
   </div>
   
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-<footer class="container-fluid bg-dark text-white p-5">
-    <div class="row" id="about">
-      <!-- About Section -->
-      <div class="col-md-3">
-        <h5>ABOUT</h5>
-        <ul class="list-unstyled">
-          <li><a href="{% url 'contact' %}" class="text-white">Contact Us</a></li>
-          <li><a href="{% url 'about' %}" class="text-white">About Us</a></li>
-          <li><a href="#" class="text-white">Careers</a></li>
-          <li><a href="#" class="text-white">Sandipani Stories</a></li>
-          <li><a href="#" class="text-white">Press</a></li>
-          <li><a href="#" class="text-white">Corporate Information</a></li>
-        </ul>
-      </div>
-  
-      <!-- Group Companies Section -->
-      <div class="col-md-3">
-        <h5>GROUP COMPANIES</h5>
-        <ul class="list-unstyled">
-          <li><a href="#" class="text-white">Sandipani</a></li>
-          <li><a href="#" class="text-white">Sampurnanand</a></li>
-          <li><a href="#" class="text-white">Sanskrit</a></li>
-        </ul>
-      </div>
-  
-      <!-- Help Section -->
-      <div class="col-md-3">
-        <h5>HELP</h5>
-        <ul class="list-unstyled">
-          <li><a href="https://wa.me/+916268944329" class="text-white" target="_blank">Whatsapp With Us</a></li>
-          <li><a href="#" class="text-white">Shipping</a></li>
-          <li><a href="#" class="text-white">Cancellation & Returns</a></li>
-          <li><a href="#" class="text-white">FAQ</a></li>
-          <li><a href="#" class="text-white">Report Infringement</a></li>
-        </ul>
-      </div>
-  
-      <!-- Consumer Policy Section -->
-      <div class="col-md-3">
-        <h5>CONSUMER POLICY</h5>
-        <ul class="list-unstyled">
-          <li><a href="#" class="text-white">Cancellation & Returns</a></li>
-          <li><a href="#" class="text-white">Terms of Use</a></li>
-          <li><a href="#" class="text-white">Security</a></li>
-          <li><a href="#" class="text-white">Privacy</a></li>
-          <li><a href="#" class="text-white">Grievance Redressal</a></li>
-        </ul>
-      </div>
-    </div>
-  
-    <hr class="bg-light">
-  
-    <!-- Contact and Social Media -->
-    <div class="row">
-      <div class="col-md-6 text-md-left">
-        <p class="mb-0">
-          Registered Office Address:<br>
-          EWS-190 Dhacha Bhavan Bhilai DURG,<br>
-          EWS-190 Dhacha Bhavan Bhilai Durg Chhattisgarh,<br>
-          {% comment %} Outer Ring Road, Devarabeesanahalli Village,<br> {% endcomment %}
-          Chhattisgarh, 490024, Chhattisgarh, India.
-        </p>
-        <p>CIN: U51109KA2012PTC066107</p>
-        <p>Email: <a href="mailto:auricmart@gmail.com">auricmart@gmail.com</a></p>
-        <p>Telephone: <a href="tel:+916268944329">+91-6268944329</a> / <a href="tel:+916264534556">+91-6264534556</a></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuricMart</title>
+  <!-- Link to Bootstrap CSS (or your CSS file) -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for icons (optional) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Your custom styles -->
+  <style>
+    /* Custom styles for footer */
+    .footer-section {
+      background-color: #343a40;
+      color: #f8f9fa;
+      padding: 20px;
+    }
 
-      </div>
+    .footer-section a {
+      color: #f8f9fa;
+      text-decoration: none;
+    }
+
+    .footer-section a:hover {
+      color: #ef2424;
+    }
+    
+    .footer-bottom {
+      background-color: #23272b;
+      color: #f8f9fa;
+      padding: 10px;
+    }
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+      background-color: red;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #fff !important;
+    }
+
+    .header {
+      background-image: url('your-image.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    .header-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+    }
+
+    .header-overlay h1 {
+      font-size: 3em;
+    }
+
+    .service-card {
+      margin-bottom: 20px;
+    }
+
+    .footer {
+      background-color: #f8f9fa;
+      padding: 20px 0;
+    }
+
+    .footer .social-icons a {
+      margin: 0 10px;
+      color: #333;
+      font-size: 1.5em;
+    }
+
+    .call-now {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Main Content Here -->
   
-      <!-- Social Media Icons -->
-      <div class="col-md-6 text-md-right">
-        <a href="https://www.instagram.com/auric_mart?igsh=MWcycDU0eG8yODM0OA==" class="text-white mr-2"><i class="fab fa-facebook-f"></i></a>
-        <a href="{% url 'contact' %}" class="text-white mr-2"><i class="fab fa-twitter"></i></a>
-        <a href="https://www.instagram.com/auric_mart?igsh=MWcycDU0eG8yODM0OA==" class="text-white mr-2"><i class="fab fa-instagram"></i></a>
-        <a href="https://youtube.com/@auricmart?si=EUolkNnHFxm8WIoC" class="text-white mr-2"><i class="fab fa-youtube"></i></a>
+
+  <!-- Footer Section -->
+  <footer class="container-fluid bg-dark text-danger p-4">
+    <!-- Call to Action Section -->
+    <div class="row bg-danger text-white p-3 mb-3 rounded">
+      <div class="col-12 text-center">
+        <h4>Shop Now On AuricMart</h4>
+        <p class="mb-0">
+          Let’s collaborate to create something amazing together. Buy products from AuricMart and experience top-notch quality and service.
+        </p>
       </div>
     </div>
-  
-    <!-- Bottom Section with Links -->
-    <div class="row mt-4">
-      <div class="col-md-12 text-center">
-        <a href="#" class="text-white">Become a Seller</a> |
-        <a href="#" class="text-white">Advertise</a> |
-        <a href="#" class="text-white">Gift Cards</a> |
-        <a href="#" class="text-white">Help Center</a>
+
+    <!-- Social, About, and Contact Us Section -->
+    <div class="row text-white">
+      <!-- Social Section -->
+      <div class="col-md-4 col-sm-12 text-center mb-3">
+        <h5 class="font-weight-bold text-danger">Social</h5>
+        <p>Let’s stay connected!</p>
+        <div>
+          <a href="https://www.facebook.com/share/p/1YJR7wNFCU/" class="text-danger mr-2" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-danger mr-2" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/auric_mart?igsh=MWcycDU0eG8yODM0OA==" class="text-danger mr-2" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.instagram.com/auric_mart?igsh=MWcycDU0eG8yODM0OA==" class="text-danger mr-2" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <!-- About Section -->
+      <div class="col-md-4 col-sm-12 text-center mb-3">
+        <h6 class="font-weight-bold">ABOUT</h6>
+        <ul class="list-unstyled small">
+          <li><a href="{% url 'contact' %}" class="text-danger font-weight-bold">Contact Us</a></li>
+          <li><a href="{% url 'about' %}" class="text-danger font-weight-bold">About Us</a></li>
+          <li><a href="{% url 'terms' %}" class="text-danger font-weight-bold">Terms</a></li>
+          <li><a href="{% url 'privacy' %}" class="text-danger font-weight-bold">Privacy</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Us Section -->
+      <div class="col-md-4 col-sm-12 text-center mb-3">
+        <h5 class="font-weight-bold text-danger">Contact Us</h5>
+        <p class="mb-1">EWS-190 Dhacha Bhavan Bhilai, DURG</p>
+        <p class="mb-1">Chhattisgarh, India, 490024</p>
+        <p class="mb-1">Email: <a href="mailto:auricmart37@gmail.com" class="text-danger font-weight-bold">auricmart37@gmail.com</a></p>
+        <p>Phone: <a href="tel:+916268944329" class="text-danger font-weight-bold">+91-6268944329</a></p>
       </div>
     </div>
-  
+
+    <!-- Footer Bottom Section -->
+    <div class="row text-white mt-3 text-center">
+      <div class="col-12">
+        <p class="mb-0">
+          &copy; 2024 AuricMart | Designed by AuricMart
+        </p>
+      </div>
+    </div>
+
     <!-- Copyright and Payment Methods -->
     <div class="row mt-3">
       <div class="col-md-12 text-center">
@@ -591,41 +710,49 @@ h3 {
     </div>
   </footer>
 
-
-<script src="{% static 'js/menu.js' %}"></script>
-<script>
-  // Function to fetch data from the API and populate fields
-  document.getElementById('pincode').addEventListener('input', function () {
+  <!-- External JS Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Your Custom Script -->
+  <script src="{% static 'js/menu.js' %}"></script>
+  <script>
+    // Function to fetch data from the API and populate fields
+    document.getElementById('pincode').addEventListener('input', function () {
       const pincode = this.value.trim();
 
       // Validate the pincode length
-      if (pincode.length === 6) {
-          fetch(`https://api.postalpincode.in/pincode/${pincode}`)
-              .then(response => response.json())
-              .then(data => {
-                  if (data[0].Status === "Success") {
-                      const stateField = document.getElementById('state');
-                      const cityField = document.getElementById('city');
-                      const postOffice = data[0].PostOffice[0];
+      if (pincode.length === 6 && /^[0-9]+$/.test(pincode)) {
+        fetch(`https://api.postalpincode.in/pincode/${pincode}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data[0].Status === "Success") {
+              const stateField = document.getElementById('state');
+              const cityField = document.getElementById('city');
+              const postOffice = data[0].PostOffice[0];
 
-                      // Populate State and City
-                      stateField.innerHTML = `<option value="${postOffice.State}">${postOffice.State}</option>`;
-                      cityField.value = postOffice.District;
+              // Populate State and City
+              stateField.innerHTML = `<option value="${postOffice.State}">${postOffice.State}</option>`;
+              cityField.value = postOffice.District;
 
-                      // Enable State and City fields for confirmation (if necessary)
-                      stateField.readOnly = false;
-                      cityField.readOnly = false;
-                  } else {
-                      alert("Invalid pincode. Please try again.");
-                  }
-              })
-              .catch(error => {
-                  console.error("Error fetching pincode data:", error);
-                  alert("An error occurred while fetching pincode data. Please try again.");
-              });
+              // Enable State and City fields for confirmation (if necessary)
+              stateField.readOnly = false;
+              cityField.readOnly = false;
+            } else {
+              alert("Invalid pincode. Please try again.");
+            }
+          })
+          .catch(error => {
+            console.error("Error fetching pincode data:", error);
+            alert("An error occurred while fetching pincode data. Please try again.");
+          });
       }
-  });
-</script>
+    });
+  </script>
+</body>
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -84,6 +84,75 @@
     opacity: 0;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
+/* Adjust font sizes and paddings for smaller screens */
+@media (max-width: 768px) {
+  .navbar-brand img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 0.9em; /* Smaller text on mobile */
+  }
+
+  footer h5, footer h6 {
+    font-size: 1rem;
+  }
+}
+
+
+/* For larger screens */
+@media (min-width: 992px) {
+  .navbar-nav .nav-link {
+    font-size: 1.2em; /* Larger text on desktop */
+  }
+
+  footer h5, footer h6 {
+    font-size: 1.2rem;
+  }
+}
+.navbar-nav .nav-link {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link:hover {
+  color: blue !important;
+  transform: scale(1.05);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: blue !important;
+  color: #fff !important;
+}
+
+.btn-warning:hover {
+  background-color: blue !important;
+  color: #fff !important;
+  transform: scale(1.05);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+
+footer .social-icons a {
+  font-size: 1.5rem;
+  margin-right: 10px;
+  color: #fff;
+}
+
+footer .social-icons a:hover {
+  color: #f1c40f;
+}
+
+.lazy {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.lazy-loaded {
+  opacity: 1;
+}
 
 .chat-button-container:hover .tooltip-text {
     visibility: visible;
@@ -97,6 +166,7 @@ custom-blue-bg {
     transform: scale(1.1); /* Slightly enlarge on hover */
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
 
     </style>
     
@@ -223,7 +293,7 @@ custom-blue-bg {
       <!-- Call to Action Section -->
       <div class="row bg-danger text-white p-3 mb-3 rounded">
         <div class="col-12 text-center">
-          <h4>Shop Now On Auricart</h4>
+          <h4>Shop Now On AuricMart</h4>
           <p class="mb-0">
              Let’s collaborate to create something amazing together. Buy products from AuricMart and experience top-notch quality and service.
           </p>
@@ -237,10 +307,10 @@ custom-blue-bg {
           <h5 class="font-weight-bold text-danger">Social</h5>
           <p>Let’s stay connected!</p>
           <div>
-            <a href="#" class="text-danger mr-2"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.facebook.com/share/p/1YJR7wNFCU/" class="text-danger mr-2"><i class="fab fa-facebook-f"></i></a>
             <a href="#" class="text-danger mr-2"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="text-danger mr-2"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="text-danger mr-2"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/auric_mart?igsh=MWcycDU0eG8yODM0OA==" class="text-danger mr-2"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/auric_mart?igsh=MWcycDU0eG8yODM0OA==" class="text-danger mr-2"><i class="fab fa-youtube"></i></a>
           </div>
         </div>
     
@@ -250,10 +320,9 @@ custom-blue-bg {
           <ul class="list-unstyled small">
             <li><a href="{% url 'contact' %}" class="text-danger font-weight-bold">Contact Us</a></li>
             <li><a href="{% url 'about' %}" class="text-danger font-weight-bold">About Us</a></li>
-            <li><a href="#" class="text-danger font-weight-bold">Careers</a></li>
-            <li><a href="#" class="text-danger font-weight-bold">Sandipani Stories</a></li>
-            <li><a href="#" class="text-danger font-weight-bold">Press</a></li>
-            <li><a href="#" class="text-danger font-weight-bold">Corporate Information</a></li>
+            <li><a href="{% url 'terms' %}" class="text-danger font-weight-bold">Terms</a></li>
+            <li><a href="{% url 'privacy' %}" class="text-danger font-weight-bold">Privacy</a></li>
+           
           </ul>
         </div>
     
@@ -262,7 +331,7 @@ custom-blue-bg {
           <h5 class="font-weight-bold text-danger">Contact Us</h5>
           <p class="mb-1">EWS-190 Dhacha Bhavan Bhilai, DURG</p>
           <p class="mb-1">Chhattisgarh, India, 490024</p>
-          <p class="mb-1">Email: <a href="mailto:auricmart37@gmail.com" class="text-danger font-weight-bold">auricmart@gmail.com</a></p>
+          <p class="mb-1">Email: <a href="mailto:auricmart37@gmail.com" class="text-danger font-weight-bold">auricmart37@gmail.com</a></p>
           <p>Phone: <a href="tel:+916268944329" class="text-danger font-weight-bold">+91-6268944329</a></p>
         </div>
       </div>
@@ -287,3 +356,4 @@ custom-blue-bg {
     <script src="{% static 'app/js/myscript.js' %}"></script>
   </body>
 </html>
+

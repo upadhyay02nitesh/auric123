@@ -164,10 +164,10 @@ h2, .card-title {
 <!-- Live Sale Section (Moved to the Bottom) -->
 
 <style>
-  /* Hover Effect */
+ /* Hover Effect */
   .bg-danger:hover {
     background-color: #c62828 !important; /* Darker shade on hover */
-  }
+  } 
 
   /* Responsive Styles */
   @media (max-width: 768px) {
@@ -180,7 +180,205 @@ h2, .card-title {
     .row small {
       font-size: 0.8em;
     }
+  } 
+
+  .sale-title {
+    color: white; /* To ensure the text remains readable */
+    background-color: red;
+    padding: 10px; /* Optional: Add padding for better spacing */
   }
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .carousel-item img {
+    max-height: 400px;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .carousel-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    text-align: center;
+    width: 80%; /* Ensures the content is centered and fits on smaller screens */
+  }
+
+  .btn {
+    border-radius: 50px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1rem; /* Adjusted for better readability on small screens */
+  }
+
+  /* Horizontal Scrolling Section */
+  .d-flex.overflow-auto {
+    overflow-x: auto;
+    gap: 10px;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+    padding: 10px; /* Add some padding to the scrolling container */
+  }
+
+  .d-flex.overflow-auto::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .d-flex.overflow-auto::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 10px;
+  }
+
+  .d-flex.overflow-auto::-webkit-scrollbar-track {
+    background: #2c2c2c;
+  }
+
+  .card {
+    flex: 0 0 auto; /* Prevent cards from shrinking */
+    width: 200px; /* Fixed width for consistent layout */
+    border-radius: 12px;
+  }
+
+  .card img {
+    border-radius: 12px 12px 0 0;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .card-title {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .text-muted {
+    font-size: 0.8rem;
+  }
+
+  /* Sale Theme Section */
+  .sale-theme {
+    color: white;
+    background-color: red;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Chat Button */
+  .chat-button-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+
+  .chat-button-container button {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    transition: all 0.3s ease;
+  }
+
+  .chat-button-container .tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .chat-button-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .carousel-caption {
+      width: 90%; /* Adjust for smaller screens */
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      font-size: 0.8rem;
+      padding: 8px 16px;
+    }
+
+    .sale-theme {
+      font-size: 1rem;
+      padding: 15px;
+    }
+
+    .card {
+      width: 150px; /* Smaller card width on mobile */
+    }
+
+    .card img {
+      height: 200px; /* Adjust image height for small screens */
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+    }
+
+    .text-muted {
+      font-size: 0.7rem;
+    }
+
+    .chat-button-container button {
+      width: 50px;
+      height: 50px;
+      font-size: 18px;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .carousel-caption {
+      font-size: 1.2rem;
+    }
+
+    .btn {
+      font-size: 1rem;
+      padding: 10px 20px;
+    }
+
+    .sale-theme {
+      font-size: 1.5rem;
+      padding: 20px;
+    }
+  }
+  
+  .sale-description {
+    color: white; /* To ensure the text remains readable */
+    background-color: red;
+    padding: 5px; /* Optional: Add padding for better spacing */
+  }
+  .sale-theme {
+    color: white; /* Text color */
+    background-color: red; /* Background color */
+    padding: 10px; /* Optional: Adds spacing inside the element */
+    display: inline-block; /* Ensures proper spacing for inline elements */
+    text-align: center; /* Centers the text */
+  }
+  .sale-theme {
+    color: white; /* Text color */
+    background-color: red; /* Background color */
+    padding: 20px; /* Spacing around the text */
+    text-align: center; /* Center the text */
+    font-size: 24px; /* Larger font size */
+    font-family: Arial, sans-serif; /* Font style */
+    height: 10vh; /* Adjusted height */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Flexbox for centering */
+    flex-direction: column; /* Arrange text vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+}
+
+  
+  
 </style>
 
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -233,18 +431,22 @@ h2, .card-title {
   <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
-  </a>
+  </a>  
 </div>
 
 {% endblock banner_slider %}
 <!-- Live Sale Section with Scrolling Effect -->
 {% block livesale %} 
 <div class="container-fluid">
-  <div class="row bg-danger text-center p-3 text-white border-top shadow sale-marquee">
-    <h1 class="sale-title">SALE IS LIVE NOW</h1>
-    <span class="sale-description">5% Instant Discount on Axis Bank Credit and Debit Card</span>
-    <small class="fw-lighter">Terms and Conditions Apply (For details, visit the Bank's official website)</small>
-  </div>
+  {% comment %} <div class="row bg-danger text-center p-3 text-white border-top shadow sale-marquee"> {% endcomment %}
+    <h1 class="sale-theme">SALE IS LIVE NOW
+      Get up to 50% off when you shop for ₹1000 or more. Don't miss out—grab your favorites today!
+    </h1>
+{% comment %} <span class="sale-theme">
+  Get up to 50% off when you shop for ₹1000 or more. Don't miss out—grab your favorites today!
+</span> {% endcomment %}
+
+   </div>
 </div>
 {% endblock livesale %}
 
@@ -260,37 +462,32 @@ h2, .card-title {
       <div class="d-flex overflow-auto" style="gap: 10px; scrollbar-width: thin; scroll-behavior: smooth;">
           {% for product in products %}
           <div class="card shadow-sm border-0" 
-     style="min-width: 200px; background-color: #000080; color: #ffffff; border-radius: 12px;">
-    <img src="{{ product.product_image.url }}" 
-         class="card-img-top" 
-         alt="{{ product.title }}" 
-         style="height: 250px; width: 100%; object-fit: cover; border-radius: 12px 12px 0 0;">
+     style="min-width: 200px; background-color: #4d0000; color: weight; border-radius: 12px;">
+    <a href="{% url 'product-detail' product.id %}">
+        <img src="{{ product.product_image.url }}" 
+             class="card-img-top" 
+             alt="{{ product.title }}" 
+             style="height: 250px; width: 100%; object-fit: cover; border-radius: 12px 12px 0 0;">
+    </a>
     <div class="card-body text-center">
-        <h5 class="card-title text-truncate text-light mb-2" 
-            style="font-size: 1.2rem; font-weight: 600;">
-            {{ product.title }}
-        </h5>
-        <p class="text-success fw-bold mb-1" 
-           style="font-size: 1rem;">
-            ₹{{ product.discounted_price }}
-        </p>
-        <p class="text-muted small mb-2" 
-           style="text-decoration: line-through; font-size: 0.8rem;">
-            ₹{{ product.selling_price }}
-        </p>
-       
-
-                  <a href="{% url 'product-detail' product.id %}" class="btn btn-outline-light btn-sm" 
-                     style="font-size: 0.9rem; padding: 6px 16px; border-radius: 20px;">
-                      Shop Now
-                  </a>
-              </div>
-          </div>
+      <h5 class="card-title text-truncate  mb-2" 
+          style="font-size: 1.2rem; font-weight: 600; color: #ef2424;">
+          {{ product.title }}
+      </h5>
+      <p style="font-size: 1rem; color: #ef2424;">
+        <span class="text-success fw-bold">₹{{ product.discounted_price }}</span>
+        <span class="text-muted small" style="text-decoration: line-through; font-size: 0.8rem; color: #ef2424;"> ₹{{ product.selling_price }}</span>
+     </p>
+     
+  </div>
+  
+</div>
           {% endfor %}
       </div>
   </div>
   {% endfor %}
 </div>
+
 
 <a href="{% url 'chatbot' %}" class="chat-button-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; text-decoration: none;">
   <button style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100px; height: 100px; background: linear-gradient(45deg, #6a11cb, #2575fc); color: white; font-size: 32px; font-weight: bold; padding: 15px; border: none; border-radius: 50%; cursor: pointer; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">

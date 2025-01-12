@@ -137,12 +137,12 @@ def add_pandit(request):
                         </table>
                         <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
                         <p>If you have any questions, feel free to contact us:</p>
-                        <p><strong>Email:</strong> auricmart@gmail.com</p>
-                        <p><strong>Telephone:</strong> +91-6268944329 / +91-6264534556</p>
+                        <p><strong>Email:</strong> auricmart37@gmail.com</p>
+                        <p><strong>Telephone:</strong> +91-6268944329</p>
                         <p style="text-align: center; margin-top: 20px;">Thank you for joining <strong>Auric Pandit</strong>!</p>
                     </div>
                 """)
-                from_email = 'niteshupa6@gmail.com'
+                from_email = 'auricmart37@gmail.com'
                 recipient_list = [pandit.email]
 
                 # Send the email
@@ -162,6 +162,14 @@ def add_pandit(request):
 
 def about(request):
  return render(request, 'app/about.html')
+
+
+def terms(request):
+ return render(request, 'app/terms.html')
+
+
+def privacy(request):
+ return render(request, 'app/privacy.html')
 
 @login_required
 def book_schedule(request):
@@ -300,8 +308,8 @@ def contact(request):
             send_mail(
                 admin_email_subject,
                 "",  # Empty plaintext content
-                "niteshupa6@gmail.com",  # Sender email
-                ["niteshupa6@gmail.com"],  # Admin email
+                "auricmart37@gmail.com",  # Sender email
+                ["auricmart37@gmail.com"],  # Admin email
                 fail_silently=False,
                 html_message=admin_email_message  # Include HTML content
             )
@@ -326,7 +334,7 @@ def contact(request):
             send_mail(
                 user_email_subject,
                 "",  # Empty plaintext content
-                "niteshupa6@gmail.com",  # Sender email
+                "auricmart37@gmail.com",  # Sender email
                 [email],  # User's email
                 fail_silently=False,
                 html_message=user_email_message  # Include HTML content
@@ -486,6 +494,16 @@ class CustomerRegistrationView(View):
     def get(self, request):
         form = CustomerRegistrationForm()
         return render(request, 'app/customerregistration.html', {'form': form})
+    
+    # from django.db import IntegrityError
+
+    # try:
+    #     customer = Customer.objects.create(user=user, otp=otp)
+    # except IntegrityError:
+    
+    #     customer = Customer.objects.get(user=user)
+    #     customer.otp = otp
+    #     customer.save()
 
     def post(self, request):
         form = CustomerRegistrationForm(request.POST)
@@ -525,7 +543,7 @@ class CustomerRegistrationView(View):
             </html>
             """
             try:
-                send_mail(subject, '', 'niteshupa6@gmail.com', [email], html_message=html_message)
+                send_mail(subject, '', 'auricmart37@gmail.com', [email], html_message=html_message)
                 messages.success(request, f"An OTP has been sent to {email}. Please verify.")
                 return redirect('verify_otp')  # Redirect to OTP verification page
             except Exception as e:
@@ -555,12 +573,21 @@ class OTPVerificationView(View):
             username = request.session.get('username')
             # Retrieve user using the email from the session
             user = User.objects.get(email=email)
-            
+
             # Now save the user and customer object
             user.is_active = True  # Activate the user
             user.save()
-            
-            Customer.objects.create(user=user, Gmail=email)
+
+            # Try to create the Customer object
+            try:
+                Customer.objects.create(user=user, Gmail=email)
+            except IntegrityError:
+                # If the Customer object already exists, handle it gracefully
+                customer = Customer.objects.get(user=user)
+                customer.Gmail = email  # Update the Gmail field if necessary
+                customer.save()
+
+            # Send welcome email
             subject = f"Congratulations For AuricMart Registration"
             html_message = format_html(f"""
                 <html>
@@ -574,7 +601,7 @@ class OTPVerificationView(View):
                             <tr>
                                 <td bgcolor="#ffffff" style="padding: 20px 30px;">
                                     <p style="font-size: 18px; color: #333333;">
-                                        Thank you Registered on AuricMart, the Best Divine Selling Partner! We’re thrilled to have you with us.
+                                        Thank you for registering on AuricMart, the Best Divine Selling Partner! We’re thrilled to have you with us.
                                     </p>
                                     <p style="font-size: 16px; color: #333333;">
                                         We’re committed to making your experience as enjoyable as possible. If you have any questions, feel free to reach out!
@@ -590,15 +617,14 @@ class OTPVerificationView(View):
                             </tr>
                         </table>
                     </body>
-                    </html>
-                    """,
-                    username=username)
+                </html>
+            """)
+
             try:
-                send_mail(subject, '', 'niteshupa6@gmail.com', [email], html_message=html_message)
-                 # Redirect to OTP verification page
+                send_mail(subject, '', 'auricmart37@gmail.com', [email], html_message=html_message)
             except Exception as e:
                 print(f"Email sending failed: {e}")
-                messages.error(request, "Unable to send OTP email. Please contact support.")
+                messages.error(request, "Unable to send the welcome email. Please contact support.")
 
             messages.success(request, "OTP verified successfully. Your account is now active.")
             return redirect('login')  # Redirect to login page after successful OTP verification
@@ -606,7 +632,6 @@ class OTPVerificationView(View):
         else:
             messages.error(request, "Invalid OTP. Please try again.")
             return render(request, 'app/otp_verification.html')
-
 
 class CustomerLoginView(View):
     def get(self, request):
@@ -669,7 +694,7 @@ class CustomerLoginView(View):
                     username=username
                 )
 
-                send_mail(subject, '', 'niteshupa6@gmail.com', [email], html_message=html_message)
+                send_mail(subject, '', 'auricmart37@gmail.com', [email], html_message=html_message)
 
                 # Check if the user belongs to the "Admin" group
                 if user.groups.filter(name="Admin").exists():
@@ -832,7 +857,7 @@ class CustomerPasswordResetView(View):
             send_mail(
                 subject="Your OTP for Password Reset",
                 message=f"Your OTP for resetting your password is: {otp}",
-                from_email="niteshupa6@gmail.com",  # Replace with your email
+                from_email="auricmart37@gmail.com",  # Replace with your email
                 recipient_list=[username],
                 fail_silently=False,
             )
