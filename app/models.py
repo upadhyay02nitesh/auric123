@@ -55,12 +55,24 @@ class Product(models.Model):
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2, null=True)
     FAQ = models.TextField(null=True)
     Product_Analysis = models.URLField(null=True)
-    product_image = models.ImageField(upload_to='product_images', null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return self.title
+
+    def get_images(self):
+        return self.images.all()  # Fetch all associated images
+
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='product_images')
+
+    def __str__(self):
+        return f"Image for {self.product.title}"  # Use the related Product title
+
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)

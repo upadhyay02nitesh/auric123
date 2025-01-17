@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Home{% endblock title %}
 
-
+   
 <style>
   /* Sale Marquee Styles */
 .sale-marquee {
@@ -53,15 +53,19 @@
 
 
 </style>
-  
+
+
+<!-- End Banner Slider -->
+     
 
 {% block livesale %}
 <!-- Live Sale Section with Scrolling Effect -->
 <div class="container-fluid">
   <div class="row bg-danger text-center p-4 text-white border-top shadow sale-marquee">
     <h1 class="sale-title">SALE IS LIVE NOW</h1>
-    <span class="sale-description">5% Instant Discount on Axis Bank Credit and Debit Card</span>
-    <small class="fw-lighter">Terms and Conditions Apply (For details, visit the Bank's official website)</small>
+    <p style="font-size: 1.2rem; margin: 0;">
+      Get up to 50% off when you shop for ₹1000 or more. Don't miss out—grab your favorites today!
+  </p>
   </div>
 </div>
 {% endblock livesale %}
@@ -116,10 +120,11 @@
 
 <div class="mx-3">
   <div class="owl-carousel" id="slider2">
-    {% for tp in Havan_Samagri %}
+    {% for tp in jadi %}
     <a href="{% url 'product-detail' tp.id %}" class="btn">
       <div class="item text-center">
-        <img src="{{ tp.product_image.url }}" alt="{{ tp.title }}" style="height: 200px; object-fit: cover;">
+        <img src="{{ tp.images.all.0.image.url }}" class="card-img-top" alt="{{ product.title }}"
+                           style="height: 250px; width: 100%; object-fit: cover; border-radius: 12px 12px 0 0;">
         <div class="mt-2">
           <span class="fw-bold">{{ tp.title }}</span><br>
           <span style="font-weight: bold; text-decoration: line-through;">{{ tp.selling_price }}</span>

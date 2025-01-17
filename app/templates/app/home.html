@@ -43,185 +43,11 @@
     border-radius: 50px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
-.d-flex.overflow-auto {
-    overflow-x: auto; /* Enable horizontal scrolling */
-    scrollbar-width: thin; /* Adjust scrollbar width for better aesthetics */
-    scrollbar-color: #666 #2c2c2c; /* Dark scrollbar for dark mode */
-}
 
-.d-flex.overflow-auto::-webkit-scrollbar {
-    height: 8px; /* Set scrollbar height */
-}
-
-.d-flex.overflow-auto::-webkit-scrollbar-thumb {
-    background: #666; /* Darker thumb */
-    border-radius: 10px; /* Rounded scrollbar */
-}
-
-.d-flex.overflow-auto::-webkit-scrollbar-track {
-    background: #2c2c2c; /* Match the dark mode background */
-}
-
-h2, .card-title {
-    color: #ffffff; /* Ensure headings and titles are light */
-}
-
-.text-muted {
-    color: #b3b3b3 !important; /* Slightly lighter muted text */
-}
-
-.btn-primary {
-    background-color: #0069d9;
-    border-color: #005cbf;
-    color: #ffffff;
-}
-
-.btn-primary:hover {
-    background-color: #005cbf;
-    border-color: #004085;
-}
-.category-button {
-    display: inline-block;
-    background-color:palevioletred; /* Lighter yellow shade */
-    padding: 10px 20px;
-    border-radius: 30px;
-    color: white;
-    font-size: 1.25rem;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    text-align: center;
-}
-
-.category-button:hover {
-    background-color: #FFB300; /* Darker shade on hover */
-    transform: translateY(-3px); /* Slight lift effect */
-}
-
-.category-button:active {
-    transform: translateY(1px); /* Button press effect */
-}
-
-
-</style>
-<style>
-  /* Sale Marquee Styles */
-.sale-marquee {
-  overflow: hidden;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: scroll-left 15s linear infinite;
-}
-
-.sale-title,
-.sale-description,
-.sale-small {
-  padding-right: 50px;
-  font-size: 1.2em;
-}
-
-@keyframes scroll-left {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-@media (max-width: 768px) {
-  .sale-title {
-    font-size: 1.5em;
-  }
-  .sale-description {
-    font-size: 1em;
-  }
-}
-.carousel-caption {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-}
-.btn {
-    border-radius: 50px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-
-
-</style>
-
-
-<!-- End Banner Slider -->
-     
-
-
-
-<!-- Live Sale Section (Moved to the Bottom) -->
-
-<style>
- /* Hover Effect */
-  .bg-danger:hover {
-    background-color: #c62828 !important; /* Darker shade on hover */
-  } 
-
-  /* Responsive Styles */
-  @media (max-width: 768px) {
-    .row h1 {
-      font-size: 1.8em;
-    }
-    .row span {
-      font-size: 1em;
-    }
-    .row small {
-      font-size: 0.8em;
-    }
-  } 
-
-  .sale-title {
-    color: white; /* To ensure the text remains readable */
-    background-color: red;
-    padding: 10px; /* Optional: Add padding for better spacing */
-  }
-  body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  .carousel-item img {
-    max-height: 400px;
-    object-fit: cover;
-    width: 100%;
-  }
-
-  .carousel-caption {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-    text-align: center;
-    width: 80%; /* Ensures the content is centered and fits on smaller screens */
-  }
-
-  .btn {
-    border-radius: 50px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-size: 1rem; /* Adjusted for better readability on small screens */
-  }
-
-  /* Horizontal Scrolling Section */
   .d-flex.overflow-auto {
     overflow-x: auto;
-    gap: 10px;
     scrollbar-width: thin;
-    scroll-behavior: smooth;
-    padding: 10px; /* Add some padding to the scrolling container */
+    scrollbar-color: #666 #2c2c2c;
   }
 
   .d-flex.overflow-auto::-webkit-scrollbar {
@@ -237,149 +63,50 @@ h2, .card-title {
     background: #2c2c2c;
   }
 
-  .card {
-    flex: 0 0 auto; /* Prevent cards from shrinking */
-    width: 200px; /* Fixed width for consistent layout */
-    border-radius: 12px;
-  }
-
-  .card img {
-    border-radius: 12px 12px 0 0;
-    height: 250px;
-    object-fit: cover;
-  }
-
-  .card-title {
-    font-size: 1rem;
-    font-weight: bold;
+  h2, .card-title {
+    color: #ffffff;
   }
 
   .text-muted {
-    font-size: 0.8rem;
+    color: #b3b3b3 !important;
   }
 
-  /* Sale Theme Section */
-  .sale-theme {
+  .btn-primary {
+    background-color: #0069d9;
+    border-color: #005cbf;
+    color: #ffffff;
+  }
+
+  .btn-primary:hover {
+    background-color: #005cbf;
+    border-color: #004085;
+  }
+
+  .category-button {
+    display: inline-block;
+    background-color: palevioletred;
+    padding: 10px 20px;
+    border-radius: 30px;
     color: white;
-    background-color: red;
-    padding: 20px;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     text-align: center;
-    font-size: 1.5rem;
-    font-family: Arial, sans-serif;
   }
 
-  /* Chat Button */
-  .chat-button-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
+  .category-button:hover {
+    background-color: #FFB300;
+    transform: translateY(-3px);
   }
 
-  .chat-button-container button {
-    width: 60px;
-    height: 60px;
-    font-size: 24px;
-    transition: all 0.3s ease;
+  .category-button:active {
+    transform: translateY(1px);
   }
 
-  .chat-button-container .tooltip-text {
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .chat-button-container:hover .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-  }
-
-  /* Responsive Adjustments */
-  @media (max-width: 768px) {
-    .carousel-caption {
-      width: 90%; /* Adjust for smaller screens */
-      font-size: 0.9rem;
-    }
-
-    .btn {
-      font-size: 0.8rem;
-      padding: 8px 16px;
-    }
-
-    .sale-theme {
-      font-size: 1rem;
-      padding: 15px;
-    }
-
-    .card {
-      width: 150px; /* Smaller card width on mobile */
-    }
-
-    .card img {
-      height: 200px; /* Adjust image height for small screens */
-    }
-
-    .card-title {
-      font-size: 0.9rem;
-    }
-
-    .text-muted {
-      font-size: 0.7rem;
-    }
-
-    .chat-button-container button {
-      width: 50px;
-      height: 50px;
-      font-size: 18px;
-    }
-  }
-
-  @media (min-width: 769px) {
-    .carousel-caption {
-      font-size: 1.2rem;
-    }
-
-    .btn {
-      font-size: 1rem;
-      padding: 10px 20px;
-    }
-
-    .sale-theme {
-      font-size: 1.5rem;
-      padding: 20px;
-    }
-  }
-  
-  .sale-description {
-    color: white; /* To ensure the text remains readable */
-    background-color: red;
-    padding: 5px; /* Optional: Add padding for better spacing */
-  }
-  .sale-theme {
-    color: white; /* Text color */
-    background-color: red; /* Background color */
-    padding: 10px; /* Optional: Adds spacing inside the element */
-    display: inline-block; /* Ensures proper spacing for inline elements */
-    text-align: center; /* Centers the text */
-  }
-  .sale-theme {
-    color: white; /* Text color */
-    background-color: red; /* Background color */
-    padding: 20px; /* Spacing around the text */
-    text-align: center; /* Center the text */
-    font-size: 24px; /* Larger font size */
-    font-family: Arial, sans-serif; /* Font style */
-    height: 10vh; /* Adjusted height */
-    margin: 0; /* Remove default margin */
-    display: flex; /* Flexbox for centering */
-    flex-direction: column; /* Arrange text vertically */
-    justify-content: center; /* Center content vertically */
-    align-items: center; /* Center content horizontally */
-}
-
-  
-  
 </style>
+
+<!-- Banner Slider -->
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner position-relative">
       <div class="carousel-item active">
@@ -432,101 +159,348 @@ h2, .card-title {
       <span class="visually-hidden">Next</span>
   </a>  
 </div>
-
 {% endblock banner_slider %}
-<!-- Live Sale Section with Scrolling Effect -->
-{% block livesale %} 
-<div 
-style="display: flex; justify-content: center; align-items: center; height: 40vh;width: auto; background-color: #f9f9f9;">
-<div 
-    style="background-color: #dc3545; color: white; text-align: center; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); max-width: 600px; margin: auto;">
-    <h1 
-        style="font-size: 1.8rem; margin-bottom: 1rem;">SALE IS LIVE NOW!</h1>
-    <p 
-        style="font-size: 1.2rem; margin: 0;">
-        Get up to 50% off when you shop for ₹1000 or more. Don't miss out—grab your favorites today!
+
+<!-- Live Sale Section -->
+{% block livesale %}
+<div style="display: flex; justify-content: center; align-items: center; height: 40vh;width: auto; background-color: #f9f9f9;">
+  <div style="background-color: #dc3545; color: white; text-align: center; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); max-width: 600px; margin: auto;">
+    <h1 style="font-size: 1.8rem; margin-bottom: 1rem;">SALE IS LIVE NOW!</h1>
+    <p style="font-size: 1.2rem; margin: 0;">
+        Get up to 50% off when you shop for ₹1000 or more.
     </p>
-</div>
+  </div>
 </div>
 {% endblock livesale %}
 
 {% block main-content %}
+<div id="square-banner-card" class="card mx-auto mb-4" style="width: 500px; height: 300px; background-color: #f9c746; border-radius: 12px; position: relative; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+  <div class="card-body d-flex flex-column justify-content-between align-items-center text-center" style="height: 100%;">
+      <!-- Image Section -->
+      <div>
+          <img src="{% static 'app/images/banner/four.jpg' %}" alt="Pandit Image" class="img-fluid rounded-3" style="max-width: 100%; height: auto; object-fit: cover; margin-bottom: 15px;">
+      </div>
+      <!-- Book Pandit Link -->
+      <div>
+          <a href="{% url 'pandit' %}" class="btn btn-link text-dark fw-bold" style="font-size: 1.5rem;">
+              Book your Pandit Ji
+          </a>
+      </div>
+      <!-- Close Button -->
+      <button type="button" class="btn-close position-absolute top-0 end-0 m-2" aria-label="Close" onclick="closeSquareBannerCard()"></button>
+  </div>
+</div>
 <div class="container my-5">
-  <!-- Display Category Name with Bold Heading -->
   {% for category_name, products in category_data.items %}
   <div class="mb-5">
       <h2 class="fw-bold text-light category-button mb-4 text-uppercase" style="font-size: 1.5rem;">
           {{ category_name }}
       </h2>
-      <!-- Horizontal Scrolling Product Cards -->
-      <div class="d-flex overflow-auto" style="gap: 10px; scrollbar-width: thin; scroll-behavior: smooth;">
+      <div class="d-flex overflow-auto" style="gap: 15px; scrollbar-width: thin; scroll-behavior: smooth;">
           {% for product in products %}
-          <div class="card shadow-sm border-0" 
-     style="min-width: 200px; background-color: #4d0000; color: weight; border-radius: 12px;">
-    <a href="{% url 'product-detail' product.id %}">
-        <img src="{{ product.product_image.url }}" 
-             class="card-img-top" 
-             alt="{{ product.title }}" 
-             style="height: 250px; width: 100%; object-fit: cover; border-radius: 12px 12px 0 0;">
-    </a>
-    <div class="card-body text-center">
-      <h5 class="card-title text-truncate  mb-2" 
-          style="font-size: 1.2rem; font-weight: 600; color: #ef2424;">
-          {{ product.title }}
-      </h5>
-      <p style="font-size: 1rem; color: #ef2424;">
-        <span class="text-success fw-bold">₹{{ product.discounted_price }}</span>
-        <span class="text-muted small" style="text-decoration: line-through; font-size: 0.8rem; color: #ef2424;"> ₹{{ product.selling_price }}</span>
-     </p>
-     
-  </div>
-  
-</div>
+          <div class="card shadow-lg border-0" style="min-width: 240px; background-color: #fff; border-radius: 12px; transition: transform 0.3s ease;">
+               <!-- Display only the first image of each product -->
+              {% if product.images.all %}
+                  <a href="{% url 'product-detail' product.id %}">
+                      <img src="{{ product.images.all.0.image.url }}" class="card-img-top" alt="{{ product.title }}"
+                           style="height: 250px; width: 100%; object-fit: cover; border-radius: 12px 12px 0 0;">
+                  </a>
+              {% endif %}
+              <!-- Product Info -->
+              <div class="card-body text-center">
+                  <h5 class="card-title text-truncate mb-2" style="font-size: 1.2rem; font-weight: 600; color: #333;">
+                      {{ product.title }}
+                  </h5>
+                  <p class="mb-2" style="font-size: 1rem; color: #ef2424;">
+                      <span class="text-success fw-bold">₹{{ product.discounted_price }}</span>
+                      <span class="text-muted small" style="text-decoration: line-through; font-size: 0.8rem;"> ₹{{ product.selling_price }}</span>
+                  </p>
+                  <!-- Hover Effect: Show Button on Hover -->
+                  <div class="d-flex justify-content-center">
+                    <a href="{% url 'product-detail' product.id %}">
+                        <button class="btn btn-primary px-4 py-2">View Details</button>
+                    </a>
+                  </div>
+                  
+              </div>
+          </div>
           {% endfor %}
       </div>
   </div>
   {% endfor %}
 </div>
+<h2 class="fw-bold text-light category-button mb-4 text-uppercase" style="font-size: 2.5rem; color: orangered;" >
+              Media Galary
+</h2>
+<div class="container mt-5">
+  <div class="row">
+      <!-- Example Image 1 -->
+      <div class="col-md-4 mb-4">
+          <img src="{% static 'app/images/banner/four.jpg' %}" class="img-fluid rounded-3" alt="Image 1" data-bs-toggle="modal" data-bs-target="#imageModal" >
+      </div>
+      <!-- Example Image 2 -->
+      <div class="col-md-4 mb-4">
+          <img src="{% static 'app/images/banner/four.jpg' %}"class="img-fluid rounded-3" alt="Image 2" data-bs-toggle="modal" data-bs-target="#imageModal" >
+      </div>
+      <!-- Example Image 3 -->
+      <div class="col-md-4 mb-4">
+          <img src="{% static 'app/images/banner/four.jpg' %}" class="img-fluid rounded-3" alt="Image 3" data-bs-toggle="modal" data-bs-target="#imageModal" >
+      </div>
+      <div class="col-md-4 mb-4">
+          <img src="{% static 'app/images/banner/three.jpg' %}" class="img-fluid rounded-3" alt="Image 3" data-bs-toggle="modal" data-bs-target="#imageModal" >
+      </div>
+      <div class="col-md-4 mb-4">
+          <img src="{% static 'app/images/banner/three.jpg' %}" class="img-fluid rounded-3" alt="Image 3" data-bs-toggle="modal" data-bs-target="#imageModal" >
+      </div>
+      <div class="col-md-4 mb-4">
+          <img src="{% static 'app/images/banner/three.jpg' %}" class="img-fluid rounded-3" alt="Image 3" data-bs-toggle="modal" data-bs-target="#imageModal" >
+      </div>
+  </div>
+</div>
+
+<!-- Modal to display the clicked image -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-body">
+              <img id="modal-image" class="img-fluid w-100" alt="Image in Modal">
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="container my-5">
+  <h2 class="text-center mb-4" style="font-weight: bold; color: #4A90E2;">What Our Customers Say</h2>
+  <div class="row justify-content-center">
+    <!-- Testimonial: Ashwani -->
+    <div class="col-md-4 mb-3">
+      <div class="card text-center shadow-sm" style="background-color: #FFEB3B; border-radius: 12px;">
+        <div class="card-body">
+          <p class="card-text" style="font-size: 1.1rem; color: #212121;">"The service was exceptional! I will definitely recommend it to others."</p>
+          <h5 class="card-title" style="font-weight: bold; color: #F57C00;">- Ashwani</h5>
+        </div>
+      </div>
+    </div>
+    <!-- Testimonial: Nitesh -->
+    <div class="col-md-4 mb-3">
+      <div class="card text-center shadow-sm" style="background-color: #4CAF50; border-radius: 12px;">
+        <div class="card-body">
+          <p class="card-text" style="font-size: 1.1rem; color: #FFFFFF;">"A seamless and user-friendly experience. Truly impressed!"</p>
+          <h5 class="card-title" style="font-weight: bold; color: #FFC107;">- Nitesh</h5>
+        </div>
+      </div>
+    </div>
+    <!-- Testimonial: Harsh -->
+    <div class="col-md-4 mb-3">
+      <div class="card text-center shadow-sm" style="background-color: #2196F3; border-radius: 12px;">
+        <div class="card-body">
+          <p class="card-text" style="font-size: 1.1rem; color: #FFFFFF;">"Great quality and timely delivery. Exceeded my expectations!"</p>
+          <h5 class="card-title" style="font-weight: bold; color: #FFEB3B;">- Harsh</h5>
+        </div>
+      </div>
+    </div>
+    <!-- Testimonial: Pawan -->
+    <div class="col-md-4 mb-3">
+      <div class="card text-center shadow-sm" style="background-color: #FF5722; border-radius: 12px;">
+        <div class="card-body">
+          <p class="card-text" style="font-size: 1.1rem; color: #FFFFFF;">"Affordable pricing with premium features. Completely worth it."</p>
+          <h5 class="card-title" style="font-weight: bold; color: #FFC107;">- Pawan</h5>
+        </div>
+      </div>
+    </div>
+    <!-- Testimonial: Anupam -->
+    <div class="col-md-4 mb-3">
+      <div class="card text-center shadow-sm" style="background-color: #9C27B0; border-radius: 12px;">
+        <div class="card-body">
+          <p class="card-text" style="font-size: 1.1rem; color: #FFFFFF;">"Customer support was very responsive and helpful throughout."</p>
+          <h5 class="card-title" style="font-weight: bold; color: #FFEB3B;">- Anupam</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card text-center shadow-sm" style="background-color:aqua; border-radius: 12px;">
+        <div class="card-body">
+          <p class="card-text" style="font-size: 1.1rem; color: #FFFFFF;">"Affordable pricing with premium features. Completely worth it."</p>
+          <h5 class="card-title" style="font-weight: bold; color: #FFEB3B;">- Ayush</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="card shadow-lg border-0">
+      <div class="row g-0">
+          <!-- Image Section -->
+          <div class="col-md-4">
+              <img src="{% static 'app/images/banner/auriclogo.jpg' %}" class="img-fluid rounded-start" alt="Pandit Booking">
+          </div>
+          <!-- Text Section -->
+          <div class="col-md-8 d-flex align-items-center">
+              <div class="card-body">
+                  <h2 class="card-title text-uppercase fw-bold" style="color: #ef2424;">We Are AuricMart & AuricPandit </h2>
+                  
+                  <p class="card-text" style="font-size: 1.2rem; color: #555;">
+                    Welcome to our website!  We are  AuricMart – your go-to destination for pooja samgri, rudraksh, jadi mala, pandit ji booking, and many other spiritual items. 
+                      Explore our wide range of products and services, designed to meet all your spiritual needs.
+                  </p>
+                  <p class="card-text" style="font-size: 1.2rem; color: #555;">
+                    We are also specialize in booking experienced pandits for all your pooja needs. 
+                    Additionally, we provide authentic and high-quality pooja samagri to make your rituals complete and hassle-free. 
+                    Trust us for a seamless spiritual experience, whether at home or in temples.
+                </p>
+                  <a href="{% url 'blog' %}" class="btn btn-primary mt-3">Read More</a>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
 
 
-<a href="{% url 'chatbot' %}" class="chat-button-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; text-decoration: none;">
-  <button style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100px; height: 100px; background: linear-gradient(45deg, #6a11cb, #2575fc); color: white; font-size: 32px; font-weight: bold; padding: 15px; border: none; border-radius: 50%; cursor: pointer; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
-    💬
-</button>
-  <span class="tooltip-text"
-   style="visibility: hidden; background-color: #333; color: #fff; text-align: center; border-radius: 5px; padding: 10px 12px; position: absolute; bottom: 120px; right: -10px; font-size: 16px; white-space: nowrap; z-index: 1001; opacity: 0; transition: opacity 0.3s ease;">
-      Hey, your AI consultant is here!
-  </span>
-</a>
+<div class="container my-5">
+  <div class="row text-center">
+    <!-- Free Shipping -->
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="d-flex flex-column align-items-center">
+        <i class="fas fa-shipping-fast fa-3x text-primary mb-3"></i>
+        <h5 style="font-weight: bold;">Free Shipping</h5>
+        <p class="text-muted">Free Shipping all over India Over 1000 Rupees Order.</p>
+      </div>
+    </div>
+    <!-- 24/7 Support -->
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="d-flex flex-column align-items-center">
+        <i class="fas fa-headset fa-3x text-success mb-3"></i>
+        <h5 style="font-weight: bold;">24/7 Support</h5>
+        <p class="text-muted">Available 24 x 7</p>
+      </div>
+    </div>
+    <!-- Secure Payments -->
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="d-flex flex-column align-items-center">
+        <i class="fas fa-lock fa-3x text-warning mb-3"></i>
+        <h5 style="font-weight: bold;">100% Secure Payments</h5>
+        <p class="text-muted">COD/UPI/CARDS</p>
+      </div>
+    </div>
+    <!-- Made in India -->
+    <div class="col-md-3 col-sm-6 mb-4">
+      <div class="d-flex flex-column align-items-center">
+        <i class="fas fa-flag fa-3x text-danger mb-3"></i>
+        <h5 style="font-weight: bold;">MADE IN INDIA</h5>
+        <p class="text-muted">Proudly Made in India</p>
+      </div>
+    </div>
+  </div>
+</div><div class="container my-5">
+  <h2 class="text-center mb-4" style="font-weight: bold; color: #4A90E2;">FAQs</h2>
+  <div class="accordion" id="faqAccordion">
+    
+    <!-- Rudraksha Related Questions -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          What is the significance of Rudraksha beads in Hinduism?
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Rudraksha beads hold deep spiritual significance in Hinduism. They are believed to be sacred seeds associated with Lord Shiva, offering spiritual protection, enhancing meditation practices, and promoting overall well-being.
+        </div>
+      </div>
+    </div>
+    
+    <!-- Pandit Ji Booking -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingPanditJi">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePanditJi" aria-expanded="false" aria-controls="collapsePanditJi">
+          How can I book a Pandit Ji for a Pooja?
+        </button>
+      </h2>
+      <div id="collapsePanditJi" class="accordion-collapse collapse" aria-labelledby="headingPanditJi" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          You can easily book a Pandit Ji for any Pooja through our platform. Visit the <a href="{% url 'pandit' %}" class="text-primary">Pandit Ji Booking</a> page, select the type of Pooja, and provide the necessary details to complete the booking.
+        </div>
+      </div>
+    </div>
+    
+    <!-- Idols -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingIdols">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIdols" aria-expanded="false" aria-controls="collapseIdols">
+          Do you provide idols for home or temple worship?
+        </button>
+      </h2>
+      <div id="collapseIdols" class="accordion-collapse collapse" aria-labelledby="headingIdols" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Yes, we offer a wide range of beautifully crafted idols for home and temple worship. Browse our collection on the <a href="{% url 'idols' %}" class="text-primary">Idols</a> page to find the perfect one for your needs.
+        </div>
+      </div>
+    </div>
+    
+    <!-- Havan Samagri -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingHavanSamagri">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHavanSamagri" aria-expanded="false" aria-controls="collapseHavanSamagri">
+          Can I purchase Havan Samagri from your website?
+        </button>
+      </h2>
+      <div id="collapseHavanSamagri" class="accordion-collapse collapse" aria-labelledby="headingHavanSamagri" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Absolutely! We provide premium quality Havan Samagri for all your rituals and ceremonies. Visit the <a href="{% url 'havan' %}" class="text-primary">Havan Samagri</a> section to explore and order online.
+        </div>
+      </div>
+    </div>
+    
+    <!-- Pooja Samagri -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingPoojaSamagri">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePoojaSamagri" aria-expanded="false" aria-controls="collapsePoojaSamagri">
+          What types of Pooja Samagri do you offer?
+        </button>
+      </h2>
+      <div id="collapsePoojaSamagri" class="accordion-collapse collapse" aria-labelledby="headingPoojaSamagri" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          We offer a comprehensive range of Pooja Samagri, including items like incense sticks, diya, ghee, flowers, and more. Explore our <a href="{% url 'idols' %}" class="text-primary">Pooja Samagri</a> collection for all your spiritual needs.
+        </div>
+      </div>
+    </div>
 
-<script>
-  // Add hover functionality for the tooltip
-  document.querySelector('.chat-button-container').addEventListener('mouseover', function() {
-      const tooltip = this.querySelector('.tooltip-text');
-      tooltip.style.visibility = 'visible';
-      tooltip.style.opacity = '17';
-  });
-  document.querySelector('.chat-button-container').addEventListener('mouseout', function() {
-      const tooltip = this.querySelector('.tooltip-text');
-      tooltip.style.visibility = 'hidden';
-      tooltip.style.opacity = '0';
-  });
-</script>
+    <!-- Customer Support -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingSupport">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSupport" aria-expanded="false" aria-controls="collapseSupport">
+          How can I contact your customer support team?
+        </button>
+      </h2>
+      <div id="collapseSupport" class="accordion-collapse collapse" aria-labelledby="headingSupport" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          You can contact our customer support team via email at <a href="mailto:auricmart37@gmail.com">auricmart37@gmail.com</a> or call us at +91-6268944329 .
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 
 {% endblock main-content %}
-
-
-<!-- Initialize Owl Carousel for product sliders -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js"></script>
-
 <script>
-  $(document).ready(function(){
-    $("#carouselExampleControls").carousel({
-      interval: 10,  // auto-slide every 2 seconds
-      wrap: true       // loop back to the first slide when the last slide is reached
-    });
-  });
-</script>
+  function openModal(imagePath) {
+    const modalImage = document.getElementById('modal-image');
+    modalImage.src = imagePath;
+}
 
+  // Ensure this JavaScript is executing correctly
+  function closeSquareBannerCard() {
+      var bannerCard = document.getElementById("square-banner-card");
+      if (bannerCard) {
+          bannerCard.style.display = "none"; // Hide the card
+          console.log("Card hidden"); // Log to verify the function is called
+      } else {
+          console.log("Card not found!"); // Log an error if the element is not found
+      }
+  }
+</script>

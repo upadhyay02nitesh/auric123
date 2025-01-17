@@ -163,6 +163,9 @@ def add_pandit(request):
 def about(request):
  return render(request, 'app/about.html')
 
+def blog(request):
+ return render(request, 'app/blog-details.html')
+
 
 def terms(request):
  return render(request, 'app/terms.html')
@@ -170,6 +173,12 @@ def terms(request):
 
 def privacy(request):
  return render(request, 'app/privacy.html')
+
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib import messages
+import datetime
+import requests
 
 @login_required
 def book_schedule(request):
@@ -218,7 +227,7 @@ def book_schedule(request):
 
         # Create a new booking entry
         try:
-            Booking.objects.create(
+            booking = Booking.objects.create(
                 user=request.user,
                 name=name,
                 category=category,
@@ -230,13 +239,131 @@ def book_schedule(request):
                 city=city,
                 address=address
             )
+            
+            # Send confirmation email to the user (HTML formatted)
+            user_email = request.user.email
+            html_message = f"""
+            <html>
+            <body>
+                <table style="width: 100%; border-collapse: collapse; padding: 20px;">
+                    <tr>
+                        <td colspan="2" style="text-align: center; font-size: 24px; color: #333; padding-bottom: 10px;">Booking Confirmation</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-size: 18px; color: #555;">Dear {name},</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding: 10px; font-size: 16px; color: #555;">
+                            Your booking has been successfully confirmed! Below are your booking details:
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-size: 16px; color: #555; width: 30%;">Category:</td>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">{category}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">Pandit:</td>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">{pandit}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">Date:</td>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">{booking_date}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">Time:</td>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">{booking_time}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding: 10px; font-size: 16px; color: #555;">
+                            We look forward to assisting you. Thank you for choosing AuricMart.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding: 10px; text-align: center; font-size: 16px; color: #555;">
+                            <a href="mailto:{settings.DEFAULT_FROM_EMAIL}" style="color: #f57c00; text-decoration: none;">Contact Us</a> | <a href="tel:+91-6268944329" style="color: #f57c00; text-decoration: none;">Call Us</a>
+                        </td>
+                    </tr>
+                </table>
+                <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+                        <p>If you have any questions, feel free to contact us:</p>
+                        <p><strong>Email:</strong> auricmart37@gmail.com</p>
+                        <p><strong>Telephone:</strong> +91-6268944329</p>
+                        <p style="text-align: center; margin-top: 20px;">Thank you for joining <strong>Auric Pandit</strong>!</p>
+            </body>
+            </html>
+            """
+            send_mail(
+                'Booking Confirmation - AuricMart',
+                'Your booking has been confirmed. Please check the email for details.',  # Fallback text version
+                settings.DEFAULT_FROM_EMAIL,  # Sender email (from settings)
+                [user_email],  # Recipient email (user's email)
+                fail_silently=False,
+                html_message=html_message  # The HTML content
+            )
+
+            # Send email to the admin (HTML formatted)
+            admin_email = 'auricmart37@gmail.com'
+            admin_html_message = f"""
+            <html>
+            <body>
+                <table style="width: 100%; border-collapse: collapse; padding: 20px;">
+                    <tr>
+                        <td colspan="2" style="text-align: center; font-size: 24px; color: #333; padding-bottom: 10px;">New Booking Received</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-size: 18px; color: #555;">Dear Admin,</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding: 10px; font-size: 16px; color: #555;">
+                            A new booking has been placed by {name}. Below are the booking details:
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-size: 16px; color: #555; width: 30%;">Category:</td>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">{category}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">Pandit:</td>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">{pandit}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">Date:</td>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">{booking_date}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">Time:</td>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">{booking_time}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">Address:</td>
+                        <td style="padding: 10px; font-size: 16px; color: #555;">{address}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding: 10px; font-size: 16px; color: #555;">
+                            Please review the booking and take necessary actions.
+                        </td>
+                    </tr>
+                </table>
+            </body>
+            </html>
+            """
+            send_mail(
+                'New Booking Received - AuricMart',
+                'A new booking has been placed. Please check the email for details.',  # Fallback text version
+                settings.DEFAULT_FROM_EMAIL,  # Sender email (from settings)
+                [admin_email],  # Recipient email (admin's email)
+                fail_silently=False,
+                html_message=admin_html_message  # The HTML content
+            )
+
             messages.success(request, "Your booking has been successfully recorded!")
             return redirect('pandit')  # Adjust this if you need to go somewhere else after success
         except Exception as e:
             messages.error(request, f"Error creating booking: {str(e)}")
             return render(request, 'app/pandit.html', {'form_data': request.POST})
 
-    return render(request, 'app/pandit.html')  # Ensure the form is rendered correctly
+    return render(request, 'app/pandit.html')
+ # Ensure the form is rendered correctly
 @login_required
 def my_bookings(request):
     bookings = Booking.objects.filter(user=request.user).order_by('-booking_date')
@@ -1254,6 +1381,11 @@ def payment_done(request):
         return HttpResponse("Customer not found", status=400)
     except Exception as e:
         return HttpResponse(f"An error occurred: {e}", status=500)
+from django.core.mail import send_mail
+from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect
+from .models import OrderPlaced
+from django.conf import settings
 
 def cancel_order(request, order_id):
     """
@@ -1265,9 +1397,130 @@ def cancel_order(request, order_id):
     if order.status != 'Delivered':  # Replace 'status' and 'delivered' as per your model
         order.status = 'Cancel'  # Update the status
         order.save()
+
+        # Send email to the user confirming the cancellation
+        user_email = order.user.email
+        admin_email = "auricmart37@gmail.com"
+        html_message = f"""
+        <html>
+        <body>
+            <table style="width: 100%; border-collapse: collapse; padding: 20px;">
+                <tr>
+                    <td colspan="2" style="text-align: center; font-size: 24px; color: #333; padding-bottom: 10px;">Order Cancellation</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; font-size: 18px; color: #555;">Dear {order.user},</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding: 10px; font-size: 16px; color: #555;">
+                        Your order #{order_id} has been successfully canceled.
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; font-size: 16px; color: #555; width: 30%;">Order ID:</td>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">{order.razorpay_order_id}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">Order Name:</td>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">{order.product}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">Price:</td>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">₹{order.total_cost}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">Status:</td>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">{order.status}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding: 10px; font-size: 16px; color: #555;">
+                        Thank you for your understanding. If you have any questions, feel free to contact us.
+                    </td>
+                </tr>
+            </table>
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+                        <p>If you have any questions, feel free to contact us:</p>
+                        <p><strong>Email:</strong> auricmart37@gmail.com</p>
+                        <p><strong>Telephone:</strong> +91-6268944329</p>
+                        <p style="text-align: center; margin-top: 20px;">Thank you for joining <strong>AuricMart</strong>!</p>
+        </body>
+        </html>
+        """
+        try:
+            send_mail(
+                'Order Cancellation - AuricMart',
+                'Your order has been canceled. Please check the email for details.',
+                settings.DEFAULT_FROM_EMAIL,
+                [user_email],
+                fail_silently=False,
+                html_message=html_message
+            )
+        except Exception as e:
+            print(f"Error sending cancellation email: {e}")
+
+        # Send email to the admin about the cancellation
+         # Email message to admin in HTML format
+        admin_message = f"""
+        <html>
+        <body>
+            <table style="width: 100%; border-collapse: collapse; padding: 20px;">
+                <tr>
+                    <td colspan="2" style="text-align: center; font-size: 24px; color: #333; padding-bottom: 10px;">Order Cancellation Notification</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; font-size: 16px; color: #555; width: 30%;">Order ID:</td>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">{order_id}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">User Name:</td>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">{order.user}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">Email:</td>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">{order.user.email}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">Product Name:</td>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">{order.product}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">Price:</td>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">₹{order.total_cost}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">Status:</td>
+                    <td style="padding: 10px; font-size: 16px; color: #555;">{order.status}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding: 10px; font-size: 16px; color: #555;">
+                        The order has been canceled by the user. Please take the necessary actions.
+                    </td>
+                </tr>
+            </table>
+        </body>
+        </html>
+        """
+
+        # Send email to admin about the cancellation
+        try:
+            send_mail(
+                'Order Cancelled - AuricMart',
+                'An order has been canceled. Please check the email for details.',
+                settings.DEFAULT_FROM_EMAIL,
+                [admin_email],
+                fail_silently=False,
+                html_message=admin_message
+            )
+        except Exception as e:
+            print(f"Error sending admin notification: {e}")
+
+
         messages.success(request, f"Order #{order_id} has been canceled.")
     else:
         messages.error(request, f"Order #{order_id} cannot be canceled as it is already delivered.")
+    
+    return redirect('orders')  # Redirect back to the orders page
+
     
     # Redirect back to the order page or any other page
     return redirect('orders')  # Replace 'order_page' with the actual name of the order page URL pattern
@@ -1361,9 +1614,136 @@ def payment_verification(request):
                 # Update order status to 'Accepted' upon successful payment verification
                 order.status = 'Accepted'
                 order.save()
+                print(order)
 
-                # Optionally send a confirmation email to the customer (you can implement email sending here)
-                # send_confirmation_email(order)
+                # Send confirmation email to the user (HTML formatted)
+                user_email = order.user.email
+                html_message = f"""
+                <html>
+                <body>
+                    <table style="width: 100%; border-collapse: collapse; padding: 20px;">
+                        <tr>
+                            <td colspan="2" style="text-align: center; font-size: 24px; color: #333; padding-bottom: 10px;">Order Confirmation</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-size: 18px; color: #555;">Dear {order.user},</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="padding: 10px; font-size: 16px; color: #555;">
+                                Your payment has been successfully verified, and your order has been confirmed.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-size: 16px; color: #555; width: 30%;">Order ID:</td>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.razorpay_order_id}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">Product Name :</td>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.product}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">Quantity:</td>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.quantity}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">Cost :</td>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.total_cost}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">Status:</td>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.status}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="padding: 10px; font-size: 16px; color: #555;">
+                                Thank you for your purchase! We will process your order soon.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="padding: 10px; text-align: center; font-size: 16px; color: #555;">
+                                <a href="mailto:{settings.DEFAULT_FROM_EMAIL}" style="color: #f57c00; text-decoration: none;">Contact Us</a> | <a href="tel:+91-6268944329" style="color: #f57c00; text-decoration: none;">Call Us</a>
+                            </td>
+                        </tr>
+                    </table>
+                      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+                        <p>If you have any questions, feel free to contact us:</p>
+                        <p><strong>Email:</strong> auricmart37@gmail.com</p>
+                        <p><strong>Telephone:</strong> +91-6268944329</p>
+                        <p style="text-align: center; margin-top: 20px;">Thank you for joining <strong>Auric Pandit</strong>!</p>
+               
+                </body>
+                </html>
+                """
+                send_mail(
+                    'Order Confirmation - AuricMart',
+                    'Your payment has been verified, and your order has been confirmed. Please check the email for details.',  # Fallback text version
+                    settings.DEFAULT_FROM_EMAIL,  # Sender email (from settings)
+                    [user_email],  # Recipient email (user's email)
+                    fail_silently=False,
+                    html_message=html_message  # The HTML content
+                )
+
+                # Send email to the admin (HTML formatted)
+                admin_email = 'auricmart37@gmail.com'
+                admin_html_message = f"""
+                <html>
+                <body>
+                    <table style="width: 100%; border-collapse: collapse; padding: 20px;">
+                        <tr>
+                            <td colspan="2" style="text-align: center; font-size: 24px; color: #333; padding-bottom: 10px;">New Order Accepted</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-size: 18px; color: #555;">Dear Admin,</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="padding: 10px; font-size: 16px; color: #555;">
+                                The payment for the following order has been successfully verified and accepted:
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-size: 16px; color: #555; width: 30%;">Order ID:</td>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.razorpay_order_id}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">Status:</td>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.status}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">Customer Name:</td>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.user}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">Product Name :</td>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.product}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">Quantity:</td>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.quantity}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">Cost :</td>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.total_cost}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">Order Date :</td>
+                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.ordered_date}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="padding: 10px; font-size: 16px; color: #555;">
+                                Please review the order details and proceed with the necessary actions.
+                            </td>
+                        </tr>
+                    </table>
+                   </body>
+                </html>
+                """
+                send_mail(
+                    'Order Accepted - AuricMart',
+                    'A payment has been verified and the order has been accepted. Please check the email for details.',  # Fallback text version
+                    settings.DEFAULT_FROM_EMAIL,  # Sender email (from settings)
+                    [admin_email],  # Recipient email (admin's email)
+                    fail_silently=False,
+                    html_message=admin_html_message  # The HTML content
+                )
 
                 return JsonResponse({"status": "success", "message": "Payment verification successful, order confirmed"})
 

@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Are Pandit Booking</title>
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        /* Banner Container */
+        .banner-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Banner Card */
+        .banner-card {
+            display: flex;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+
+        /* Image Section */
+        .image-section {
+            flex: 1;
+            padding: 15px;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Text Section */
+        .text-section {
+            flex: 2;
+            padding: 25px;
+            color: #333;
+        }
+
+        .text-section h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ef2424;
+            margin-bottom: 15px;
+        }
+
+        .text-section p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .read-more {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ef2424;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .read-more:hover {
+            background-color: #c32020;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Banner Section -->
+    <div class="banner-container">
+        <div class="banner-card">
+            <div class="image-section">
+                <img src="{% static 'app/images/banner/auriclogo.jpg' %}" alt="Pandit Booking" class="banner-image">
+            </div>
+            <div class="text-section">
+                <h2>We Are Pandit Booking</h2>
+                <p>Welcome to our website! We specialize in booking experienced pandits for all your pooja needs. Additionally, we provide authentic and high-quality pooja samagri to make your rituals complete and hassle-free. Trust us for a seamless spiritual experience, whether at home or in temples.</p>
+                <p>We are also AuricMart – your go-to destination for pooja samagri, rudraksh, jadi mala, pandit ji booking, and many other spiritual items. Explore our wide range of products and services, designed to meet all your spiritual needs.</p>
+                <a href="{% url 'home' %}"class="read-more">Home</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -2,6 +2,11 @@
 {% load static %}
 {% block title %}Orders{% endblock title %}
 {% block main-content %}
+{% if messages %}
+        {% for message in messages %}
+          <p {% if message.tags %} class="alert alert-{{ message.tags }} mb-5" {% endif %}>{{ message }}</p>
+        {% endfor %}
+      {% endif %}
 <div class="container my-5">
     <h3 class="mb-4">Welcome, <span class="text-capitalize">{{ request.user }}</span></h3>
     <div class="row">
@@ -22,11 +27,12 @@
                         <div class="row g-0">
                             <!-- Product Image -->
                             <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                {% if op.product.product_image %}
-                                    <img src="{{ op.product.product_image.url }}" alt="{{ op.product.title }}" class="img-fluid rounded" height="120" width="120">
-                                {% else %}
-                                    <img src="{% static 'path/to/default/image.jpg' %}" alt="Default Image" class="img-fluid rounded" height="120" width="120">
-                                {% endif %}
+                                {% if op.product.images.all|length > 0 %}
+                                 <img src="{{ op.product.images.all.0.image.url }}" alt="{{ op.product.title }}" class="img-fluid rounded" height="120" width="120">
+                            {% else %}
+                             <img src="{% static 'path/to/default/image.jpg' %}" alt="Default Image" class="img-fluid rounded" height="120" width="120">
+                            {% endif %}
+
                             </div>
 
                             <!-- Product Details -->

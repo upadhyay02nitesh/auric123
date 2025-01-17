@@ -40,6 +40,7 @@ urlpatterns = [
     path('removecart/', views.remove_cart, name='removecart'),
     path('', views.home_view, name='home'),
      path('Havan/', views.Havan, name='havan'),
+     path('blog/', views.blog, name='blog'),
     path('Jadi/', views.Jadi, name='jadi'),
     path('Roodraksh/', views.Roodraksh, name='roodraksh'),
     path('Jap/', views.Jap, name='jap'),
