@@ -16,6 +16,10 @@
       height: 250px;
     }
   }
+
+  .carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: red; /* Change the color of the arrows */
+  }
 </style>
 
 {% if messages %}
@@ -40,14 +44,13 @@
       </div>
       <!-- Carousel Controls -->
       <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
-        <span class="carousel-control-prev-icon" aria-hidden="true" style="color: red; font-size: 5.5rem;">&lt;</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
-        <span class="carousel-control-next-icon" aria-hidden="true" style="color: red; font-size: 5.5rem;">&gt;</span>
-    </button>
-    
+      </button>
     </div>
   </div>
 
@@ -137,7 +140,7 @@
   <div class="modal-content">
     <span class="close">&times;</span>
     <h3>Attention!</h3>
-    <p>You have already added this product to your cart. if not add it</p>
+    <p>You have already added this product to your cart. If not, add it.</p>
   </div>
 </div>
 
