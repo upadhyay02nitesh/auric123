@@ -30,6 +30,14 @@
         </div>
     </div>
 
+    <!-- Notification Red Card (Initially Hidden) -->
+    <div id="payment-status-notification" class="alert alert-danger mt-4" style="display: none;">
+        <h4 class="alert-heading">Payment Pending</h4>
+        <p>Your payment is being processed. Please wait until it is successfully completed.</p>
+        <hr>
+        <p class="mb-0">If you face any issues, please <a href="/contact" class="btn btn-danger btn-sm">Contact Support</a>.</p>
+    </div>
+
     <!-- Razorpay Checkout Script (Modified) -->
     <script
         src="https://checkout.razorpay.com/v1/checkout.js"
@@ -83,6 +91,8 @@
 
         // Trigger Razorpay checkout when 'Pay Now' button is clicked
         document.getElementById("pay-now-btn").addEventListener("click", function() {
+            // Show the notification card and disable Pay Now button
+            document.getElementById("payment-status-notification").style.display = "block";
             var rzp = new Razorpay(options);
             rzp.open();
         });

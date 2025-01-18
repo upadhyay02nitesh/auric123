@@ -5477,3 +5477,459 @@ Traceback (most recent call last):
     raise self.error(
 django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 92: 'static'. Did you forget to register or load this tag?
 "GET /blog/ HTTP/1.1" 500 145864
+Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\utils\decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 1852, in get
+    form = CustomerProfileForm(instance=customer)
+           ^^^^^^^^^^^^^^^^^^^
+NameError: name 'CustomerProfileForm' is not defined
+"GET /profile/ HTTP/1.1" 500 87550
+Internal Server Error: /address/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view app.views.address didn't return an HttpResponse object. It returned None instead.
+"GET /address/ HTTP/1.1" 500 68284
+Internal Server Error: /paymentdone/
+"GET /paymentdone/?csrfmiddlewaretoken=WfVCA3pHKzXZSaLPZmcSAvuIQdjJKJD5kOOPkRYTRZxfj7fp3MnmoxMT6k9fPgWZ&custid=1&custid=1 HTTP/1.1" 500 61
+Internal Server Error: /paymentdone/
+"GET /paymentdone/?csrfmiddlewaretoken=WfVCA3pHKzXZSaLPZmcSAvuIQdjJKJD5kOOPkRYTRZxfj7fp3MnmoxMT6k9fPgWZ&custid=1&custid=1 HTTP/1.1" 500 61
+Internal Server Error: /paymentdone/
+"GET /paymentdone/?csrfmiddlewaretoken=WfVCA3pHKzXZSaLPZmcSAvuIQdjJKJD5kOOPkRYTRZxfj7fp3MnmoxMT6k9fPgWZ&custid=1&custid=1 HTTP/1.1" 500 61
+Internal Server Error: /paymentdone/
+"GET /paymentdone/?csrfmiddlewaretoken=WfVCA3pHKzXZSaLPZmcSAvuIQdjJKJD5kOOPkRYTRZxfj7fp3MnmoxMT6k9fPgWZ&custid=1&custid=1 HTTP/1.1" 500 61
+Internal Server Error: /paymentdone/
+"GET /paymentdone/?csrfmiddlewaretoken=WfVCA3pHKzXZSaLPZmcSAvuIQdjJKJD5kOOPkRYTRZxfj7fp3MnmoxMT6k9fPgWZ&custid=1&custid=1 HTTP/1.1" 500 61
+Internal Server Error: /paymentdone/
+"GET /paymentdone/?csrfmiddlewaretoken=WfVCA3pHKzXZSaLPZmcSAvuIQdjJKJD5kOOPkRYTRZxfj7fp3MnmoxMT6k9fPgWZ&custid=1&custid=1 HTTP/1.1" 500 61
+Internal Server Error: /paymentdone/
+"GET /paymentdone/?csrfmiddlewaretoken=WfVCA3pHKzXZSaLPZmcSAvuIQdjJKJD5kOOPkRYTRZxfj7fp3MnmoxMT6k9fPgWZ&custid=1&custid=1 HTTP/1.1" 500 61
+Internal Server Error: /paymentdone/
+"GET /paymentdone/?csrfmiddlewaretoken=WfVCA3pHKzXZSaLPZmcSAvuIQdjJKJD5kOOPkRYTRZxfj7fp3MnmoxMT6k9fPgWZ&custid=1&custid=1 HTTP/1.1" 500 61
+Internal Server Error: /paymentdone/
+"GET /paymentdone/?csrfmiddlewaretoken=WfVCA3pHKzXZSaLPZmcSAvuIQdjJKJD5kOOPkRYTRZxfj7fp3MnmoxMT6k9fPgWZ&custid=1&custid=1 HTTP/1.1" 500 61
+Internal Server Error: /paymentdone/
+"GET /paymentdone/?csrfmiddlewaretoken=WfVCA3pHKzXZSaLPZmcSAvuIQdjJKJD5kOOPkRYTRZxfj7fp3MnmoxMT6k9fPgWZ&custid=1&custid=1 HTTP/1.1" 500 64
+Internal Server Error: /paymentdone/
+"GET /paymentdone/?csrfmiddlewaretoken=WfVCA3pHKzXZSaLPZmcSAvuIQdjJKJD5kOOPkRYTRZxfj7fp3MnmoxMT6k9fPgWZ&custid=1&custid=1 HTTP/1.1" 500 56
+Internal Server Error: /payment-verification/
+"POST /payment-verification/ HTTP/1.1" 500 93
+Internal Server Error: /payment-verification/
+"POST /payment-verification/ HTTP/1.1" 500 93
+Internal Server Error: /payment-verification/
+"POST /payment-verification/ HTTP/1.1" 500 95
+Internal Server Error: /removecart/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 564, in remove_cart
+    c=Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+app.models.Cart.DoesNotExist: Cart matching query does not exist.
+"GET /removecart/?prod_id=1 HTTP/1.1" 500 76846
+Internal Server Error: /removecart/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 564, in remove_cart
+    c=Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+app.models.Cart.DoesNotExist: Cart matching query does not exist.
+"GET /removecart/?prod_id=1 HTTP/1.1" 500 76846
+Internal Server Error: /removecart/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 564, in remove_cart
+    c=Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+app.models.Cart.DoesNotExist: Cart matching query does not exist.
+"GET /removecart/?prod_id=1 HTTP/1.1" 500 76846
+Internal Server Error: /pluscart/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 490, in plus_cart
+    c=Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+app.models.Cart.DoesNotExist: Cart matching query does not exist.
+"GET /pluscart/?prod_id=1 HTTP/1.1" 500 76740
+Internal Server Error: /pluscart/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 490, in plus_cart
+    c=Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+app.models.Cart.DoesNotExist: Cart matching query does not exist.
+"GET /pluscart/?prod_id=1 HTTP/1.1" 500 76740
+Internal Server Error: /payment-verification/
+"POST /payment-verification/ HTTP/1.1" 500 95
+Internal Server Error: /generate_invoice/78/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 1213, in generate_invoice
+    p.drawString(40, customer_info_y - 30, f"{customer.city}, {customer.state}")
+                                              ^^^^^^^^^^^^^
+AttributeError: 'Customer' object has no attribute 'city'
+"GET /generate_invoice/78/ HTTP/1.1" 500 69558
+Internal Server Error: /generate_invoice/78/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 1213, in generate_invoice
+    p.drawString(40, customer_info_y - 30, f"{customer.city}, {customer.state}")
+                                              ^^^^^^^^^^^^^
+AttributeError: 'Customer' object has no attribute 'city'
+"GET /generate_invoice/78/ HTTP/1.1" 500 69558
+Internal Server Error: /generate_invoice/78/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 1214, in generate_invoice
+    p.drawString(40, customer_info_y - 30, f" {customer.address}")
+                                               ^^^^^^^^^^^
+AttributeError: 'Customer' object has no attribute 'st'
+"GET /generate_invoice/78/ HTTP/1.1" 500 69731
+Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 1795, in home_view
+    return render(request, 'app/home.html', {'categories': categories, 'category_data': category_data})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 6: 'block'. Looking for one of: endblock.
+"GET / HTTP/1.1" 500 185935
+Internal Server Error: /paymentdone/
+"GET /paymentdone/?csrfmiddlewaretoken=DpXkV4gTSVtuDueNfaNQalzz8yOJSidQ1YQxFSP5Zl3K4rInjAYkYnRKoFEfXPwK&custid=1&custid=1 HTTP/1.1" 500 111
+Internal Server Error: /payment-verification/
+"POST /payment-verification/ HTTP/1.1" 500 113
+Internal Server Error: /payment-verification/
+"POST /payment-verification/ HTTP/1.1" 500 113
+Internal Server Error: /payment-verification/
+"POST /payment-verification/ HTTP/1.1" 500 95
+Internal Server Error: /payment-verification/
+"POST /payment-verification/ HTTP/1.1" 500 97
+Internal Server Error: /payment-verification/
+"POST /payment-verification/ HTTP/1.1" 500 93
+Internal Server Error: /orders/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 646, in orders
+    return render(request, 'app/orders.html', {'order_placed':op})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\defaulttags.py", line 953, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\defaulttags.py", line 853, in do_for
+    nodelist_loop = parser.parse(
+                    ^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader_tags.py", line 226, in do_block
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'title' appears more than once
+"GET /orders/ HTTP/1.1" 500 343205
+Internal Server Error: /orders/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 646, in orders
+    return render(request, 'app/orders.html', {'order_placed':op})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\defaulttags.py", line 953, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\defaulttags.py", line 853, in do_for
+    nodelist_loop = parser.parse(
+                    ^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\template\loader_tags.py", line 226, in do_block
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'title' appears more than once
+"GET /orders/ HTTP/1.1" 500 341172

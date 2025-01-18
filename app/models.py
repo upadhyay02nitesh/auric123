@@ -103,12 +103,12 @@ class Review(models.Model):
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)  # Use OneToOneField
     name = models.CharField(max_length=200, null=True)
-    locality = models.CharField(max_length=200, default="Unknown")
-    city = models.CharField(max_length=50, default="Unknown")
-    zipcode = models.IntegerField(null=True)
     mobile_number = models.CharField(max_length=15, null=True)
     Gmail = models.EmailField(null=True)
-    state = models.CharField(choices=STATE_CHOICES, max_length=50, default="Unknown")
+    pincode = models.IntegerField(null=True) 
+    state = models.CharField(max_length=100,default='Unknown')
+    district = models.CharField(max_length=100,default='Unknown')
+    address = models.CharField(max_length=255, default='Unknown')
 
     def __str__(self):
         return str(self.id)
@@ -141,6 +141,7 @@ class Cart(models.Model):
 
 
 STATUS_CHOICES = (
+    ('Pending','Pending'),
     ('Accepted', 'Accepted'),
     ('Packed', 'Packed'),
     ('On The Way', 'On The Way'),
@@ -150,6 +151,9 @@ STATUS_CHOICES = (
 
 
 
+from django.db import models
+from django.contrib.auth.models import User
+
 class OrderPlaced(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
@@ -158,9 +162,16 @@ class OrderPlaced(models.Model):
     quantity = models.PositiveIntegerField(default=1, null=True)
     ordered_date = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending', null=True)
-    razorpay_order_id = models.CharField(max_length=100, blank=True, null=True)
     name = models.CharField(max_length=255, default='default_name', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    # New fields for address-related data
+    address = models.CharField(max_length=255, blank=True, null=True)  # Address field
+    pincode = models.CharField(max_length=10, blank=True, null=True)  # Pincode field
+    mobile_number = models.CharField(max_length=15, blank=True, null=True)  # Mobile number field
+    gmail = models.EmailField(max_length=255, blank=True, null=True)  # Gmail field
+    state = models.CharField(max_length=100, blank=True, null=True)  # State field
+    district = models.CharField(max_length=100, blank=True, null=True)  # District field
 
     def __str__(self):
         return str(self.id)
@@ -168,7 +179,14 @@ class OrderPlaced(models.Model):
     @property
     def total_cost(self):
         return self.quantity * (self.product.discounted_price or 0)
+
+    # Optionally, you can define a method to return the full address:
+    def full_address(self):
+        return f"{self.address}, {self.district}, {self.state} - {self.pincode}"
+
+
 class OrderItem(models.Model):
+    razorpay_order_id = models.CharField(max_length=255, unique=True)
     order = models.ForeignKey(OrderPlaced, related_name='order_items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)

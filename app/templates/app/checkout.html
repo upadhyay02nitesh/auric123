@@ -57,7 +57,7 @@
                     Address information is incomplete. Please <a href="{% url 'profile' %}" class="btn btn-danger btn-sm">update your profile</a> to provide complete address details.
                   </p>
                 {% else %}
-                  <p>{{ ad.locality }}, {{ ad.city }}, {{ ad.state }}, {{ ad.zipcode }}</p>
+                  <p>{{ ad.address }}, {{ ad.city }}, {{ ad.state }}, {{ ad.pincode }}</p>
                 {% endif %}
               {% else %}
                 <p class="alert alert-warning">

@@ -66,17 +66,6 @@ class MySetPasswordForm(SetPasswordForm):
     
 # Modelform
 
-class CustomerProfileForm(forms.ModelForm):
-    class Meta:
-        model=Customer
-        fields=['name','Gmail','mobile_number','locality','city','state','zipcode']
-        widgets={'name': forms.TextInput(attrs={'class':'form-control'}),
-        'Gmail':forms.EmailInput(attrs={'class':'form-control'}),
-        'mobile_number':forms.NumberInput(attrs={'class':'form-control'}),
-        'locality': forms.TextInput(attrs={'class':'form-control'}), 
-        'city':forms.TextInput(attrs={'class':'form-control'}),
-        'state':forms.Select(attrs={'class':'form-control'}),
-        'zipcode':forms.NumberInput(attrs={'class':'form-control'})}
 class ContactForm(forms.Form):
     first_name = forms.CharField(max_length=50, label="First Name")
     last_name = forms.CharField(max_length=50, label="Last Name")

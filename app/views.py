@@ -4,7 +4,7 @@ from django.shortcuts import render,redirect
 from django.views import View
 import requests
 from .models import Customer, OrderItem, Pandit,Product,Cart,OrderPlaced,Review,Booking
-from.forms import CustomerRegistrationForm,CustomerProfileForm, PanditForm
+from.forms import CustomerRegistrationForm, PanditForm
 from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponseForbidden, JsonResponse
@@ -585,11 +585,60 @@ def buy_now(request):
 def auric(request):
     return render(request, 'app/auricbhoj.html')
 
- 
+
 @login_required
 def address(request):
- add=Customer.objects.filter(user=request.user)
- return render(request, 'app/address.html',{'add':add,'active':'btn-primary'})
+    # Retrieve the customer instance based on the logged-in user
+    customer = Customer.objects.filter(user=request.user).first()
+
+    if request.method == 'POST':
+        # Get form data from POST request
+        name = request.POST.get('name')
+        gmail = request.POST.get('gmail')
+        mobile_number = request.POST.get('mobile_number')
+        pincode = request.POST.get('pincode')
+        state = request.POST.get('state')
+        city = request.POST.get('city')
+        address = request.POST.get('address')
+
+        # Validate pincode, state, and city
+        api_url = f"https://api.postalpincode.in/pincode/{pincode}"
+        try:
+            response = requests.get(api_url)
+            response_data = response.json()
+
+            if response_data[0]['Status'] == 'Success':
+                # Extract State and City from the API response
+                post_office = response_data[0]['PostOffice'][0]
+                if post_office['State'] != state or post_office['District'] != city:
+                    messages.error(request, "Pincode, state, and city do not match. Please check your inputs.")
+                    return render(request, 'app/address.html', {'customer': customer, 'active': 'btn-primary'})
+
+            else:
+                messages.error(request, "Invalid pincode. Please enter a valid pincode.")
+                return render(request, 'app/address.html', {'customer': customer, 'active': 'btn-primary'})
+
+        except Exception as e:
+            messages.error(request, f"Error validating pincode: {str(e)}")
+            return render(request, 'app/address.html', {'customer': customer, 'active': 'btn-primary'})
+
+        # Update customer address if validation is successful
+        if customer:
+            customer.name = name
+            customer.gmail = gmail
+            customer.mobile_number = mobile_number
+            customer.pincode = pincode
+            customer.state = state
+            customer.city = city
+            customer.address = address
+            customer.save()
+
+            messages.success(request, 'Address updated successfully.')
+            return redirect('address')  # Ensure the redirect happens to avoid re-submission
+
+    # GET method: Render address page with current customer data
+    return render(request, 'app/address.html', {'customer': customer, 'active': 'btn-primary'})
+
 
 @login_required
 def orders(request):
@@ -1161,8 +1210,9 @@ def generate_invoice(request, order_id):
     p.setFillColor(colors.black)
     p.drawString(40, customer_info_y, "Billing Address:")
     p.drawString(40, customer_info_y - 15, f"{customer.name}")
-    p.drawString(40, customer_info_y - 30, f"{customer.city}, {customer.state}")
-    p.drawString(40, customer_info_y - 45, f"Zipcode: {customer.zipcode}")
+    p.drawString(40, customer_info_y - 30, f" {customer.state}")
+    # p.drawString(40, customer_info_y - 30, f" {customer.address}")
+    p.drawString(40, customer_info_y - 45, f"Zipcode: {customer.pincode}")
     p.drawString(40, customer_info_y - 60, f"Phone: {customer.mobile_number}")
     p.drawString(40, customer_info_y - 75, f"Email: {customer.Gmail}")
 
@@ -1236,10 +1286,12 @@ def generate_invoice(request, order_id):
     p.setFont("Helvetica", 10)
     p.drawString(40, company_address_y, "Company Address:")
     p.drawString(40, company_address_y - 15, "AuricMart Pvt. Ltd.")
-    p.drawString(40, company_address_y - 30, "123, Commerce Street, Business City")
-    p.drawString(40, company_address_y - 45, "State, Zip: 123456")
-    p.drawString(40, company_address_y - 60, "Phone: +91-9876543210")
-    p.drawString(40, company_address_y - 75, "Email: support@auricmart.com")
+    p.drawString(40, company_address_y - 30, "EWS-190 Dhacha Bhavan Bhilai")
+    p.drawString(40, company_address_y - 45, " DURG Chhattisgarh, India, 490024")
+    p.drawString(40, company_address_y - 60, "Phone: +91-6260144580")
+
+    p.drawString(40, company_address_y - 75, "Email: auricmart37@gmail.com")
+
 
     # Add Policy Section
     policy_y = company_address_y - 100
@@ -1357,14 +1409,20 @@ def payment_done(request):
             "payment_capture": 1  # Automatic payment capture
         })
 
-        # Save the order details in your database
+        # Create order and store address data
         for c in cart:
             OrderPlaced.objects.create(
                 user=user,
                 customer=customer,
                 product=c.product,
                 quantity=c.quantity,
-                razorpay_order_id=razorpay_order['id']  # Save Razorpay order ID
+                razorpay_order_id=razorpay_order['id'],  # Save Razorpay order ID
+                address=customer.address,  # Storing the address
+                pincode=customer.pincode,  # Storing the pincode
+                mobile_number=customer.mobile_number,  # Storing mobile number
+                gmail=customer.Gmail,  # Storing Gmail
+                state=customer.state,  # Storing state
+                district=customer.district  # Storing district
             )
             # Delete cart item after placing the order
             c.delete()
@@ -1381,6 +1439,7 @@ def payment_done(request):
         return HttpResponse("Customer not found", status=400)
     except Exception as e:
         return HttpResponse(f"An error occurred: {e}", status=500)
+
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
@@ -1578,7 +1637,16 @@ import hashlib
 from django.http import JsonResponse
 from django.conf import settings
 from .models import OrderPlaced, OrderItem
+import logging
+from django.core.mail import send_mail
+from django.http import JsonResponse
+from django.conf import settings
+
+# Setting up logging
+logger = logging.getLogger(__name__)
+
 @login_required
+
 def payment_verification(request):
     if request.method == "POST":
         try:
@@ -1591,12 +1659,12 @@ def payment_verification(request):
             if not all([razorpay_order_id, razorpay_payment_id, razorpay_signature]):
                 return JsonResponse({"status": "failure", "message": "Missing payment details"}, status=400)
 
-            # Fetch the corresponding order from the database
-            try:
-                order = OrderPlaced.objects.get(razorpay_order_id=razorpay_order_id)
-            except OrderPlaced.DoesNotExist:
-                return JsonResponse({"status": "failure", "message": "Order not found"}, status=404)
-
+            # Fetch the corresponding orders from the database
+            orders = OrderPlaced.objects.filter(razorpay_order_id=razorpay_order_id)
+            if orders.count() > 1:
+                # If multiple orders are found with the same Razorpay order ID, log a warning
+                logger.warning(f"Multiple orders found for Razorpay order ID: {razorpay_order_id}. Processing them accordingly.")
+            
             # Generate Razorpay signature using the Razorpay secret and order/payment IDs
             string_to_hash = f"{razorpay_order_id}|{razorpay_payment_id}"
             generated_signature = hmac.new(
@@ -1606,156 +1674,113 @@ def payment_verification(request):
             ).hexdigest()
 
             # Debug print for generated signature (useful for troubleshooting)
-            print(f"Generated Razorpay Signature: {generated_signature}")
-            print(f"Received Razorpay Signature: {razorpay_signature}")
+            logger.debug(f"Generated Razorpay Signature: {generated_signature}")
+            logger.debug(f"Received Razorpay Signature: {razorpay_signature}")
 
             # Verify if the generated signature matches the received signature
             if generated_signature == razorpay_signature:
-                # Update order status to 'Accepted' upon successful payment verification
-                order.status = 'Accepted'
-                order.save()
-                print(order)
+                # Process orders based on order position
+                for index, order in enumerate(orders):
+                    if index == 0:
+                        # First order: Mark as 'Accepted'
+                        order.status = 'Accepted'
+                    else:
+                        # Subsequent orders: Mark as 'Pending'
+                        order.status = 'Pending'
+                    order.save()
 
-                # Send confirmation email to the user (HTML formatted)
-                user_email = order.user.email
-                html_message = f"""
-                <html>
-                <body>
-                    <table style="width: 100%; border-collapse: collapse; padding: 20px;">
-                        <tr>
-                            <td colspan="2" style="text-align: center; font-size: 24px; color: #333; padding-bottom: 10px;">Order Confirmation</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-size: 18px; color: #555;">Dear {order.user},</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="padding: 10px; font-size: 16px; color: #555;">
-                                Your payment has been successfully verified, and your order has been confirmed.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-size: 16px; color: #555; width: 30%;">Order ID:</td>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.razorpay_order_id}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">Product Name :</td>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.product}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">Quantity:</td>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.quantity}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">Cost :</td>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.total_cost}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">Status:</td>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.status}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="padding: 10px; font-size: 16px; color: #555;">
-                                Thank you for your purchase! We will process your order soon.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="padding: 10px; text-align: center; font-size: 16px; color: #555;">
-                                <a href="mailto:{settings.DEFAULT_FROM_EMAIL}" style="color: #f57c00; text-decoration: none;">Contact Us</a> | <a href="tel:+91-6268944329" style="color: #f57c00; text-decoration: none;">Call Us</a>
-                            </td>
-                        </tr>
-                    </table>
-                      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
-                        <p>If you have any questions, feel free to contact us:</p>
-                        <p><strong>Email:</strong> auricmart37@gmail.com</p>
-                        <p><strong>Telephone:</strong> +91-6268944329</p>
-                        <p style="text-align: center; margin-top: 20px;">Thank you for joining <strong>Auric Pandit</strong>!</p>
-               
-                </body>
-                </html>
-                """
-                send_mail(
-                    'Order Confirmation - AuricMart',
-                    'Your payment has been verified, and your order has been confirmed. Please check the email for details.',  # Fallback text version
-                    settings.DEFAULT_FROM_EMAIL,  # Sender email (from settings)
-                    [user_email],  # Recipient email (user's email)
-                    fail_silently=False,
-                    html_message=html_message  # The HTML content
-                )
+                    # Send confirmation emails to the user and the admin for all orders
+                    user_email = order.customer.Gmail
+                    user_address = f"{order.customer.address}, {order.customer.state}, {order.customer.district}, {order.customer.pincode}"
+                    user_phone = order.customer.mobile_number
+                    html_message = f"""
+                        <html>
+                        <body>
+                            <div style="width: 100%; padding: 20px; font-family: Arial, sans-serif;">
+                                <div style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">Order Confirmation</div>
+                                <div style="margin-bottom: 10px;">Dear {order.user},</div>
+                                <div style="margin-bottom: 20px;">Your payment has been successfully verified, and your order has been {order.status}.</div>
 
-                # Send email to the admin (HTML formatted)
-                admin_email = 'auricmart37@gmail.com'
-                admin_html_message = f"""
-                <html>
-                <body>
-                    <table style="width: 100%; border-collapse: collapse; padding: 20px;">
-                        <tr>
-                            <td colspan="2" style="text-align: center; font-size: 24px; color: #333; padding-bottom: 10px;">New Order Accepted</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-size: 18px; color: #555;">Dear Admin,</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="padding: 10px; font-size: 16px; color: #555;">
-                                The payment for the following order has been successfully verified and accepted:
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-size: 16px; color: #555; width: 30%;">Order ID:</td>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.razorpay_order_id}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">Status:</td>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.status}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">Customer Name:</td>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.user}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">Product Name :</td>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.product}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">Quantity:</td>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.quantity}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">Cost :</td>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.total_cost}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">Order Date :</td>
-                            <td style="padding: 10px; font-size: 16px; color: #555;">{order.ordered_date}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="padding: 10px; font-size: 16px; color: #555;">
-                                Please review the order details and proceed with the necessary actions.
-                            </td>
-                        </tr>
-                    </table>
-                   </body>
-                </html>
-                """
-                send_mail(
-                    'Order Accepted - AuricMart',
-                    'A payment has been verified and the order has been accepted. Please check the email for details.',  # Fallback text version
-                    settings.DEFAULT_FROM_EMAIL,  # Sender email (from settings)
-                    [admin_email],  # Recipient email (admin's email)
-                    fail_silently=False,
-                    html_message=admin_html_message  # The HTML content
-                )
+                                <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Order Details:</div>
+                                <div style="display: flex; flex-wrap: wrap; margin-bottom: 10px;">
+                                    <div style="width: 50%; padding-right: 20px;">
+                                        <div><strong>Order ID:</strong> {order.razorpay_order_id}</div>
+                                        <div><strong>Product Name:</strong> {order.product}</div>
+                                        <div><strong>Quantity:</strong> {order.quantity}</div>
+                                        <div><strong>Cost:</strong> {order.total_cost}</div>
+                                        <div><strong>Status:</strong> {order.status}</div>
+                                    </div>
+                                    <div style="width: 50%; padding-left: 20px;">
+                                        <div><strong>Shipping Address:</strong> {user_address}</div>
+                                        <div><strong>Phone Number:</strong> {user_phone}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+                            <p>If you have any questions, feel free to contact us:</p>
+                            <p><strong>Email:</strong> auricmart37@gmail.com</p>
+                            <p><strong>Telephone:</strong> +91-6268944329</p>
+                            <p style="text-align: center; margin-top: 20px;">Thank you for joining <strong>AuricMart</strong>!</p>
+                        </body>
+                        </html>
+                    """
+                    send_mail(
+                        'Order Confirmation - AuricMart',
+                        'Your payment has been verified and your order has been processed. Please check the email for details.',
+                        settings.DEFAULT_FROM_EMAIL,
+                        [user_email],
+                        fail_silently=False,
+                        html_message=html_message
+                    )
 
-                return JsonResponse({"status": "success", "message": "Payment verification successful, order confirmed"})
+                    # Send email to admin
+                    admin_email = 'auricmart37@gmail.com'
+                    admin_html_message = f"""
+                        <html>
+                        <body>
+                            <div style="width: 100%; padding: 20px; font-family: Arial, sans-serif;">
+                                <div style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">New Order Status</div>
+
+                                <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Order Details:</div>
+                                <div style="display: flex; flex-wrap: wrap; margin-bottom: 10px;">
+                                    <div style="width: 50%; padding-right: 20px;">
+                                        <div><strong>Order ID:</strong> {order.razorpay_order_id}</div>
+                                        <div><strong>Status:</strong> {order.status}</div>
+                                        <div><strong>Product Name:</strong> {order.product}</div>
+                                        <div><strong>Quantity:</strong> {order.quantity}</div>
+                                        <div><strong>Cost:</strong> {order.total_cost}</div>
+                                    </div>
+                                    <div style="width: 50%; padding-left: 20px;">
+                                        <div><strong>Customer Name:</strong> {order.user}</div>
+                                        <div><strong>Shipping Address:</strong> {user_address}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </body>
+                        </html>
+                    """
+
+                    send_mail(
+                        'Order Status Update - AuricMart',
+                        'An order status has been updated. Please check the email for details.',
+                        settings.DEFAULT_FROM_EMAIL,
+                        [admin_email],
+                        fail_silently=False,
+                        html_message=admin_html_message
+                    )
+
+                return JsonResponse({"status": "success", "message": "Payment verification successful, orders updated"})
 
             else:
                 return JsonResponse({"status": "failure", "message": "Invalid signature"}, status=400)
 
         except Exception as e:
-            # Handle any unexpected errors gracefully
+            # Log the error for debugging
+            logger.error(f"Error during payment verification: {str(e)}")
             return JsonResponse({"status": "failure", "message": f"An error occurred: {str(e)}"}, status=500)
 
-    # Handle case where the request method is not POST
     return JsonResponse({"status": "failure", "message": "Invalid request method"}, status=405)
+
 def home_view(request):
     # Define all categories dynamically
     categories = [
@@ -1804,23 +1829,54 @@ class ProfileView(View):
     def get(self, request):
         # If the user already has a profile, prepopulate the form with existing data
         customer = Customer.objects.filter(user=request.user).first()
-        form = CustomerProfileForm(instance=customer)
-        return render(request, 'app/profile.html', {'form': form, 'active': 'btn-primary'})
+        return render(request, 'app/profile.html', {'customer': customer, 'active': 'btn-primary'})
 
     def post(self, request):
+        # Get the existing customer profile
         customer = Customer.objects.filter(user=request.user).first()
-        if customer:
-            # Update the existing customer instance
-            form = CustomerProfileForm(request.POST, instance=customer)
-        else:
-            # Create a new customer instance
-            form = CustomerProfileForm(request.POST)
+        
+        # Retrieve form data
+        name = request.POST.get('name')
+        mobile_number = request.POST.get('mobile_number')
+        Gmail = request.POST.get('Gmail')
+        pincode = request.POST.get('pincode')
+        state = request.POST.get('state')
+        city = request.POST.get('city')
+        address = request.POST.get('address')
 
-        if form.is_valid():
-            customer = form.save(commit=False)
-            customer.user = request.user  # Ensure the user is linked
+        # Validate pincode, state, and city
+        api_url = f"https://api.postalpincode.in/pincode/{pincode}"
+        try:
+            response = requests.get(api_url)
+            response_data = response.json()
+
+            if response_data[0]['Status'] == 'Success':
+                # Extract State and City from the API response
+                post_office = response_data[0]['PostOffice'][0]
+                if post_office['State'] != state or post_office['District'] != city:
+                    messages.error(request, "Pincode, state, and city do not match. Please check your inputs.")
+                    return render(request, 'app/profile.html', {'customer': customer, 'active': 'btn-primary'})
+
+            else:
+                messages.error(request, "Invalid pincode. Please enter a valid pincode.")
+                return render(request, 'app/profile.html', {'customer': customer, 'active': 'btn-primary'})
+
+        except Exception as e:
+            messages.error(request, f"Error validating pincode: {str(e)}")
+            return render(request, 'app/profile.html', {'customer': customer, 'active': 'btn-primary'})
+
+        # Save the updated customer data
+        if customer:
+            customer.name = name
+            customer.mobile_number = mobile_number
+            customer.Gmail = Gmail
+            customer.pincode = pincode
+            customer.state = state
+            customer.city = city
+            customer.address = address
             customer.save()
+
             messages.success(request, 'Congratulations!! Profile Updated Successfully')
             return redirect('profile')  # Redirect to avoid duplicate form submissions
 
-        return render(request, 'app/profile.html', {'form': form, 'active': 'btn-primary'})
+        return render(request, 'app/profile.html', {'customer': customer, 'active': 'btn-primary'})
