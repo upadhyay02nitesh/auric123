@@ -42,7 +42,7 @@
       <h4>Select Shipping Address</h4>
       <hr>
       {% if add %}
-        <form action="/paymentdone" method="get">
+        <form action="/paymentdone" method="POST">
           {% csrf_token %}
           <!-- Hidden field for customer ID -->
           <input type="hidden" name="custid" value="{{ custid }}">
@@ -52,7 +52,7 @@
             <div class="card-body">
               {% if ad.name %}
                 <h5>{{ ad.name }}</h5>
-                {% if ad.locality == "Unknown" or ad.city == "Unknown" or ad.state == "Unknown" or ad.zipcode == "Unknown" %}
+                {% if ad.address == "Unknown" or ad.city == "Unknown" or ad.state == "Unknown" or ad.pincode == "Unknown" %}
                   <p class="alert alert-warning">
                     Address information is incomplete. Please <a href="{% url 'profile' %}" class="btn btn-danger btn-sm">update your profile</a> to provide complete address details.
                   </p>

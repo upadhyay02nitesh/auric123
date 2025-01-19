@@ -105,7 +105,7 @@ class Customer(models.Model):
     name = models.CharField(max_length=200, null=True)
     mobile_number = models.CharField(max_length=15, null=True)
     Gmail = models.EmailField(null=True)
-    pincode = models.IntegerField(null=True) 
+    pincode = models.IntegerField(null=False,blank=False) 
     state = models.CharField(max_length=100,default='Unknown')
     district = models.CharField(max_length=100,default='Unknown')
     address = models.CharField(max_length=255, default='Unknown')

@@ -71,23 +71,23 @@ WSGI_APPLICATION = 'shoppinglyx.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',  # Using PostgreSQL for RDS
-#         'NAME': 'auric',  # RDS database name
-#         'USER': 'admin5',       # RDS username
-#         'PASSWORD': 'password',  # RDS password
-#         'HOST': 'database-5.c1kqai6s68io.eu-north-1.rds.amazonaws.com',      # RDS endpoint
-#         'PORT': '3306',  # Default PostgreSQL port
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',  # Using PostgreSQL for RDS
+        'NAME': 'suraj',  # RDS database name
+        'USER': 'admin',       # RDS username
+        'PASSWORD': 'Rewa1234',  # RDS password
+        'HOST': 'database-1.czaumc2ug9je.eu-north-1.rds.amazonaws.com',      # RDS endpoint
+        'PORT': '3306',  # Default PostgreSQL port
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
