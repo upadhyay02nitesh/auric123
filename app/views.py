@@ -598,7 +598,7 @@ def address(request):
         mobile_number = request.POST.get('mobile_number')
         pincode = request.POST.get('pincode')
         state = request.POST.get('state')
-        city = request.POST.get('city')
+        district = request.POST.get('district')
         address = request.POST.get('address')
 
         # Validate pincode, state, and city
@@ -610,8 +610,8 @@ def address(request):
             if response_data[0]['Status'] == 'Success':
                 # Extract State and City from the API response
                 post_office = response_data[0]['PostOffice'][0]
-                if post_office['State'] != state or post_office['District'] != city:
-                    messages.error(request, "Pincode, state, and city do not match. Please check your inputs.")
+                if post_office['State'] != state or post_office['District'] != district:
+                    messages.error(request, "Pincode, state, and district do not match. Please check your inputs.")
                     return render(request, 'app/address.html', {'customer': customer, 'active': 'btn-primary'})
 
             else:
@@ -629,7 +629,7 @@ def address(request):
             customer.mobile_number = mobile_number
             customer.pincode = pincode
             customer.state = state
-            customer.city = city
+            customer.district = district
             customer.address = address
             customer.save()
 
@@ -1824,25 +1824,34 @@ def Idols (request):
     Idols = Product.objects.filter(category='I').distinct()
     
     return render(request,'app/idols.html',{'Idols':Idols}) 
+
 @method_decorator(login_required, name='dispatch')
 class ProfileView(View):
     def get(self, request):
         # If the user already has a profile, prepopulate the form with existing data
         customer = Customer.objects.filter(user=request.user).first()
+        print(customer)
         return render(request, 'app/profile.html', {'customer': customer, 'active': 'btn-primary'})
 
     def post(self, request):
         # Get the existing customer profile
         customer = Customer.objects.filter(user=request.user).first()
-        
+        print(customer)
+        print()
+
         # Retrieve form data
         name = request.POST.get('name')
         mobile_number = request.POST.get('mobile_number')
         Gmail = request.POST.get('Gmail')
         pincode = request.POST.get('pincode')
         state = request.POST.get('state')
-        city = request.POST.get('city')
+        district = request.POST.get('district')
         address = request.POST.get('address')
+
+        # Validate required fields
+        if not name or not mobile_number or not Gmail or not pincode or not state or not district or not address:
+            messages.error(request, "All fields are required.")
+            return render(request, 'app/profile.html', {'customer': customer, 'active': 'btn-primary'})
 
         # Validate pincode, state, and city
         api_url = f"https://api.postalpincode.in/pincode/{pincode}"
@@ -1853,8 +1862,8 @@ class ProfileView(View):
             if response_data[0]['Status'] == 'Success':
                 # Extract State and City from the API response
                 post_office = response_data[0]['PostOffice'][0]
-                if post_office['State'] != state or post_office['District'] != city:
-                    messages.error(request, "Pincode, state, and city do not match. Please check your inputs.")
+                if post_office['State'] != state or post_office['District'] != district:
+                    messages.error(request, "Pincode, state, and district do not match. Please check your inputs.")
                     return render(request, 'app/profile.html', {'customer': customer, 'active': 'btn-primary'})
 
             else:
@@ -1867,16 +1876,18 @@ class ProfileView(View):
 
         # Save the updated customer data
         if customer:
+            print(customer,"hai ya nhi")
             customer.name = name
             customer.mobile_number = mobile_number
             customer.Gmail = Gmail
             customer.pincode = pincode
             customer.state = state
-            customer.city = city
+            customer.district = district
             customer.address = address
             customer.save()
 
             messages.success(request, 'Congratulations!! Profile Updated Successfully')
             return redirect('profile')  # Redirect to avoid duplicate form submissions
 
+        messages.error(request, "Profile not found. Please try again.")
         return render(request, 'app/profile.html', {'customer': customer, 'active': 'btn-primary'})

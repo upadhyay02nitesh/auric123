@@ -99,16 +99,24 @@ class Review(models.Model):
     def __str__(self):
         return f"Review by {self.user.username} on {self.product.title}"
 
-
 class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)  # Use OneToOneField
-    name = models.CharField(max_length=200, null=True)
-    mobile_number = models.CharField(max_length=15, null=True)
-    Gmail = models.EmailField(null=True)
-    pincode = models.IntegerField(null=False,blank=False) 
-    state = models.CharField(max_length=100,default='Unknown')
-    district = models.CharField(max_length=100,default='Unknown')
-    address = models.CharField(max_length=255, default='Unknown')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)  # One-to-one relationship with User
+    name = models.CharField(max_length=200, blank=False)  # Name is required
+    mobile_number = models.CharField(max_length=15, blank=False)  # Mobile number is required
+    Gmail = models.EmailField(blank=False)  # Email is required
+    pincode = models.CharField(max_length=6, blank=False)  # Use CharField to keep leading zeros in pincode
+    state = models.CharField(max_length=100, default='Unknown', blank=False)  # State is required
+    district = models.CharField(max_length=100, default='Unknown', blank=False)  # District is required
+    address = models.CharField(max_length=255, default='Unknown', blank=False)  # Address is required
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user'], name='unique_user_profile')
+        ]
+
+    def __str__(self):
+        return f"{self.name} - {self.user.username}"
+
 
     def __str__(self):
         return str(self.id)

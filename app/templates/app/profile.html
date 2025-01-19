@@ -2,6 +2,12 @@
 {% load static %}
 {% block title %}Profile{% endblock title %}
 {% block main-content %}
+<style>
+.text-danger {
+  color: red;
+}
+</style>
+
 <div class="container my-5">
   <div class="row">
     <h3>Welcome <span class="text-capitalize">{{ request.user }}</span></h3>
@@ -20,56 +26,59 @@
         {% endfor %}
       {% endif %}
 
+
+
       <!-- Address Form Section -->
-      <form action="" method="post" novalidate>
+      <form action="{% url 'profile' %}" method="post" novalidate>
+
         {% csrf_token %}
         
         <!-- Name Field -->
         <div class="form-group col-lg-6 mb-3">
           <label for="name">Name</label>
-          <input type="text" class="form-control" name="name" value="{{ add.name }}" id="name" placeholder="Enter your name">
+          <input type="text" class="form-control" name="name" value="{{ customer.name }}" id="name" placeholder="Enter your name">
           <small class="text-danger">{{ form.name.errors|striptags }}</small>
         </div>
 
         <!-- Mobile Number Field -->
         <div class="form-group col-lg-6 mb-3">
           <label for="mobile_number">Mobile Number</label>
-          <input type="text" class="form-control" name="mobile_number" value="{{ add.mobile_number }}" id="mobile_number" placeholder="Enter your mobile number">
+          <input type="text" class="form-control" name="mobile_number" value="{{ customer.mobile_number }}" id="mobile_number" placeholder="Enter your mobile number">
           <small class="text-danger">{{ form.mobile_number.errors|striptags }}</small>
         </div>
 
         <!-- Gmail Field -->
         <div class="form-group col-lg-6 mb-3">
           <label for="Gmail">Gmail</label>
-          <input type="email" class="form-control" name="Gmail" value="{{ add.Gmail }}" id="Gmail" placeholder="Enter your Gmail address">
+          <input type="email" class="form-control" name="Gmail" value="{{ customer.Gmail }}" id="Gmail" placeholder="Enter your Gmail address">
           <small class="text-danger">{{ form.Gmail.errors|striptags }}</small>
         </div>
 
         <!-- Pincode Field -->
         <div class="form-group col-lg-6 mb-3">
           <label for="pincode">Pincode</label>
-          <input type="text" class="form-control" name="pincode" value="{{ add.pincode }}" id="pincode" placeholder="Enter your pincode">
+          <input type="text" class="form-control" name="pincode" value="{{ customer.pincode }}" id="pincode" placeholder="Enter your pincode">
           <small class="text-danger">{{ form.pincode.errors|striptags }}</small>
         </div>
 
         <!-- State Field -->
         <div class="form-group col-lg-6 mb-3">
           <label for="state">State</label>
-          <input type="text" class="form-control" name="state" value="{{ add.state }}" id="state" placeholder="Enter your state">
+          <input type="text" class="form-control" name="state" value="{{ customer.state }}" id="state" placeholder="Enter your state">
           <small class="text-danger">{{ form.state.errors|striptags }}</small>
         </div>
 
         <!-- City Field -->
         <div class="form-group col-lg-6 mb-3">
-          <label for="city">City</label>
-          <input type="text" class="form-control" name="city" value="{{ add.city }}" id="city" placeholder="Enter your city">
-          <small class="text-danger">{{ form.city.errors|striptags }}</small>
+          <label for="city">District</label>
+          <input type="text" class="form-control" name="district" value="{{ customer.district }}" id="city" placeholder="Enter your district">
+          <small class="text-danger">{{ form.district.errors|striptags }}</small>
         </div>
 
         <!-- Address Field -->
         <div class="form-group col-lg-12 mb-3">
           <label for="address">Address</label>
-          <input type="text" class="form-control" name="address" value="{{ add.address }}" id="address" placeholder="Enter your address">
+          <input type="text" class="form-control" name="address" value="{{ customer.address }}" id="address" placeholder="Enter your address">
           <small class="text-danger">{{ form.address.errors|striptags }}</small>
         </div>
 

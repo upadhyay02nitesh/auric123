@@ -7136,3 +7136,103 @@ Traceback (most recent call last):
     _mysql.connection.query(self, query)
 django.db.utils.OperationalError: (1054, "Unknown column 'app_customer.pincode' in 'field list'")
 "GET /profile/ HTTP/1.1" 500 179737
+Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\utils\decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 1840, in post
+    print(request.post)
+          ^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute 'post'
+"POST /profile/ HTTP/1.1" 500 88912
+Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\utils\decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 1885, in post
+    customer.district = district
+                        ^^^^^^^^
+NameError: name 'district' is not defined
+"POST /profile/ HTTP/1.1" 500 97342
+Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\utils\decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 1885, in post
+    customer.district = district
+                        ^^^^^^^^
+NameError: name 'district' is not defined
+"POST /profile/ HTTP/1.1" 500 97342
+Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\utils\decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\AppData\Roaming\Python\Python311\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nitrsh\Desktop\ashwaniji\ashwani\app\views.py", line 1852, in post
+    if not name or not mobile_number or not Gmail or not pincode or not state or not district or not address:
+                                                                                     ^^^^^^^^
+NameError: name 'district' is not defined
+"POST /profile/ HTTP/1.1" 500 90483
