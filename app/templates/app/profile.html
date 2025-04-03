@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}Profile{% endblock title %}
 {% block main-content %}
+
 <style>
 .text-danger {
   color: red;
@@ -26,11 +27,8 @@
         {% endfor %}
       {% endif %}
 
-
-
       <!-- Address Form Section -->
       <form action="{% url 'profile' %}" method="post" novalidate>
-
         {% csrf_token %}
         
         <!-- Name Field -->
@@ -61,14 +59,14 @@
           <small class="text-danger">{{ form.pincode.errors|striptags }}</small>
         </div>
 
-        <!-- State Field -->
+        <!-- State Field (Auto-Fill) -->
         <div class="form-group col-lg-6 mb-3">
           <label for="state">State</label>
           <input type="text" class="form-control" name="state" value="{{ customer.state }}" id="state" placeholder="Enter your state">
           <small class="text-danger">{{ form.state.errors|striptags }}</small>
         </div>
 
-        <!-- City Field -->
+        <!-- City/District Field (Auto-Fill) -->
         <div class="form-group col-lg-6 mb-3">
           <label for="city">District</label>
           <input type="text" class="form-control" name="district" value="{{ customer.district }}" id="city" placeholder="Enter your district">
@@ -89,4 +87,28 @@
     </div>
   </div>
 </div>
+
+<!-- JavaScript for Auto-Fill -->
+<script>
+document.getElementById("pincode").addEventListener("keyup", function() {
+    let pincode = this.value;
+
+    if (pincode.length === 6) {  // Ensure correct pincode length
+        fetch(`https://api.postalpincode.in/pincode/${pincode}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data[0].Status === "Success") {
+                let postOffice = data[0].PostOffice[0];  // Take first result
+
+                document.getElementById("state").value = postOffice.State;
+                document.getElementById("city").value = postOffice.District;
+            } else {
+                alert("Invalid Pincode. Please enter a valid one.");
+            }
+        })
+        .catch(error => console.error("Error fetching pincode details:", error));
+    }
+});
+</script>
+
 {% endblock main-content %}

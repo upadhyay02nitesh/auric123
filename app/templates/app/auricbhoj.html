@@ -1,742 +1,189 @@
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Restraunt</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuricBhoj - Authentic Vegetarian Delights</title>
     <style>
-        /* General Reset and Basic Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Helvetica', sans-serif;
-}
-
-/* Navbar */
-.navbar {
-    background-color: #333;
-    color: #fff;
-    padding: 15px 0;
-}
-
-.navbar .navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar h1.logo {
-    font-size: 30px;
-    color: #fff;
-}
-
-.navbar ul.menu-items {
-    list-style: none;
-    display: flex;
-}
-
-.navbar ul.menu-items li {
-    margin-right: 20px;
-}
-
-.navbar ul.menu-items li a {
-    text-decoration: none;
-    color: #fff;
-    font-size: 18px;
-    transition: color 0.3s ease;
-}
-
-.navbar ul.menu-items li a:hover {
-    color: #e67e22;
-}
-
-/* Showcase Section */
-.showcase-area {
-    background: url('https://i.postimg.cc/4xgd4Vd3/restaurant-header.jpg') center/cover no-repeat;
-    height: 100vh;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.showcase-container h1.main-title {
-    font-size: 50px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.showcase-container p {
-    font-size: 20px;
-    margin: 20px 0;
-}
-
-.btn.btn-primary {
-    background-color: #e67e22;
-    color: #fff;
-    padding: 12px 25px;
-    text-decoration: none;
-    font-size: 18px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.btn.btn-primary:hover {
-    background-color: #d35400;
-}
-
-/* About Section */
-#about {
-    padding: 80px 0;
-    background-color: #fff;
-    color: #333;
-}
-
-#about .about-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#about .about-text {
-    width: 50%;
-}
-
-#about .about-text h2 {
-    font-size: 35px;
-    margin-bottom: 20px;
-}
-
-#about .about-text p {
-    font-size: 18px;
-    line-height: 1.6;
-}
-
-#about .about-img img {
-    max-width: 100%;
-    border-radius: 10px;
-}
-
-/* Food Section */
-#food {
-    padding: 80px 0;
-    background-color: #f9f9f9;
-    text-align: center;
-}
-
-#food h2 {
-    font-size: 36px;
-    margin-bottom: 40px;
-}
-
-.food-container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.food-type {
-    width: 30%;
-    position: relative;
-}
-
-.food-type .img-container {
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.food-type .img-container img {
-    width: 100%;
-    height: auto;
-    transition: transform 0.3s ease;
-}
-
-.food-type .img-container:hover img {
-    transform: scale(1.1);
-}
-
-.food-type .img-content {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-}
-
-.food-type .img-content h3 {
-    margin-bottom: 10px;
-}
-
-.food-type .img-content a {
-    background-color: #e67e22;
-    color: #fff;
-    padding: 8px 15px;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.food-type .img-content a:hover {
-    background-color: #d35400;
-}
-
-/* Food Menu Section */
-#food-menu {
-    background-color: #fff;
-    padding: 80px 0;
-}
-
-.food-menu-heading {
-    text-align: center;
-    font-size: 36px;
-    margin-bottom: 40px;
-}
-
-.food-menu-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.food-menu-item {
-    width: 30%;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-}
-
-.food-menu-item:hover {
-    transform: scale(1.05);
-}
-
-.food-img img {
-    width: 100%;
-    height: auto;
-}
-
-.food-description {
-    padding: 15px;
-    text-align: center;
-}
-
-.food-description h2.food-titile {
-    font-size: 24px;
-    margin-bottom: 15px;
-}
-
-.food-price {
-    font-size: 20px;
-    font-weight: bold;
-    color: #e67e22;
-}
-
-/* Testimonials Section */
-#testimonials {
-    padding: 80px 0;
-    background-color: #f9f9f9;
-    text-align: center;
-}
-
-.testimonial-title {
-    font-size: 36px;
-    margin-bottom: 40px;
-}
-
-.testimonial-container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.testimonial-box {
-    width: 30%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #fff;
-}
-
-.testimonial-box .star-rating {
-    margin-top: 10px;
-}
-
-.testimonial-box .star-rating .fa {
-    color: #f39c12;
-}
-
-.testimonial-box .testimonial-text {
-    font-size: 16px;
-    margin-top: 20px;
-}
-
-/* Contact Section */
-#contact {
-    padding: 80px 0;
-    background-color: #fff;
-}
-
-.contact-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.contact-img img {
-    width: 50%;
-    border-radius: 10px;
-}
-
-.form-container {
-    width: 40%;
-}
-
-.form-container h2 {
-    font-size: 30px;
-    margin-bottom: 20px;
-}
-
-.form-container input,
-.form-container textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.form-container a {
-    display: inline-block;
-    background-color: #e67e22;
-    color: #fff;
-    padding: 12px 25px;
-    text-decoration: none;
-    font-size: 18px;
-    border-radius: 5px;
-}
-
-.form-container a:hover {
-    background-color: #d35400;
-}
-
-/* Footer */
-#footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-    font-size: 16px;
-}
-
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-    .food-container,
-    .food-menu-container,
-    .testimonial-container {
-        flex-direction: column;
-    }
-
-    .food-type,
-    .food-menu-item {
-        width: 100%;
-        margin-bottom: 30px;
-    }
-
-    .navbar ul.menu-items {
-        flex-direction: column;
-        margin-top: 10px;
-    }
-
-    .navbar ul.menu-items li {
-        margin-bottom: 15px;
-    }
-
-    .contact-container {
-        flex-direction: column;
-    }
-
-    .contact-img {
-        width: 100%;
-        margin-bottom: 20px;
-    }
-    /* Styling for the logo */
-.logo {
-    font-family: 'Arial', sans-serif; /* Choose a clean font */
-    font-size: 36px; /* Adjust the size to make it noticeable */
-    font-weight: bold; /* Make the font bold */
-    color: #fff; /* Make the text white */
-    text-transform: uppercase; /* Make it uppercase for a bold statement */
-    letter-spacing: 2px; /* Add some spacing between letters */
-    position: relative;
-    z-index: 10; /* Ensure the logo is on top of other elements */
-    padding: 10px 20px; /* Add padding for spacing around the text */
-    background: #ff6347; /* Tomato color for the background */
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
-    transition: all 0.3s ease; /* Add smooth transition for hover effect */
-}
-
-/* Add hover effect for the logo */
-.logo:hover {
-    background-color: #ff4500; /* Change the background color on hover */
-    transform: scale(1.1); /* Slightly enlarge the logo on hover */
-}
-
-
-
-    .form-container {
-        width: 100%;
-    }
-}
-
-    </style>
-    <style>
-        /* Basic Styling for Navbar */
-        
-        .logo {
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-transform: uppercase;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
-        .menu-items {
-            list-style: none;
+        body {
+            background-color: #fff6e5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .header {
             display: flex;
-            gap: 1rem;
-            transition: all 0.3s;
-        }
-        .menu-items li a {
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #ff5722;
             color: white;
+        }
+        .header nav a {
+            margin: 0 15px;
             text-decoration: none;
-            font-size: 1rem;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s;
         }
-        .menu-items li a:hover {
-            color: #ffc107; /* Highlight on hover */
+        .header nav a:hover {
+            color: #ffe0b2;
         }
-        
-        /* Hamburger Menu Styling */
-        .hamburger-lines {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
+        .hero {
+            margin-top: 50px;
         }
-        .line {
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            margin: 4px;
-            transition: 0.4s;
+        .hero h1 {
+            font-size: 42px;
+            color: #d84315;
         }
-      
-        /* Toggle Menu in Mobile */
-        input[type="checkbox"] {
-            display: none;
+        .hero p {
+            font-size: 18px;
+            color: #666;
+            margin-top: 10px;
         }
-        input[type="checkbox"]:checked ~ .menu-items {
+        .food-gallery {
             display: flex;
-            flex-direction: column;
-            background-color: #0d6efd;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            padding: 1rem 0;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
         }
-        input[type="checkbox"]:checked ~ .hamburger-lines .line1 {
-            transform: rotate(45deg) translate(5px, 5px);
+        .food-item {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 15px;
+            width: 250px;
+            color: white;
         }
-        input[type="checkbox"]:checked ~ .hamburger-lines .line2 {
-            opacity: 0;
+        .food-item img {
+            width: 100%;
+            border-radius: 10px;
+            height: 150px;
+            object-fit: cover;
         }
-        input[type="checkbox"]:checked ~ .hamburger-lines .line3 {
-            transform: rotate(-45deg) translate(5px, -5px);
+        .food-item h3 {
+            margin-top: 10px;
+            font-size: 18px;
         }
-      
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .menu-items {
-                display: none;
-            }
-            .hamburger-lines {
-                display: flex;
-            }
+        .footer {
+            margin-top: 50px;
+            padding: 20px;
+            background: #222;
+            color: white;
         }
-      </style>
+        /* Dynamic background colors for variety */
+        .food-item:nth-child(4n+1) { background: #ff7043; }
+        .food-item:nth-child(4n+2) { background: #4caf50; }
+        .food-item:nth-child(4n+3) { background: #ffa726; }
+        .food-item:nth-child(4n) { background: #ab47bc; }
+    </style>
 </head>
-
 <body>
-    
-      
-      <nav class="navbar">
-          <div class="navbar-container container">
-              <h1 class="logo" style="color:chartreuse;">AuricBhoj</h1>
-              
-              <input type="checkbox" id="menu-toggle">
-              <div class="hamburger-lines" for="menu-toggle">
-                  <span class="line line1"></span>
-                  <span class="line line2"></span>
-                  <span class="line line3"></span>
-              </div>
-              
-              <ul class="menu-items">
-                  <li><a href="{% url 'home' %}">Home</a></li>
-                  <li><a href="#about">About</a></li>
-                  <li><a href="#food">Category</a></li>
-                  <li><a href="#food-menu">Menu</a></li>
-                  <li><a href="#testimonials">Testimonial</a></li>
-                  <li><a href="#contact">Contact</a></li>
-              </ul>
-          </div>
-      </nav>
-      
-    
-
-    <section id="about">
-        <div class="about-wrapper container">
-            <div class="about-text">
-                <p class="small">About Us</p>
-                <h2>We've beem making healthy food last for 10 years</h2>
-                <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse ab
-                    eos omnis, nobis dignissimos perferendis et officia architecto,
-                    fugiat possimus eaque qui ullam excepturi suscipit aliquid optio,
-                    maiores praesentium soluta alias asperiores saepe commodi
-                    consequatur? Perferendis est placeat facere aspernatur!
-                </p>
+    <div class="container">
+        <header class="header">
+            <h2>AuricBhoj</h2>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">Menu</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </nav>
+        </header>
+        <section class="hero">
+            <h1>Pure Vegetarian Bliss</h1>
+            <p>Enjoy the most delightful vegetarian dishes, crafted with love.</p>
+        </section>
+        <section class="food-gallery">
+            <div class="food-item">
+                <img src="C:\Users\nitrsh\Downloads\ChatGPT Image Apr 3, 2025, 10_50_39 PM.png" alt="Vegetable Curry">
+                <h3>Vegetable Curry</h3>
             </div>
-            <div class="about-img">
-                <img src="https://plus.unsplash.com/premium_photo-1661883237884-263e8de8869b?q=80&w=1489&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="food" />
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,salad" alt="Fresh Salad">
+                <h3>Fresh Salad</h3>
             </div>
-        </div>
-    </section>
-    <section id="food">
-        <h2>Types of food</h2>
-        <div class="food-container container">
-            <div class="food-type fruite">
-                <div class="img-container">
-                    <img src="https://media.istockphoto.com/id/139496979/photo/assortment-of-fruits-and-vegetables-background.webp?s=1024x1024&w=is&k=20&c=KcFM8yH2vc3SoAIa0CbX2lVuEA61OBgtKFB1Da8um00=" alt="error" />
-                    <div class="img-content">
-                        <h3>fruite</h3>
-                        <a href="https://en.wikipedia.org/wiki/Fruit" class="btn btn-primary" target="blank">learn
-                            more</a>
-                    </div>
-                </div>
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,soup" alt="Hot Soup">
+                <h3>Hot Soup</h3>
             </div>
-            <div class="food-type vegetable">
-                <div class="img-container">
-                    <img src="https://i.postimg.cc/Nffm6Rkk/food2.jpg" alt="error" />
-                    <div class="img-content">
-                        <h3>vegetable</h3>
-                        <a href="https://en.wikipedia.org/wiki/Vegetable" class="btn btn-primary" target="blank">learn
-                            more</a>
-                    </div>
-                </div>
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,pasta" alt="Pasta Primavera">
+                <h3>Pasta Primavera</h3>
             </div>
-            <div class="food-type grin">
-                <div class="img-container">
-                    <img src="https://i.postimg.cc/76ZwsPsd/food3.jpg" alt="error" />
-                    <div class="img-content">
-                        <h3>grin</h3>
-                        <a href="https://en.wikipedia.org/wiki/Grain" class="btn btn-primary" target="blank">learn
-                            more</a>
-                    </div>
-                </div>
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,pizza" alt="Veggie Pizza">
+                <h3>Veggie Pizza</h3>
             </div>
-        </div>
-    </section>
-    <section id="food-menu">
-        <h2 class="food-menu-heading">Food Menu</h2>
-        <div class="food-menu-container container">
-            <div class="food-menu-item">
-                <div class="food-img">
-                    <img src="https://i.postimg.cc/wTLMsvSQ/food-menu1.jpg" alt="" />
-                </div>
-                <div class="food-description">
-                    <h2 class="food-titile">Food Menu Item 1</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Non,
-                        quae.
-                    </p>
-                    <p class="food-price">Price: &#8377; 250</p>
-                </div>
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,dosa" alt="Crispy Dosa">
+                <h3>Crispy Dosa</h3>
             </div>
-
-            <div class="food-menu-item">
-                <div class="food-img">
-                    <img src="https://i.postimg.cc/sgzXPzzd/food-menu2.jpg" alt="error" />
-                </div>
-                <div class="food-description">
-                    <h2 class="food-titile">Food Menu Item 2</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Non,
-                        quae.
-                    </p>
-                    <p class="food-price">Price: &#8377; 250</p>
-                </div>
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,burger" alt="Veggie Burger">
+                <h3>Veggie Burger</h3>
             </div>
-            <div class="food-menu-item">
-                <div class="food-img">
-                    <img src="https://i.postimg.cc/8zbCtYkF/food-menu3.jpg" alt="" />
-                </div>
-                <div class="food-description">
-                    <h2 class="food-titile">Food Menu Item 3</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Non,
-                        quae.
-                    </p>
-                    <p class="food-price">Price: &#8377; 250</p>
-                </div>
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,sandwich" alt="Grilled Sandwich">
+                <h3>Grilled Sandwich</h3>
             </div>
-            <div class="food-menu-item">
-                <div class="food-img">
-                    <img src="https://i.postimg.cc/Yq98p5Z7/food-menu4.jpg" alt="" />
-                </div>
-                <div class="food-description">
-                    <h2 class="food-titile">Food Menu Item 4</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Non,
-                        quae.
-                    </p>
-                    <p class="food-price">Price: &#8377; 250</p>
-                </div>
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,samosa" alt="Samosa Chaat">
+                <h3>Samosa Chaat</h3>
             </div>
-            <div class="food-menu-item">
-                <div class="food-img">
-                    <img src="https://i.postimg.cc/KYnDqxkP/food-menu5.jpg" alt="" />
-                </div>
-                <div class="food-description">
-                    <h2 class="food-titile">Food Menu Item 5</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Non,
-                        quae.
-                    </p>
-                    <p class="food-price">Price: &#8377; 250</p>
-                </div>
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,biryani" alt="Veg Biryani">
+                <h3>Veg Biryani</h3>
             </div>
-            <div class="food-menu-item">
-                <div class="food-img">
-                    <img src="https://i.postimg.cc/Jnxc8xQt/food-menu6.jpg" alt="" />
-                </div>
-                <div class="food-description">
-                    <h2 class="food-titile">Food Menu Item 6</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Non,
-                        quae.
-                    </p>
-                    <p class="food-price">Price: &#8377; 250</p>
-                </div>
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,thali" alt="Indian Thali">
+                <h3>Indian Thali</h3>
             </div>
-        </div>
-    </section>
-    <section id="testimonials">
-        <h2 class="testimonial-title">What Our Customers Say</h2>
-        <div class="testimonial-container container">
-            <div class="testimonial-box">
-                <div class="customer-detail">
-                    <div class="customer-photo">
-                        <img src="https://i.postimg.cc/5Nrw360Y/male-photo1.jpg" alt="" />
-                        <p class="customer-name">Ross Lee</p>
-                    </div>
-                </div>
-                <div class="star-rating">
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                </div>
-                <p class="testimonial-text">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit
-                    voluptas cupiditate aspernatur odit doloribus non.
-                </p>
-
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,paratha" alt="Stuffed Paratha">
+                <h3>Stuffed Paratha</h3>
             </div>
-            <div class="testimonial-box">
-                <div class="customer-detail">
-                    <div class="customer-photo">
-                        <img src="https://i.postimg.cc/sxd2xCD2/female-photo1.jpg" alt="" />
-                        <p class="customer-name">Amelia Watson</p>
-                    </div>
-                </div>
-                <div class="star-rating">
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                </div>
-                <p class="testimonial-text">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit
-                    voluptas cupiditate aspernatur odit doloribus non.
-                </p>
-
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,dal" alt="Dal Tadka">
+                <h3>Dal Tadka</h3>
             </div>
-            <div class="testimonial-box">
-                <div class="customer-detail">
-                    <div class="customer-photo">
-                        <img src="https://i.postimg.cc/fy90qvkV/male-photo3.jpg" alt="" />
-                        <p class="customer-name">Ben Roy</p>
-                    </div>
-                </div>
-                <div class="star-rating">
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                </div>
-                <p class="testimonial-text">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit
-                    voluptas cupiditate aspernatur odit doloribus non.
-                </p>
-
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,momos" alt="Steamed Momos">
+                <h3>Steamed Momos</h3>
             </div>
-        </div>
-    </section>
-    <section id="contact">
-        <div class="contact-container container">
-            <div class="contact-img">
-                <img src="https://i.postimg.cc/1XvYM67V/restraunt2.jpg" alt="" />
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,idli" alt="Soft Idli">
+                <h3>Soft Idli</h3>
             </div>
-
-            <div class="form-container">
-                <h2>Contact Us</h2>
-                <input type="text" placeholder="Your Name" />
-                <input type="email" placeholder="E-Mail" />
-                <textarea cols="30" rows="6" placeholder="Type Your Message"></textarea>
-                <a href="#" class="btn btn-primary">Submit</a>
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,manchurian" alt="Veg Manchurian">
+                <h3>Veg Manchurian</h3>
             </div>
-        </div>
-    </section>
-    <footer id="footer">
-        <h2>Restraunt &copy; all rights reserved</h2>
-    </footer>
-    <!-- .................../ JS Code for smooth scrolling /...................... -->
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="app.js"></script>
-
-</html>
-
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,paneer" alt="Paneer Butter Masala">
+                <h3>Paneer Butter Masala</h3>
+            </div>
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,cutlet" alt="Veg Cutlet">
+                <h3>Veg Cutlet</h3>
+            </div>
+            <div class="food-item">
+                <img src="https://source.unsplash.com/250x150/?vegetarian,smoothie" alt="Fruit Smoothie">
+                <h3>Fruit Smoothie</h3>
+            </div>
+        </section>
+        <footer class="footer">
+            <p>&copy; 2025 AuricBhoj. All Rights Reserved.</p>
+        </footer>
+    </div>
 </body>
-
 </html>

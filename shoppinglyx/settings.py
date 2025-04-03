@@ -1,5 +1,5 @@
-import os
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -13,8 +13,8 @@ SECRET_KEY = 'django-insecure-h=-gt1-a*phxr5_+gm0pm*__=_@_f&g%o30f^jpxo^1ipet#d-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['auricmart.com', 'www.auricmart.com', '13.60.234.4']
 ALLOWED_HOSTS = ['*']
+
 
 
 # Application definition
@@ -29,24 +29,38 @@ INSTALLED_APPS = [
     'app',
     'corsheaders',
     'chatbot',
+    "storages",
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'https://www.razorpay.com',  # Razorpay origin
+#CORS_ALLOWED_ORIGINS = [
+    #'https://www.razorpay.com', # Razorpay origin
+
+#]
+CSRF_TRUSTED_ORIGINS = [
+    'https://www.razorpay.com',
+    'https://auricmart.com',
+    'https://www.auricmart.com',
+    'http://3.111.190.154',
 ]
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    'https://auricmart.com',
+    'https://www.auricmart.com',
+    'http://3.111.190.154',
+    'https://www.razorpay.com',
+]
+CORS_ALLOW_ALL_ORIGINS = False
 
 ROOT_URLCONF = 'shoppinglyx.urls'
 
@@ -72,20 +86,20 @@ WSGI_APPLICATION = 'shoppinglyx.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
+# 'default': {
+# 'ENGINE': 'django.db.backends.sqlite3',
+# 'NAME': BASE_DIR / 'db.sqlite3',
+# }
 # }
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Using PostgreSQL for RDS
-        'NAME': 'suraj',  # RDS database name
-        'USER': 'admin',       # RDS username
-        'PASSWORD': 'Rewa1234',  # RDS password
-        'HOST': 'database-1.czaumc2ug9je.eu-north-1.rds.amazonaws.com',      # RDS endpoint
-        'PORT': '3306',  # Default PostgreSQL port
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'auricmar_d', # Your local MySQL database name
+        'USER': 'auricmar_d', # Your local MySQL user
+        'PASSWORD': 'vjHyKC3XKTaN', # Your local MySQL password
+        'HOST': '148.113.14.27', # Localhost (or 'localhost')
+        'PORT': '3306', # MySQL default port
     }
 }
 
@@ -110,9 +124,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://www.razorpay.com',  # Razorpay origin
-]
+#CSRF_TRUSTED_ORIGINS = [
+    #'https://www.razorpay.com', # Razorpay origin
+#]
 
 # Email configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -120,8 +134,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'auricmart37@gmail.com'  # Your email address
-EMAIL_HOST_PASSWORD = 'jxsy zilp rapa iqgh'  # Use environment variable for security
+EMAIL_HOST_USER = 'auricmart37@gmail.com' # Your email address
+EMAIL_HOST_PASSWORD = 'jxsy zilp rapa iqgh' # Use environment variable for security
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -130,8 +144,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'app', 'static')
 STATIC_URL = '/static/'
 
 # Media files
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Login redirect URL
 LOGIN_REDIRECT_URL = 'home'
@@ -163,5 +177,39 @@ LOGGING = {
     },
 }
 
-# Under Construction Setting
-UNDER_CONSTRUCTION = True  # Set to False when ready
+
+#AWS_ACCESS_KEY_ID = "0058c38d8fe75ed0000000001"
+#AWS_SECRET_ACCESS_KEY = "K0052T6G9M6FhhhIZsYekmdKlO2daQ8"
+#AWS_STORAGE_BUCKET_NAME = "auric123"
+#AWS_S3_ENDPOINT_URL = "https://s3.us-east-005.backblazeb2.com" # Example: https://z2.idrivee2.com
+#AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.us-east-005.backblazeb2.com"
+
+AWS_ACCESS_KEY_ID = "005d7371227dcba0000000003"
+AWS_SECRET_ACCESS_KEY = "K005fj2SVr1b3iqSmbDi8yL6W2PBqA4"
+AWS_STORAGE_BUCKET_NAME = "auric1234"
+AWS_S3_ENDPOINT_URL = "https://s3.us-east-005.backblazeb2.com" # Example: https://z2.idrivee2.com
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.us-east-005.backblazeb2.com"
+
+
+
+
+
+
+
+
+
+AWS_S3_ADDRESSING_STYLE="virtual" # ✅ REQUIRED for Backblaze
+AWS_QUERYSTRING_AUTH = False # Disable signed URLs for public access
+AWS_DEFAULT_ACL = None # Avoid permission conflicts
+# Static & Media Files Storage
+
+
+# Static & Media Files Storage
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage" # For media files
+
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+
+
+
+# Optional: Cache and file permissions
+AWS_QUERYSTRING_AUTH = False # Public URLs

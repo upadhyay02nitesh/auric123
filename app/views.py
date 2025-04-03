@@ -497,7 +497,8 @@ def plus_cart(request):
         for p in cart_product:
 
             tempamount=(p.quantity * p.product.discounted_price)
-            amount+=tempamount      
+            amount+=tempamount
+             
 
         data={
 
@@ -1116,6 +1117,8 @@ def checkout(request):
         for p in cart_product:
             tempamount = p.quantity * p.product.discounted_price
             amount += tempamount
+        if amount>=1000:
+            shipping_amount=0
         totalamount = amount + shipping_amount
 
     # Fetch the customer ID (assuming there's only one Customer instance per User)
@@ -1369,11 +1372,14 @@ def show_cart(request):
             val += 1  # Increase val by 1 for each loop iteration
 
         shipping_amount = 70 if amount > 0 else 0
+        if amount>=1000:
+            shipping_amount=0
         total_amount = amount + shipping_amount
 
         return render(request, 'app/addtocart.html', {
             'carts': cart_items,
             'amount': amount,
+            'shipping':shipping_amount,
             'totalamount': total_amount,
             'val':val
         })
@@ -1828,16 +1834,15 @@ def Idols (request):
 @method_decorator(login_required, name='dispatch')
 class ProfileView(View):
     def get(self, request):
-        # If the user already has a profile, prepopulate the form with existing data
-        customer = Customer.objects.filter(user=request.user).first()
-        print(customer)
+        # Create a customer profile if it doesn't exist
+        customer, created = Customer.objects.get_or_create(user=request.user)
+
+        print(customer)  # Debugging
         return render(request, 'app/profile.html', {'customer': customer, 'active': 'btn-primary'})
 
     def post(self, request):
-        # Get the existing customer profile
-        customer = Customer.objects.filter(user=request.user).first()
-        print(customer)
-        print()
+        customer, created = Customer.objects.get_or_create(user=request.user)
+        print(customer)  # Debugging
 
         # Retrieve form data
         name = request.POST.get('name')
@@ -1849,21 +1854,23 @@ class ProfileView(View):
         address = request.POST.get('address')
 
         # Validate required fields
-        if not name or not mobile_number or not Gmail or not pincode or not state or not district or not address:
+        if not all([name, mobile_number, Gmail, pincode, state, district, address]):
             messages.error(request, "All fields are required.")
             return render(request, 'app/profile.html', {'customer': customer, 'active': 'btn-primary'})
 
-        # Validate pincode, state, and city
+        # Validate pincode using API
         api_url = f"https://api.postalpincode.in/pincode/{pincode}"
         try:
             response = requests.get(api_url)
             response_data = response.json()
 
             if response_data[0]['Status'] == 'Success':
-                # Extract State and City from the API response
-                post_office = response_data[0]['PostOffice'][0]
-                if post_office['State'] != state or post_office['District'] != district:
-                    messages.error(request, "Pincode, state, and district do not match. Please check your inputs.")
+                state_from_api = response_data[0]['PostOffice'][0]['State']
+                district_from_api = response_data[0]['PostOffice'][0]['District']
+
+                # Validate with user input
+                if state.lower() != state_from_api.lower() or district.lower() != district_from_api.lower():
+                    messages.error(request, "Pincode does not match the selected state/district.")
                     return render(request, 'app/profile.html', {'customer': customer, 'active': 'btn-primary'})
 
             else:
@@ -1874,20 +1881,15 @@ class ProfileView(View):
             messages.error(request, f"Error validating pincode: {str(e)}")
             return render(request, 'app/profile.html', {'customer': customer, 'active': 'btn-primary'})
 
-        # Save the updated customer data
-        if customer:
-            print(customer,"hai ya nhi")
-            customer.name = name
-            customer.mobile_number = mobile_number
-            customer.Gmail = Gmail
-            customer.pincode = pincode
-            customer.state = state
-            customer.district = district
-            customer.address = address
-            customer.save()
+        # Save updated details
+        customer.name = name
+        customer.mobile_number = mobile_number
+        customer.Gmail = Gmail
+        customer.pincode = pincode
+        customer.state = state
+        customer.district = district
+        customer.address = address
+        customer.save()
 
-            messages.success(request, 'Congratulations!! Profile Updated Successfully')
-            return redirect('profile')  # Redirect to avoid duplicate form submissions
-
-        messages.error(request, "Profile not found. Please try again.")
-        return render(request, 'app/profile.html', {'customer': customer, 'active': 'btn-primary'})
+        messages.success(request, 'Congratulations!! Profile Updated Successfully')
+        return redirect('profile')  # Redirect to avoid duplicate form submissions

@@ -62,16 +62,19 @@ class Product(models.Model):
         return self.title
 
     def get_images(self):
-        return self.images.all()  # Fetch all associated images
+        return self.images.all() # Fetch all associated images
 
 
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to='product_images')
+    image = models.ImageField(upload_to='product_images/')
+
+
+
 
     def __str__(self):
-        return f"Image for {self.product.title}"  # Use the related Product title
+        return f"Image for {self.product.title}" # Use the related Product title
 
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -80,7 +83,7 @@ class Booking(models.Model):
     pandit = models.CharField(max_length=100)
     booking_date = models.DateField()
     booking_time = models.TimeField()
-    pincode = models.IntegerField(null=True) 
+    pincode = models.IntegerField(null=True)
     state = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     address = models.CharField(max_length=255, default='Not provided')
@@ -94,20 +97,21 @@ class Review(models.Model):
     user = models.ForeignKey(User, related_name='reviews', on_delete=models.CASCADE)
     comment = models.TextField()
     photo = models.ImageField(upload_to='review_photos/', null=True, blank=True)
-    created_at = models.DateTimeField(default=timezone.now)
+   # created_at = models.DateTimeField(default=timezone.now)
+   # photo=models.ImageField(upload_to='review_photo/', null=True, blank=True
 
     def __str__(self):
         return f"Review by {self.user.username} on {self.product.title}"
 
 class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)  # One-to-one relationship with User
-    name = models.CharField(max_length=200, blank=False)  # Name is required
-    mobile_number = models.CharField(max_length=15, blank=False)  # Mobile number is required
-    Gmail = models.EmailField(blank=False)  # Email is required
-    pincode = models.CharField(max_length=6, blank=False)  # Use CharField to keep leading zeros in pincode
-    state = models.CharField(max_length=100, default='Unknown', blank=False)  # State is required
-    district = models.CharField(max_length=100, default='Unknown', blank=False)  # District is required
-    address = models.CharField(max_length=255, default='Unknown', blank=False)  # Address is required
+    user = models.OneToOneField(User, on_delete=models.CASCADE) # One-to-one relationship with User
+    name = models.CharField(max_length=200, blank=False) # Name is required
+    mobile_number = models.CharField(max_length=15, blank=False) # Mobile number is required
+    Gmail = models.EmailField(blank=False) # Email is required
+    pincode = models.CharField(max_length=6, blank=False) # Use CharField to keep leading zeros in pincode
+    state = models.CharField(max_length=100, default='Unknown', blank=False) # State is required
+    district = models.CharField(max_length=100, default='Unknown', blank=False) # District is required
+    address = models.CharField(max_length=255, default='Unknown', blank=False) # Address is required
 
     class Meta:
         constraints = [
@@ -120,16 +124,16 @@ class Customer(models.Model):
 
     def __str__(self):
         return str(self.id)
-    
+
 class Pandit(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Link to a user
-    name = models.CharField(max_length=200, null=True)  # Name of the pandit
-    specialty = models.CharField(max_length=100, null=True)  # Area of expertise (e.g., Havan, Pooja)
-    pincode = models.IntegerField(null=True) 
-    city = models.CharField(max_length=50, default="Unknown")  # City the pandit is based in
-    state = models.CharField(max_length=50, default="Unknown")  # State the pandit is based in
-    contact_number = models.CharField(max_length=15, null=True)  # Pandit's contact number
-    email = models.EmailField(null=True)  # Pandit's email address
+    user = models.ForeignKey(User, on_delete=models.CASCADE) # Link to a user
+    name = models.CharField(max_length=200, null=True) # Name of the pandit
+    specialty = models.CharField(max_length=100, null=True) # Area of expertise (e.g., Havan, Pooja)
+    pincode = models.IntegerField(null=True)
+    city = models.CharField(max_length=50, default="Unknown") # City the pandit is based in
+    state = models.CharField(max_length=50, default="Unknown") # State the pandit is based in
+    contact_number = models.CharField(max_length=15, null=True) # Pandit's contact number
+    email = models.EmailField(null=True) # Pandit's email address
 
     def __str__(self):
         return self.name
@@ -165,21 +169,21 @@ from django.contrib.auth.models import User
 class OrderPlaced(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
-    razorpay_order_id = models.CharField(max_length=100, blank=True, null=True)  # Add this field
+    razorpay_order_id = models.CharField(max_length=100, blank=True, null=True) # Add this field
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     quantity = models.PositiveIntegerField(default=1, null=True)
     ordered_date = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='pending', null=True)
     name = models.CharField(max_length=255, default='default_name', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
     # New fields for address-related data
-    address = models.CharField(max_length=255, blank=True, null=True)  # Address field
-    pincode = models.CharField(max_length=10, blank=True, null=True)  # Pincode field
-    mobile_number = models.CharField(max_length=15, blank=True, null=True)  # Mobile number field
-    gmail = models.EmailField(max_length=255, blank=True, null=True)  # Gmail field
-    state = models.CharField(max_length=100, blank=True, null=True)  # State field
-    district = models.CharField(max_length=100, blank=True, null=True)  # District field
+    address = models.CharField(max_length=255, blank=True, null=True) # Address field
+    pincode = models.CharField(max_length=10, blank=True, null=True) # Pincode field
+    mobile_number = models.CharField(max_length=15, blank=True, null=True) # Mobile number field
+    gmail = models.EmailField(max_length=255, blank=True, null=True) # Gmail field
+    state = models.CharField(max_length=100, blank=True, null=True) # State field
+    district = models.CharField(max_length=100, blank=True, null=True) # District field
 
     def __str__(self):
         return str(self.id)
@@ -202,4 +206,3 @@ class OrderItem(models.Model):
 
     def total_price(self):
         return self.quantity * self.price
-

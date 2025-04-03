@@ -215,11 +215,12 @@
           {% for product in products %}
           <div class="card shadow-lg border-0" style="min-width: 240px; background-color: #fff; border-radius: 12px; transition: transform 0.3s ease;">
                <!-- Display only the first image of each product -->
-              {% if product.images.all %}
-                  <a href="{% url 'product-detail' product.id %}">
-                      <img src="{{ product.images.all.0.image.url }}" class="card-img-top" alt="{{ product.title }}"
-                           style="height: 250px; width: 100%; object-fit: cover; border-radius: 12px 12px 0 0;">
-                  </a>
+               {% if product.images.all %}
+               <img src="{{ product.images.all.0.image.url }}" class="card-img-top" alt="{{ product.title }}">
+           {% else %}
+               <img src="{% static 'default_image.jpg' %}" class="card-img-top" alt="No image available">
+          
+           
               {% endif %}
               <!-- Product Info -->
               <div class="card-body text-center">

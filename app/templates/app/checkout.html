@@ -10,16 +10,34 @@
     <div class="col-sm-6">
       <h4>Order Summary</h4>
       <hr>
+      
       {% for item in cart_items %}
-      <div class="card mb-2">
-        <div class="card-body">
-          <h5>Product: {{ item.product.title }}</h5>
-          <p>Quantity: {{ item.quantity }}</p>
-          <p class="fw-bold">Price: ₹{{ item.total_cost }}</p>
-        </div>
+  <div class="card mb-3 shadow-sm  rounded-2" style="border: 20px solid navy;">
+    <div class="card-body d-flex align-items-center">
+      <div class="me-3">
+        <img src="{{ item.product.images.all.0.image.url }}" alt="{{ item.product.title }}" class="img-fluid" 
+             style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px;">
       </div>
-      {% endfor %}
-      <p class="fw-bold">Total Cost + ₹70 (Shipping) = ₹{{ totalamount }}</p>
+      <div>
+        <h5 class="fw-bold text-primary">{{ item.product.title }}</h5>
+        <p class="text-muted mb-1">Quantity: <span class="fw-semibold">{{ item.quantity }}</span></p>
+        <p class="text-danger fw-bold">Price: ₹{{ item.total_cost }}</p>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+      <p class="fw-bold">
+        Total Cost + (Shipping) = ₹{{ totalamount }} 
+        <span class="fw-bold">
+            {% if totalamount > 1000 %}
+                (Free Shipping)
+            {% else %}
+                (+ ₹70 Shipping_Charge)
+            {% endif %}
+        </span>
+    </p>
+    
       <small>
         <strong>Terms and Conditions:</strong>
         <ul>
