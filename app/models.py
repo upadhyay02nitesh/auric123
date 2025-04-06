@@ -11,6 +11,7 @@ CATEGORY_CHOICES = (
     ('JM', 'Jap Mala'),
     ('I', 'Idols'),
     ('R', 'Roodraksh'),
+    ('T', 'Trending')
 )
 
 STATE_CHOICES = (

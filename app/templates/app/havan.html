@@ -189,3 +189,85 @@
  <!-- End Payment Info Section -->
 
 {% endblock %}
+<!-- Navratri Trending Sale Section -->
+<div class="container-fluid my-5 bg-light py-5 shadow rounded">
+  <div class="text-center mb-4">
+    <h2 class="text-danger fw-bold">🪔 Navratri Trending Sale 🪔</h2>
+    <p class="text-muted">Celebrate this Navratri with divine discounts and festive offers!</p>
+
+    <!-- Countdown Timer -->
+    <h5 class="text-dark mt-3">Hurry! Sale ends in 
+      <span id="countdown" class="text-danger fw-bold"></span>
+    </h5>
+  </div>
+
+  <!-- Product Carousel -->
+  <div class="owl-carousel" id="navratri-slider">
+    {% for item Havan %}
+    <a href="{% url 'product-detail' item.id %}" class="btn">
+      <div class="item text-center bg-white rounded shadow p-2">
+        <img src="{{ item.images.all.0.image.url }}" class="img-fluid" style="height: 220px; object-fit: cover; border-radius: 15px;">
+        <div class="mt-2">
+          <span class="fw-bold">{{ item.title }}</span><br>
+          <span class="text-muted" style="text-decoration: line-through;">₹{{ item.selling_price }}</span>
+          <span class="fs-5 text-success fw-bold">₹{{ item.discounted_price }}</span>
+          <div class="mt-1">
+            <span class="badge bg-warning text-dark">Navratri Special</span>
+          </div>
+          <div class="mt-1">
+            <span class="text-primary fw-bold">{{ item.rating }}</span>
+            <i class="fa fa-star text-warning"></i>
+          </div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Countdown Timer Script -->
+<script>
+  const endDate = new Date("2025-04-15T23:59:59").getTime();
+  const countdownEl = document.getElementById("countdown");
+
+  setInterval(() => {
+    const now = new Date().getTime();
+    const distance = endDate - now;
+
+    if (distance < 0) {
+      countdownEl.innerHTML = "Sale Ended";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hrs = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdownEl.innerHTML = `${days}d ${hrs}h ${mins}m ${secs}s`;
+  }, 1000);
+</script>
+
+<!-- Extra Styling for Navratri Section -->
+<style>
+  #navratri-slider .item {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  #navratri-slider .item:hover {
+    transform: scale(1.05);
+  }
+
+  #countdown {
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 768px) {
+    #navratri-slider .item img {
+      height: 180px;
+    }
+    #countdown {
+      font-size: 1rem;
+    }
+  }
+</style>

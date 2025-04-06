@@ -1795,6 +1795,7 @@ def home_view(request):
         {'name': 'Roodraksh', 'url': 'roodraksh', 'code': 'R'},
         {'name': 'Jap Mala', 'url': 'jap', 'code': 'JM'},
         {'name': 'Idols', 'url': 'idols', 'code': 'I'},
+        {'name': 'Trending', 'url': 'tren', 'code': 'T'},
     ]
     
     # Prepare category data with products
@@ -1809,6 +1810,10 @@ def home_view(request):
 def Havan(request):
     Havan_Samagri = Product.objects.filter(category='H').distinct()
     return render(request,'app/havan.html',{'Havan_Samagri': Havan_Samagri})
+
+def Trending(request):
+    Trending = Product.objects.filter(category='T').distinct()
+    return render(request,'app/tren.html',{'trending': Trending})
 
 #         return render(request, 'app/havan.html', {'Spices': Spices})
 

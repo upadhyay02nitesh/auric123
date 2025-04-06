@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Navratri Specials</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 🌺 Navratri Themed Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-danger" href="/">🕉️ Navratri Bazaar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link fw-semibold text-dark" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-semibold text-dark" href="/shop">Shop</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-semibold text-dark" href="/combos">Combos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-semibold text-dark" href="/navratri-guide">Guide</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-danger fw-bold" href="/cart">
+              <i class="fa fa-shopping-cart me-1"></i> Cart
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+
+  <!-- 🌟 Trending Product Carousel -->
+<div class="container mt-5">
+    <h3 class="text-center fw-bold text-danger mb-4">🎡 Trending Navratri Specials</h3>
+  
+    <div class="owl-carousel owl-theme" id="navratri-slider">
+      {% for item in trending %}
+      <a href="{% url 'product-detail' item.id %}" class="text-decoration-none">
+        <div class="item bg-white rounded-4 shadow-sm p-3 mx-2 text-center position-relative transition" style="overflow: hidden; min-height: 400px;">
+  
+          <!-- Product Image -->
+          <img src="{{ item.images.all.0.image.url }}" class="img-fluid mb-3" 
+               style="height: 220px; object-fit: cover; border-radius: 20px; transition: transform 0.3s;">
+          
+          <!-- Hover Zoom Effect -->
+          <style>
+            .item:hover img {
+              transform: scale(1.05);
+            }
+          </style>
+  
+          <!-- Product Title -->
+          <h6 class="fw-bold text-dark mb-1">{{ item.title|truncatechars:28 }}</h6>
+  
+          <!-- Prices -->
+          <div class="small mb-2">
+            <span class="text-muted text-decoration-line-through">₹{{ item.selling_price }}</span>
+            <span class="fw-bold text-success ms-1">₹{{ item.discounted_price }}</span>
+          </div>
+  
+          <!-- Badge -->
+          <span class="badge bg-gradient bg-warning text-dark px-3 py-1 rounded-pill mb-2">Navratri Special</span>
+  
+          <!-- Rating -->
+          <div>
+            <span class="text-primary fw-bold">{{ item.rating }}</span>
+            <i class="fa fa-star text-warning"></i>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  
+  
+  <div class="container py-5">
+
+    <!-- 🎨 Extra Creative Cards -->
+    <div class="row mt-3 px-2">
+
+      <!-- 🙏 Celebrate with Us Card -->
+      <div class="col-md-6 mb-4">
+        <div class="card bg-danger-subtle border-0 rounded-4 shadow-lg h-100">
+          <div class="card-body text-center">
+            <h5 class="card-title fw-bold text-danger">🙏 Celebrate With Us</h5>
+            <p class="card-text text-dark-emphasis">Join thousands of devotees in making this Navratri spiritually vibrant. Get your puja kits, diyas, and essentials — all in one place.</p>
+            <a href="/shop" class="btn btn-danger mt-2 px-4 rounded-pill">Explore More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 💝 Blessed Combos Card -->
+      <div class="col-md-6 mb-4">
+        <div class="card bg-light border-0 rounded-4 shadow-lg h-100">
+          <div class="card-body text-center">
+            <h5 class="card-title fw-bold text-success">💝 Blessed Combos</h5>
+            <p class="card-text text-dark">Specially curated combo packs for Durga Pooja, Navratri Nights, and Garba Essentials. Save more, get more blessings!</p>
+            <a href="/combos" class="btn btn-success mt-2 px-4 rounded-pill">View Combos</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🌟 Customer Testimonial Card -->
+      <div class="col-md-6 mb-4">
+        <div class="card border-0 rounded-4 bg-warning-subtle shadow-sm h-100">
+          <div class="card-body text-center">
+            <h5 class="fw-bold text-warning">🌟 What Devotees Say</h5>
+            <blockquote class="blockquote mb-0">
+              <p class="fst-italic">"The Navratri kit was divine. Quick delivery and authentic items. I could feel the blessings in every item!"</p>
+              <footer class="blockquote-footer mt-2 text-muted">— Aarti Sharma, Varanasi</footer>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+
+      <!-- 📝 Navratri Tips Card -->
+      <div class="col-md-6 mb-4">
+        <div class="card border-0 rounded-4 bg-light shadow-sm h-100 overflow-auto">
+          <div class="card-body">
+            <h6 class="fw-bold text-primary text-center">📝 Navratri Daily Tips</h6>
+            <ul class="list-unstyled small mt-3">
+              <li>🌸 Day 1: Wear Red – for passion & energy</li>
+              <li>🌼 Day 2: Offer jasmine – attracts positive aura</li>
+              <li>🔥 Day 3: Light two diyas at dawn & dusk</li>
+              <li>🙏 Day 4: Meditate with mantra “Ya Devi Sarva Bhuteshu”</li>
+              <li>💫 Day 5-9: Follow colors & food for each goddess</li>
+            </ul>
+            <div class="text-center mt-3">
+              <a href="/navratri-guide" class="btn btn-outline-primary btn-sm rounded-pill">View Full Guide</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+ <!-- Owl Carousel CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"/>
+
+<!-- Owl Carousel JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<!-- Initialize Carousel -->
+<script>
+  $(document).ready(function(){
+    $("#navratri-slider").owlCarousel({
+      loop: true,
+      margin: 20,
+      nav: false,
+      dots: true,
+      autoplay: true,
+      autoplayTimeout: 3000,
+      responsive: {
+        0: { items: 1 },
+        576: { items: 2 },
+        768: { items: 3 },
+        992: { items: 4 }
+      }
+    });
+  });
+</script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

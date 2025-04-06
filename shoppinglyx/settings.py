@@ -178,17 +178,17 @@ LOGGING = {
 }
 
 
-#AWS_ACCESS_KEY_ID = "0058c38d8fe75ed0000000001"
-#AWS_SECRET_ACCESS_KEY = "K0052T6G9M6FhhhIZsYekmdKlO2daQ8"
-#AWS_STORAGE_BUCKET_NAME = "auric123"
-#AWS_S3_ENDPOINT_URL = "https://s3.us-east-005.backblazeb2.com" # Example: https://z2.idrivee2.com
-#AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.us-east-005.backblazeb2.com"
-
-AWS_ACCESS_KEY_ID = "005d7371227dcba0000000003"
-AWS_SECRET_ACCESS_KEY = "K005fj2SVr1b3iqSmbDi8yL6W2PBqA4"
-AWS_STORAGE_BUCKET_NAME = "auric1234"
+AWS_ACCESS_KEY_ID = "0058c38d8fe75ed0000000001"
+AWS_SECRET_ACCESS_KEY = "K0052T6G9M6FhhhIZsYekmdKlO2daQ8"
+AWS_STORAGE_BUCKET_NAME = "auric123"
 AWS_S3_ENDPOINT_URL = "https://s3.us-east-005.backblazeb2.com" # Example: https://z2.idrivee2.com
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.us-east-005.backblazeb2.com"
+
+# AWS_ACCESS_KEY_ID = "005d7371227dcba0000000003"
+# AWS_SECRET_ACCESS_KEY = "K005fj2SVr1b3iqSmbDi8yL6W2PBqA4"
+# AWS_STORAGE_BUCKET_NAME = "auric1234"
+# AWS_S3_ENDPOINT_URL = "https://s3.us-east-005.backblazeb2.com" # Example: https://z2.idrivee2.com
+# AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.us-east-005.backblazeb2.com"
 
 
 
